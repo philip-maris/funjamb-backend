@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id('bannerId');
-            $table->string('bannerStatus')->default("ACTIVE");
             $table->string('bannerImage')->nullable();
             $table->text('bannerText')->nullable();
             $table->string('bannerTitle')->nullable();
             $table->text('bannerSubTitle')->nullable();
+            $table->foreignId('bannerBannerTypeId')
+                    ->constrained("banner_types", "bannerTypeId")
+                    ->onDelete("cascade");
+            $table->string('bannerStatus')->default("ACTIVE");
             $table->timestamps();
         });
     }

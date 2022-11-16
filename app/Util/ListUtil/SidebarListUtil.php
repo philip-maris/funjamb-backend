@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Util\listUtil;
+namespace App\Util\ListUtil;
 
 trait SidebarListUtil
 {

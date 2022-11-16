@@ -5,7 +5,7 @@ namespace App\Http\Service\Vi\Api;
 use App\Http\Controllers\V1\BrandsController;
 use App\Models\V1\Brand;
 use App\Models\V1\Category;
-use App\Util\listUtil\SidebarListUtil;
+use App\Util\ListUtil\SidebarListUtil;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

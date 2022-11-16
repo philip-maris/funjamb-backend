@@ -1,6 +1,6 @@
 <?php
 use \Tests\TestCase;
-use \App\Util\exceptionUtil\ExceptionUtil;
+use \App\Util\ExceptionUtil\ExceptionUtil;
 
 class ExceptionTest extends TestCase
 {
@@ -8,6 +8,6 @@ class ExceptionTest extends TestCase
      * @throws ExceptionUtil
      */
     public function test_exception(){
-        throw new ExceptionUtil(\App\Util\exceptionUtil\ExceptionCase::SYSTEM_MALFUNCTION);
+        throw new ExceptionUtil(\App\Util\ExceptionUtil\ExceptionCase::SYSTEM_MALFUNCTION);
     }
 }

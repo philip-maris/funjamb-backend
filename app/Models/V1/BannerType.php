@@ -12,13 +12,12 @@ class BannerType extends Model
     protected $primaryKey ="bannerTypeId";
 
     protected $fillable=[
-        "bannerTypeBannerId",
         "bannerTypeName",
         "bannerTypeStatus",
     ];
 
-    public function banners(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function banners(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsTo(Banner::class, "bannerTypeBannerId", "bannerId");
+        return $this->hasMany(Banner::class, "bannerBannerTypeId", "bannerId");
     }
 }

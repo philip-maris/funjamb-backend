@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('customerPassword')->nullable();
             $table->string('customerOtp')->nullable();
             $table->timestamp('customerOtpExpired')->nullable();
+            $table->integer('isAdmin')->nullable();
+            $table->integer('isSuperAdmin')->nullable();
             $table->string('customerStatus')->default("Pending");
-            $table->integer('isAdmin')->default(0);
-            $table->integer('isSuperAdmin')->default(0);
             $table->timestamps();
         });
     }

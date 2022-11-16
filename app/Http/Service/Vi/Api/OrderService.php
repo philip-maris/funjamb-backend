@@ -12,8 +12,8 @@ use App\Models\V1\Order;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
@@ -45,7 +45,8 @@ class OrderService
             $email =  Mail::to($customer['customerEmail'])->send(new OrderSuccessfulMail());
             //check if email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
-// SEND NOTIFICATION
+
+            // SEND NOTIFICATION
             $this->SEND_NOTIFICATION(
                 "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just placed an order",
                 'GREEN',$customer->id,'NEW ORDER'

@@ -22,6 +22,7 @@ class Cart extends Authenticatable
      */
     protected $fillable = [
         'cartCustomerId',
+        'cartProductId',
         'cartAddedQuantity',
         'cartStatus',
     ];
@@ -37,14 +38,9 @@ class Cart extends Authenticatable
     }
 
 
-    public function cartItems(): HasMany
+    public function products(): BelongsTo
     {
-        return $this->hasMany(CartItem::class, 'cartItemCartId', 'cartItemId');
-    }
-
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class, 'cartProductId', 'productId');
+        return $this->belongsTo(Product::class, 'cartProductId', 'productId');
     }
 
 

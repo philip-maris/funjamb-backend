@@ -20,15 +20,17 @@ class Banner extends Authenticatable
      */
     protected $fillable = [
         'bannerImage',
+        'bannerBannerTypeId',
         'bannerTitle',
+        'bannerSubTitle',
         'bannerStatus',
     ];
 
     protected $casts = [
     ];
 
-    public function bannerType(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bannerType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(BannerType::class, "bannerTypeBannerId", "bannerTypeId");
+        return $this->belongsTo(BannerType::class, "bannerBannerTypeId", "bannerTypeId");
     }
 }

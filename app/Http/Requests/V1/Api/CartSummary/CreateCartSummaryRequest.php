@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Api\CartItem;
+namespace App\Http\Requests\V1\Api\CartSummary;
 
 use Illuminate\Foundation\Http\FormRequest;
+use PHPUnit\Exception;
 
-class CreateCartItemRequest extends FormRequest
+class CreateCartSummaryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,10 @@ class CreateCartItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'cartItemProductId'=>['required'],
-            'cartAddedQuantity'=>['required'],
+            'cartSummaryCartId'=>['required'],
+            'cartSummarySubTotal'=>['required'],
+            'cartSummaryTotal'=>['required'],
+            'cartSummaryVat'=>['required'],
             'cartItemQuantity'=>['required'],
         ];
     }

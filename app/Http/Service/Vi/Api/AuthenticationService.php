@@ -17,8 +17,8 @@ use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -73,7 +73,7 @@ class AuthenticationService
             //todo action
             //todo check if the email exist
             $customer = Customer::where('customerEmail', $request['customerEmail'])
-                ->where('customerStatus', 'PENDING')->first();
+                ->where('customerStatus', 'Pending')->first();
 
             if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             //todo update customer
@@ -99,10 +99,10 @@ class AuthenticationService
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             // SEND NOTIFICATION
-            $this->SEND_NOTIFICATION(
-                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just signed up.",
-                'YELLOW',$customer['customerId'],'NEW CUSTOMER'
-            );
+//            $this->SEND_NOTIFICATION(
+//                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just signed up.",
+//                'YELLOW',$customer['customerId'],'NEW CUSTOMER'
+//            );
 
             return $this->SUCCESS_RESPONSE("CREATED  SUCCESSFUL");
         }catch (Exception $ex){
@@ -207,6 +207,10 @@ class AuthenticationService
             if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
 
             //todo send email
+            $customer->update([
+                'customerOtp'=>$otp,
+                'customerOtpExpired'=>$this->addTimestamp(min:"5")
+            ]);
             //todo send email
             $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
             $email =  Mail::to($request['customerEmail'])->send(new OtpMail($fullName,$otp));

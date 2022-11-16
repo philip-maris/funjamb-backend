@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Api\Cart\CreateCartRequest;
 use App\Http\Requests\V1\Api\Cart\ReadByCartIdRequest;
 use App\Http\Requests\V1\Api\Cart\ReadByCustomerIdRequest;
 use App\Http\Requests\V1\Api\Cart\UpdateCartRequest;
+use App\Http\Requests\V1\Api\CartSummary\CreateCartSummaryRequest;
 use App\Http\Service\Vi\Api\CartService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;

@@ -13,7 +13,8 @@ use App\Http\Requests\V1\Api\Product\UpdateProductRequest;
 use App\Http\Service\Vi\Api\ProductService;
 use Illuminate\Http\JsonResponse;
 
-class ProductsController extends Controller
+class
+ProductsController extends Controller
 {
     public function __construct(protected ProductService $productService){
 

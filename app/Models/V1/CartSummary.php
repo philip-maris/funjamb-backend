@@ -18,7 +18,6 @@ class CartSummary extends Model
         'cartSummaryVat',
         'cartSummaryDeliveryFee',
         'cartSummaryTotal',
-        'cartSummaryCartItemId',
         'cartSummaryStatus',
     ];
 
@@ -26,7 +25,5 @@ class CartSummary extends Model
         return $this->belongsTo(Cart::class, "cartSummaryCartId", "cartId");
     }
 
-    public function cartItems(){
-        return $this->belongsTo(CartItem::class, "cartSummaryCartItemId", "cartItemId");
-    }
+
 }

@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id('transactionId');
-            $table->foreignId('transactionCustomerId')
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id('paymentId');
+            $table->foreignId('paymentCustomerId')
                 ->constrained('customers', 'customerId');
-            $table->foreignId('transactionOrderId')
+            $table->foreignId('paymentOrderId')
                 ->constrained('orders', 'orderId');
-            $table->string('transactionAmount')->nullable();
-            $table->string('transactionReference')->nullable();
-            $table->string('transactionPaymentMethod')->nullable();
-            $table->string('transactionStatus')->default("ACTIVE");
+            $table->decimal('paymentAmount')->nullable();
+            $table->string('paymentReference')->nullable();
+            $table->string('paymentPaymentMethod')->nullable();
+            $table->string('paymentStatus')->default("ACTIVE");
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('payment_systems');
     }
 };

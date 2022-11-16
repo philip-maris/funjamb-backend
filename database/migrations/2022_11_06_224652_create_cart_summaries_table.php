@@ -22,9 +22,6 @@ return new class extends Migration
             $table->foreignId("cartSummaryCartId")
                     ->constrained("carts", "cartId")
                     ->onDelete('cascade');
-            $table->foreignId("cartSummaryCartItemId")
-                    ->constrained("cart_items", "cartItemId")
-                    ->onDelete('cascade');
             $table->string("cartSummaryStatus")->default("Active");
             $table->timestamps();
         });

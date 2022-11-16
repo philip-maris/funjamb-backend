@@ -6,11 +6,13 @@ use App\Http\Requests\V1\Api\Cart\CreateCartRequest;
 use App\Http\Requests\V1\Api\Cart\ReadByCartIdRequest;
 use App\Http\Requests\V1\Api\Cart\ReadByCustomerIdRequest;
 use App\Http\Requests\V1\Api\Cart\UpdateCartRequest;
+use App\Http\Requests\V1\Api\CartSummary\CreateCartSummaryRequest;
 use App\Models\V1\Cart;
+use App\Models\V1\Customer;
 use App\Models\V1\Product;
 use App\Util\BaseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -18,53 +20,71 @@ use Illuminate\Http\JsonResponse;
 class CartService
 {
     use ResponseUtil;
-    public function __construct(protected ProductService $productService){
+    public function __construct(protected ProductService $productService, protected CartSummaryService $cartSummaryService){
 
     }
 
-    public function create(CreateCartRequest $request): JsonResponse
+    public function create(CreateCartRequest $createCartRequest): JsonResponse
     {
         try {
-
+//            $this->cartSummaryService->create([
+//                "cartSummaryCartId"=>"1",
+//                "cartSummarySubTotal"=>"john doe",
+//                "cartSummaryVat"=>"john doe",
+//                "cartSummaryDeliveryFee"=>"john doe",
+//                "cartSummaryTotal"=>"john doe",
+//            ]);
             //  validate
-            $request->validated();
+            $validated = $createCartRequest->validated();
+            //check if user exit
+            $customer = Customer::find($validated['cartCustomerId']);
+            if (!$customer)
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Unable to locate customer");
 
-            //  check if requested product quantity is available
-            $product = Product::find($request['cartProductId']);
-            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            if (($product['productQuantity'] - $request['cartAddedQuantity']) < 0) {
-                throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']}  available");
+            //check if requested product quantity is available
+            $product = Product::find($validated['cartProductId']);
+            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Unable to locate product with the id {$validated['cartProductId']}");
+
+            if (($product['productQuantity'] - $validated['cartQuantity']) < 0) {
+                throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} {$product['productName']} available");
             }
 
-            $cart = Cart::create($request->all());
+                $response = Cart::create(array_merge($createCartRequest->all(),[
+                    "cartTotalAmount"=>""
+                ]));
+                //todo  check if successful
+                if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
-            //todo  check if successful
-            if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
+                dd($response);
 
-            return $this->SUCCESS_RESPONSE("CART CREATED SUCCESSFUL");
+            return $this->BASE_RESPONSE($response);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
 
     }
 
-    public function update(UpdateCartRequest $request): JsonResponse
+    protected function cart_summary(){
+
+    }
+
+    public function update(UpdateCartRequest $updateCartRequest): JsonResponse
     {
         try {
             //  validate
-            $request->validated($request->all());
+            $updateCartRequest->validated($updateCartRequest->all());
 
-             $cart = Cart::find($request['cartCustomerId']);
-             $product = Product::find($request['cartProductId']);
+             $cart = Cart::find($updateCartRequest['cartCustomerId']);
+             $product = Product::find($updateCartRequest['cartProductId']);
              if (!$product || !$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
             //  check if requested product quantity is available
-            if (($product['productQuantity'] - $request['cartAddedQuantity']) < 0) {
+            if (($product['productQuantity'] - $updateCartRequest['cartAddedQuantity']) < 0) {
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} available");
             }
 
             //todo update the cart
-            $response =    $cart->update($request->only('cartAddedQuantity'));
+            $response =    $cart->update($updateCartRequest->only('cartAddedQuantity'));
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
@@ -88,14 +108,14 @@ class CartService
 
     }
 
-    public function readByCustomerId(ReadByCustomerIdRequest $request): JsonResponse
+    public function readByCustomerId(ReadByCustomerIdRequest $readByCustomerIdRequest): JsonResponse
     {
         try {
             //todo validation
-            $request->validated($request->all());
+            $readByCustomerIdRequest->validated();
 
             //todo action
-            $cart = Cart::where('cartCustomerId', $request['cartCustomerId'])->first();
+            $cart = Cart::where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->first();
             if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return  $this->BASE_RESPONSE($cart);
         }catch (Exception $ex){

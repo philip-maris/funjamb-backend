@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId("wishlistCustomerId")
                 ->constrained('customers', 'customerId')->onDelete('cascade');
             $table->foreignId("wishlistProductId")
-                ->constrained('products', 'productId')->onDelete('set null');
+                ->constrained('products', 'productId')->onDelete('cascade');
             $table->string("wishlistStatus")->default("Active");
             $table->timestamps();
         });

@@ -13,8 +13,8 @@ use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 

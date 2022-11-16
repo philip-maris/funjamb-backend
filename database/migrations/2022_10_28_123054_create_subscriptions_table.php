@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id('subscriptionId');
             $table->string('subscriptionCustomerEmail');
-            $table->string('subscriptionStatus')->default("ACTIVE");
+            $table->string('subscriptionStatus')->default("Active");
             $table->timestamps();
         });
     }

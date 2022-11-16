@@ -20,16 +20,16 @@ return new class extends Migration
             $table->decimal("productOfferPrice")->default(0);
             $table->string("productImage")->nullable();
             $table->longText("productDescription")->nullable();
-            $table->integer("productDiscount")->default(0);
+            $table->integer("productDiscount")->nullable();
 
-            $table->foreignId("productBrandId")
+            $table->foreignId("productBrandId")->nullable()
                 ->constrained('brands', 'brandId')
                 ->onDelete('set null');
 
-            $table->foreignId("productCategoryId")
+            $table->foreignId("productCategoryId")->nullable()
                 ->constrained('categories', 'categoryId')
                 ->onDelete('set null');
-            $table->integer("productQuantity")->default(0);
+            $table->integer("productQuantity")->nullable();
             $table->string("productSlug")->nullable();
             $table->string("productStatus")->default("Active");
             $table->timestamps();

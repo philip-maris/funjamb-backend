@@ -25,7 +25,6 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'categoryName'=>['required', 'unique:categories'],
-            'categoryCustomerId'=>['required'],
         ];
     }
 }

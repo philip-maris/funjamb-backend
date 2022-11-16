@@ -17,12 +17,11 @@ return new class extends Migration
             $table->id('notificationId');
             $table->string('notificationMessage')->nullable();
             $table->string('notificationColor')->nullable();
-            $table->string('notificationCustomerType')->nullable();
             //foreign key for customerId
             $table->foreignId("notificationCustomerId")
                 ->constrained('customers', 'customerId');
             $table->string('notificationTitle')->nullable();
-            $table->string('notificationStatus')->default("ACTIVE");
+            $table->string('notificationStatus')->default("Active");
             $table->timestamps();
         });
     }

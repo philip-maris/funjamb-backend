@@ -4,8 +4,8 @@ namespace App\Util\BaseUtil;
 
 use App\Models\Notification;
 use App\Models\V1\Customer;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 
 trait IdVerificationUtil{
 

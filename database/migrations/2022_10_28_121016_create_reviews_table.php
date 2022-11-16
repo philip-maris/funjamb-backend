@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('reviewProductId')
                 ->constrained('products', 'productId')
                 ->onDelete('cascade');
-            $table->string('reviewStatus')->default("ACTIVE");
+            $table->string('reviewStatus')->default("Active");
             $table->timestamps();
         });
     }

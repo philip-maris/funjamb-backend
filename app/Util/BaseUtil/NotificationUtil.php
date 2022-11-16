@@ -3,8 +3,8 @@
 namespace App\Util\BaseUtil;
 
 use App\Models\Notification;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 
 trait NotificationUtil{
    public function SEND_NOTIFICATION(string $message, string $color,string $customerId, string $tittle): int

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Util\exceptionUtil;
+namespace App\Util\ExceptionUtil;
 
 enum ExceptionCase
 {

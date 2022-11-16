@@ -25,7 +25,8 @@ class CreateCartRequest extends FormRequest
     {
         return [
             'cartCustomerId'=>['required'],
-            'cartAddedQuantity'=>['required']
+            'cartQuantity'=>['required'],
+            'cartProductId'=>['required'],
         ];
     }
 }

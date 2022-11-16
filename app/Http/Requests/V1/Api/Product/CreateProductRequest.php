@@ -28,12 +28,10 @@ class CreateProductRequest extends FormRequest
             'productBrandId'=>['required'],
             'productSellingPrice'=>['nullable'],
             'productOfferPrice'=>['nullable'],
-            'productImage'=>['required'],
-            'productDescription'=>['required'],
-            'productDiscount'=>['nullable'],
+            'productImage'=>['required', 'image'],
+            'productDescription'=>['required', 'string'],
             'productQuantity'=>['required'],
             'productCategoryId'=>['required'],
-            'productCustomerId'=>['required'],
         ];
     }
 

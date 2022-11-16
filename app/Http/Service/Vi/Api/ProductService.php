@@ -15,11 +15,12 @@ use App\Models\V1\Product;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
+use App\Util\ExceptionUtil\ExceptionCase;
+use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -31,30 +32,39 @@ class ProductService
     {
         try {
             //TODO VALIDATION
-            $request->validated($request);
+            $validated =  $request->validated();
 
             // verify admin
           //  $customer = $this->VERIFY_ADMIN($request['productCustomerId']);
 
             $category = Category::find($request['productCategoryId']);
-            if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Unable to locate category");
 
             $brand = Brand::find($request['productBrandId']);
-            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID BRAND ID");
+            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Unable to locate brand");
 
           /*todo check if file exist */
             if (!$request->hasFile('productImage'))
-                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "COULDN'T NOT FIND IMAGE");
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Invalid image");
             $fileName = time().'_'.$request->file('productImage')->getClientOriginalName();
             $request->file('productImage')->move(public_path('storage/uploads'), $fileName);
 
+            //calculate product discount
+            $productDiscount = 0;
+            if (isset($validated['productOfferPrice'])){
+                $cal = (($validated['productSellingPrice'] - $validated['productOfferPrice']) / $validated['productSellingPrice']) * 100;
+
+                $productDiscount = (integer) $cal;
+            }
             $response = $category->products()->create(array_merge($request->all(), [
-                'productImage'=> URL::asset("storage/uploads/$fileName")
+                'productImage'=> URL::asset("storage/uploads/$fileName"),
+                "productSlug"=> Str::slug($request['productName'], "_"),
+                "productDiscount"=> $productDiscount
             ]));
-            if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
+            if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, 'unable to create product');
 
             // SEND NOTIFICATION
-               // dd($response);
+
 
             return $this->SUCCESS_RESPONSE("PRODUCT CREATED SUCCESSFUL");
         }catch (Exception $ex){

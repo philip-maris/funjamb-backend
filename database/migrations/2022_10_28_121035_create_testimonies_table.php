@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('testimonyContent')->nullable();
             $table->foreignId('testimonyCustomerId')
                 ->constrained('customers', 'customerId');
-            $table->string('testimonyStatus')->default("ACTIVE");
+            $table->string('testimonyStatus')->default("Active");
             $table->timestamps();
         });
     }

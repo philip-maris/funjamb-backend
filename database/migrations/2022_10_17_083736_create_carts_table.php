@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id("cartId");
             $table->foreignId("cartCustomerId")
                 ->constrained('customers', 'customerId')->onDelete('cascade');
-            $table->string("cartStatus")->default("ACTIVE");
+            $table->foreignId("cartProductId")
+                ->constrained('products', 'productId')->onDelete('cascade');
+            $table->integer("cartQuantity")->default(1);
+            $table->decimal("cartTotalAmount")->default(0);
+            $table->string("cartStatus")->default("Active");
             $table->timestamps();
         });
     }
