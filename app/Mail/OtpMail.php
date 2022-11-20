@@ -32,8 +32,7 @@ class OtpMail extends Mailable
      */
     public function build()
     {
-        $address = 'morahthankgod@gmail.com';
-        return         $this->view('email.OtpEmail')->from($address)
+        return         $this->view('email.OtpEmail')
 
         ->with(['fullName'=>$this->fullName,'otp'=>$this->otp]);
     }
