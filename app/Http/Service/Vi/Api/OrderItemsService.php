@@ -27,12 +27,12 @@ class OrderItemsService
         try {
 
             //  validate
-            $request->validated($request);
+            $request->validated();
             //  action
             $order = Order::find($request['orderItemsOrderId']);
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-            $orderItems = OrderItem::create(array_merge($request->all());
+            $orderItems = OrderItem::create($request->all());
 
             //  check if successful
             if (!$orderItems) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
@@ -80,7 +80,7 @@ class OrderItemsService
 
             //todo action
             $orderItem = OrderItem::where('orderItemsOrderId', $request['orderItemsOrderId'])->first();
-            if (!$orderItem) throw new ExceptionUtil(ExceptionCase::NOT_SUCCESFULL);
+            if (!$orderItem) throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
             return  $this->BASE_RESPONSE($orderItem);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

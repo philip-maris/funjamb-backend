@@ -23,7 +23,7 @@ class Cart extends Authenticatable
     protected $fillable = [
         'cartCustomerId',
         'cartProductId',
-        'cartAddedQuantity',
+        'cartQuantity',
         'cartStatus',
     ];
 

@@ -48,10 +48,10 @@ class OrderService
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             // SEND NOTIFICATION
-            $this->SEND_NOTIFICATION(
-                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just placed an order",
-                'GREEN',$customer->id,'NEW ORDER'
-            );
+//            $this->SEND_NOTIFICATION(
+//                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just placed an order",
+//                'GREEN',$customer->id,'NEW ORDER'
+//            );
 
             // create order details
             $orderDetail = OrderDetail::create([
@@ -90,10 +90,10 @@ class OrderService
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
             // SEND NOTIFICATION
-            $this->SEND_UPDATE_NOTIFICATION(
-                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-                $customer['customerId'], "order {$order['orderId']} to {$request['orderStatus']}", 'Order'
-            );
+//            $this->SEND_UPDATE_NOTIFICATION(
+//                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
+//                $customer['customerId'], "order {$order['orderId']} to {$request['orderStatus']}", 'Order'
+//            );
 
             return $this->SUCCESS_RESPONSE("UPDATE SUCCESSFUL");
         }catch (Exception $ex){

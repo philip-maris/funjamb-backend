@@ -27,14 +27,8 @@ class CartService
     public function create(CreateCartRequest $createCartRequest): JsonResponse
     {
         try {
-//            $this->cartSummaryService->create([
-//                "cartSummaryCartId"=>"1",
-//                "cartSummarySubTotal"=>"john doe",
-//                "cartSummaryVat"=>"john doe",
-//                "cartSummaryDeliveryFee"=>"john doe",
-//                "cartSummaryTotal"=>"john doe",
-//            ]);
-            //  validate
+
+            //todo  validate
             $validated = $createCartRequest->validated();
             //check if user exit
             $customer = Customer::find($validated['cartCustomerId']);
@@ -49,15 +43,16 @@ class CartService
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} {$product['productName']} available");
             }
 
-                $response = Cart::create(array_merge($createCartRequest->all(),[
-                    "cartTotalAmount"=>""
-                ]));
+                $response = Cart::create($validated);
                 //todo  check if successful
                 if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
-                dd($response);
+                $data = array_merge($response->toArray(), [
+                    "product" => $product->toArray(),
 
-            return $this->BASE_RESPONSE($response);
+                ]);
+
+            return $this->BASE_RESPONSE($data);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -72,23 +67,27 @@ class CartService
     {
         try {
             //  validate
-            $updateCartRequest->validated($updateCartRequest->all());
+            $validated = $updateCartRequest->validated();
 
-             $cart = Cart::find($updateCartRequest['cartCustomerId']);
+             $cart = Cart::where("cartCustomerId",$updateCartRequest['cartCustomerId']);
+             if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "cart cannot be located");
+
+
              $product = Product::find($updateCartRequest['cartProductId']);
-             if (!$product || !$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "product id not found");
 
             //  check if requested product quantity is available
             if (($product['productQuantity'] - $updateCartRequest['cartAddedQuantity']) < 0) {
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} available");
             }
 
+
             //todo update the cart
-            $response =    $cart->update($updateCartRequest->only('cartAddedQuantity'));
+            $response =    $cart->decrement($validated["cartQuantity"]);
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
-            return $this->SUCCESS_RESPONSE("UPDATE SUCCESSFUL");
+            return $this->BASE_RESPONSE("");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -115,7 +114,7 @@ class CartService
             $readByCustomerIdRequest->validated();
 
             //todo action
-            $cart = Cart::where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->first();
+            $cart = Cart::where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->get();
             if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return  $this->BASE_RESPONSE($cart);
         }catch (Exception $ex){
