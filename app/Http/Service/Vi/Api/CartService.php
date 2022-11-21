@@ -71,25 +71,31 @@ class CartService
             //  validate
             $validated = $updateCartRequest->validated();
 
-             $cart = Cart::where("cartCustomerId",$updateCartRequest['cartCustomerId']);
+             $cartCustomer = Cart::where("cartCustomerId",$updateCartRequest['cartCustomerId']);
+             if (!$cartCustomer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "this user have no cart");
+
+
+             $cart = Cart::where("cartId",$updateCartRequest['cartId'])->first();
              if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "cart cannot be located");
 
 
              $product = Product::find($updateCartRequest['cartProductId']);
-             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "product id not found");
+             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "product  not found");
 
             //  check if requested product quantity is available
             if (($product['productQuantity'] - $updateCartRequest['cartAddedQuantity']) < 0) {
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} available");
             }
 
-
+//            dd($validated);
             //todo update the cart
-            $response =    $cart->decrement($validated["cartQuantity"]);
+            $response =    $cart->update(array_merge($validated,[
+                "cartTotalAmount"=> (integer)$product['productOfferPrice'] !== 0 ? $product['productOfferPrice'] * $validated['cartQuantity']:$product['productSellingPrice'] * $validated['cartQuantity']
+            ]));
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
-            return $this->BASE_RESPONSE("");
+            return $this->BASE_RESPONSE($cart->toArray());
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

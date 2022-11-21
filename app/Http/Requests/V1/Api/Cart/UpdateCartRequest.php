@@ -26,7 +26,7 @@ class UpdateCartRequest extends FormRequest
         return [
             'cartCustomerId'=>['required'],
             'cartProductId'=>['required'],
-            'cartAddedQuantity'=>['required'],
+            'cartQuantity'=>['required'],
             'cartId'=>['required'],
         ];
     }
