@@ -24,6 +24,7 @@ class Cart extends Authenticatable
         'cartCustomerId',
         'cartProductId',
         'cartQuantity',
+        'cartTotalAmount',
         'cartStatus',
     ];
 

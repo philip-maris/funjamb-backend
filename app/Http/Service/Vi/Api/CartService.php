@@ -42,8 +42,10 @@ class CartService
             if (($product['productQuantity'] - $validated['cartQuantity']) < 0) {
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} {$product['productName']} available");
             }
-
-                $response = Cart::create($validated);
+                //dd($product['productSellingPrice'] ?? $product['productOfferPrice'] * $validated['cartQuantity']);
+                $response = Cart::create(array_merge($validated, [
+                    "cartTotalAmount"=> (integer)$product['productOfferPrice'] !== 0 ? $product['productOfferPrice'] * $validated['cartQuantity']:$product['productSellingPrice'] * $validated['cartQuantity']
+                ]));
                 //todo  check if successful
                 if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
@@ -115,8 +117,14 @@ class CartService
 
             //todo action
             $cart = Cart::where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->get();
+            $products = [];
+            foreach ($cart as $key => $value){
+               $products[$key] = $value->products->all();
+            }
             if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            return  $this->BASE_RESPONSE($cart);
+
+            $response = $cart->toArray();
+            return  $this->BASE_RESPONSE($response);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

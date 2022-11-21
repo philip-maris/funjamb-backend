@@ -51,10 +51,13 @@ class ProductService
 
             //calculate product discount
             $productDiscount = 0;
-            if (isset($validated['productOfferPrice'])){
-                $cal = (($validated['productSellingPrice'] - $validated['productOfferPrice']) / $validated['productSellingPrice']) * 100;
+            //dd((integer)$validated['productSellingPrice'] !== 0);
+            if ((integer)$validated['productOfferPrice'] !== 0 ){
+                if ((integer)$validated['productSellingPrice'] == 0)
+                    throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG, "selling price is required");
 
-                $productDiscount = (integer) $cal;
+                $cal = (($validated['productSellingPrice'] - $validated['productOfferPrice']) / $validated['productSellingPrice']) * 100;
+                $productDiscount =  $cal;
             }
             $response = $category->products()->create(array_merge($request->all(), [
                 'productImage'=> URL::asset("storage/uploads/$fileName"),
