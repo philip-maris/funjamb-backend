@@ -24,7 +24,8 @@ class CreateSubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'subscriptionCustomerEmail'=>['required', 'max:255']
+            'subscriptionCustomerEmail'=>['required', 'email', 'max:255']
         ];
     }
+
 }
