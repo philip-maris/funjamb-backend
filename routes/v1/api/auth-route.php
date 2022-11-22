@@ -11,7 +11,6 @@ Route::prefix('v1')->group(function () {
             Route::post('/complete-enrollment', 'completeEnrollment');
             Route::post('/initiate-forgotten-password', 'initiateForgottenPassword');
             Route::post('/complete-forgotten-password', 'completeForgottenPassword');
-            Route::post('/change-password', 'changePassword');
             Route::post('/login', 'login');
             Route::post('/resend-otp', 'resendOtp');
         });
@@ -22,6 +21,7 @@ Route::prefix('v1')->group(function () {
         //todo authentication protected route
         Route::controller(AuthenticationsController::class)
             ->group(function () {
+                Route::post('/change-password', 'changePassword');
                 Route::post('/change-password', 'changePassword');
             });
 
