@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\WishList\CreateWishlistRequest;
 use App\Http\Requests\V1\Api\WishList\ReadByWishlistIdRequest;
+use App\Http\Requests\V1\Api\WishList\ReadWishlistByCustomerIdRequest;
 use App\Http\Requests\V1\Api\WishList\UpdateWishlistRequest;
 use App\Service\Vi\Api\WishlistService;
 use App\Util\BaseUtil\ResponseUtil;
@@ -39,6 +40,12 @@ class WishlistsController extends Controller
     public function readById(ReadByWishlistIdRequest $request): JsonResponse
     {
         return $this->wishListService->readById($request);
+    }
+
+    public function readWishlistByCustomerId(ReadWishlistByCustomerIdRequest $readWishlistByCustomerIdRequest): JsonResponse
+    {
+        return $this->wishListService->readWishlistByCustomerId($readWishlistByCustomerIdRequest);
+
     }
 
     public function delete(ReadByWishlistIdRequest $request): JsonResponse

@@ -17,8 +17,6 @@ use Illuminate\Http\JsonResponse;
 class SubscriptionService
 {
     use ResponseUtil;
-    use NotificationUtil;
-    use IdVerificationUtil;
 
 
     public function create(CreateSubscriptionRequest $request): JsonResponse
@@ -27,11 +25,13 @@ class SubscriptionService
 
             //todo validate
             $request->validated();
-            $testSubscription = Subscription::where('subscriptionCustomerId', $request['subscriptionCustomerId'])->first();
+            $testSubscription = Subscription::where('subscriptionCustomerEmail',strtolower($request["subscriptionCustomerEmail"]))->first();
             if ($testSubscription) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE,"CUSTOMER HAS ALREADY SUBSCRIBED");
 
-            $subscription = Subscription::create(array_merge($request->all(),
-                ['subscriptionStatus' => 'ACTIVE']));
+//            dd(strtolower($request["subscriptionCustomerEmail"]));
+            $subscription = Subscription::create([
+                "subscriptionCustomerEmail"=>strtolower($request["subscriptionCustomerEmail"])
+            ]);
             //todo check its successful
             if (!$subscription) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 

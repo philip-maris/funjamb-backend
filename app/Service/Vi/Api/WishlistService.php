@@ -4,6 +4,7 @@ namespace App\Service\Vi\Api;
 
 use App\Http\Requests\V1\Api\WishList\CreateWishlistRequest;
 use App\Http\Requests\V1\Api\WishList\ReadByWishlistIdRequest;
+use App\Http\Requests\V1\Api\WishList\ReadWishlistByCustomerIdRequest;
 use App\Models\V1\Customer;
 use App\Models\V1\Product;
 use App\Models\V1\Wishlist;
@@ -27,8 +28,9 @@ class WishlistService
             //find customer
             $customer = Customer::find($request['wishlistCustomerId']);
             $product = Product::find($request['wishlistProductId']);
-
-            if (!$customer || !$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "UNABLE TO LOCATE CUSTOMER");
+           // dd($customer);
+            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "UNABLE TO LOCATE CUSTOMER");
+            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "UNABLE TO LOCATE PRODUCT");
             //todo create wishlist through product relation
             $response = $customer->wishlists()->create(array_merge($request->all(),['wishlistStatus'=>'ACTIVE']));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
@@ -81,6 +83,27 @@ class WishlistService
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
     }
+
+    public function readWishlistByCustomerId(ReadWishlistByCustomerIdRequest $request): JsonResponse
+    {
+        try {
+            //TODO VALIDATION
+            $request->validated();
+            //todo action
+            $wishlists = Wishlist::where('wishlistCustomerId', $request['wishlistCustomerId'])->get();
+            $products =[];
+            foreach ($wishlists as $key=> $wishlist){
+                $products[$key]  = $wishlist->products->all();
+               // dd($wishlist->wishlistProductId);
+            }
+            if (!$wishlists) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            $response =  $wishlists->toArray();
+            return  $this->BASE_RESPONSE($response);
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+
 
     public function delete(ReadByWishlistIdRequest $request): JsonResponse
     {

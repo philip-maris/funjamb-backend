@@ -11,6 +11,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/create-wishlist', 'create');
             Route::post('/update-wishlist', 'update');
             Route::get('/read-wishlists', 'read');
+            Route::post('/read-wishlist-by-customer-id', 'readWishlistByCustomerId');
             Route::post('/read-wishlist-by-id', 'readById');
             Route::post('/delete-wishlist', 'delete');
         });

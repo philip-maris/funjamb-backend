@@ -102,6 +102,7 @@
             //todo fetch category by id
             $('.edit').on('click', function (e) {
                 e.preventDefault()
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -158,6 +159,7 @@
             //todo delete category by id
             $('.delete').on('click', function (e) {
                 e.preventDefault()
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -20,7 +20,7 @@ class Subscription extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'subscriptionCustomerId',
+        'subscriptionCustomerEmail',
         'subscriptionStatus',
     ];
 

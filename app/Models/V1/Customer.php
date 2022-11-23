@@ -55,7 +55,7 @@ class Customer extends Authenticatable
 
     public function wishlists(): HasMany
     {
-        return $this->hasMany(Wishlist::class, 'wishlistCustomerId', 'wishlistId');
+        return $this->hasMany(Wishlist::class, 'wishlistCustomerId', 'customerId');
     }
 
     public function orders(): HasMany

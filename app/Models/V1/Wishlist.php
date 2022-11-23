@@ -4,7 +4,6 @@ namespace App\Models\V1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Wishlist extends Model
 {
@@ -17,7 +16,7 @@ class Wishlist extends Model
         'wishlistStatus',
     ];
 
-    public function products(): BelongsTo
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Product::class,'wishlistProductId', 'productId');
     }
