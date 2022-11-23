@@ -32,7 +32,7 @@ class OtpMail extends Mailable
      */
     public function build()
     {
-        return         $this->view('email.OtpEmail')
+        return $this->view('v1.email.otp-email')
 
         ->with(['fullName'=>$this->fullName,'otp'=>$this->otp]);
     }

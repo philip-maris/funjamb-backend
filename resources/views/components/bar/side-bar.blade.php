@@ -6,27 +6,31 @@
                     {{$item['heading']}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#{{$item['navItem']}}" data-bs-toggle="collapse" href="#">
+                    <a class="nav-link collapsed" data-bs-target="#{{$item['navItem']}}" data-bs-toggle="collapse" href="{{isset($item['link']) ? asset("{$item['link']}") : "#"}}">
                         <i class="{{$item['icon']}}"></i>
                         <span>
                              {{$item['navItem']}}
                         </span>
-                        <i class="bi bi-chevron-down ms-auto"></i>
+                        @isset($item['child'])
+                             <i class="bi bi-chevron-down ms-auto"></i>
+                        @endisset
                     </a>
                     <ul id="{{$item['navItem']}}" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        @forelse($item['child'] as $child)
-                            <li>
-                                <a href="{{route($child['link'])}}">
-                                    <i class="{{$child['icon']}}"></i><span>{{$child['title']}}</span>
-                                </a>
-                            </li>
-                        @empty
-                            <li>
-                                <a href="">
-                                    <span>Nothing to show</span>
-                                </a>
-                            </li>
-                        @endforelse
+                        @isset($item['child'])
+                            @forelse($item['child'] as $child)
+                                <li>
+                                    <a href="{{route($child['link'])}}">
+                                        <i class="{{$child['icon']}}"></i><span>{{$child['title']}}</span>
+                                    </a>
+                                </li>
+                            @empty
+                                <li>
+                                    <a href="">
+                                        <span>Nothing to show</span>
+                                    </a>
+                                </li>
+                            @endforelse
+                        @endisset
 
                     </ul>
                 </li>

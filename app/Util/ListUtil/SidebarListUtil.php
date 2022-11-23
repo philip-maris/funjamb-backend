@@ -7,37 +7,13 @@ trait SidebarListUtil
     public array $sidebarList = array(
         [
             'icon' => 'bi bi-grid',
-            'heading' => '',
+            'heading' => 'Dashboard',
             'navItem' => 'OverView',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-book-half',
-                    'title' => 'Overview',
-                    'link' => 'overview',
-                ],
-            ],
+            'link'=>"overview"
         ],
         [
             'icon' => 'bi bi-person-square',
-            'heading' => 'Staff Management',
-            'navItem' => 'Staffs',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-book-half',
-                    'title' => 'View Staffs',
-                    'link' => 'staffs',
-                ],
-                [
-                    'icon' => 'bi bi-person-plus',
-                    'title' => 'Add Staff',
-                    'link' => 'addStaff',
-                ],
-
-            ],
-        ],
-        [
-            'icon' => 'bi bi-person-square',
-            'heading' => 'Customer Management',
+            'heading' => 'User Management',
             'navItem' => 'Customers',
             'child' =>[
                 [
@@ -48,70 +24,115 @@ trait SidebarListUtil
             ],
         ],
         [
+            'icon' => 'bi bi-person-square',
+            'heading' => '',
+            'navItem' => 'Staffs',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-book-half',
+                    'title' => 'View staffs',
+                    'link' => 'customers',
+                ],
+                [
+                    'icon' => 'bi bi-book-half',
+                    'title' => 'Add staffs',
+                    'link' => 'customers',
+                ],
+            ],
+        ],
+        [
             'icon' => 'bi bi-bag',
-            'heading' => 'Product',
-            'navItem' => 'Products',
+            'heading' => 'Shops',
+            'navItem' => 'categories',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'View Products',
-                    'link' => 'products',
-                ],
-                [
-                    'icon' => 'bi bi-bag-plus',
-                    'title' => 'Add Product',
-                    'link' => 'addProduct',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bounding-box-circles',
-            'heading' => 'Brand',
-            'navItem' => 'Brands',
-            'child' =>[
-
-                [
-                    'icon' => 'bi bi-bounding-box-circles',
-                    'title' => 'View Brands',
-                    'link' => 'brands',
-                ],
-
-            ],
-        ],
-        [
-            'icon' => 'bi bi-mailbox2',
-            'heading' => 'Category',
-            'navItem' => 'Categories',
-            'child' =>[
-
-                [
-                    'icon' => 'bi bi-mailbox2',
-                    'title' => 'View Categories',
+                    'title' => 'categories',
                     'link' => 'categories',
                 ],
             ],
         ],
         [
-            'icon' => 'bi bi-shift',
-            'heading' => 'Order',
-            'navItem' => 'Order',
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'brands',
             'child' =>[
                 [
-                    'icon' => 'bi bi-shift',
-                    'title' => 'View Orders',
+                    'icon' => 'bi bi-bag',
+                    'title' => 'brands',
+                    'link' => 'brands',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'products',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'products',
+                    'link' => 'products',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'deliveries',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'deliveries',
+                    'link' => 'deliveries',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'orders',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'orders',
                     'link' => 'orders',
                 ],
             ],
         ],
         [
-            'icon' => 'bi bi-bucket',
-            'heading' => 'Delivery',
-            'navItem' => 'Deliveries',
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'transactions',
             'child' =>[
                 [
-                    'icon' => 'bi bi-bucket',
-                    'title' => 'View Deliveries',
-                    'link' => 'deliveries',
+                    'icon' => 'bi bi-bag',
+                    'title' => 'transactions',
+                    'link' => 'brands',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => 'Ui',
+            'navItem' => 'banner-type',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'banner-type',
+                    'link' => 'brands',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'banners',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'banners',
+                    'link' => 'brands',
                 ],
             ],
         ],

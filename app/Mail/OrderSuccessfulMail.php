@@ -28,6 +28,6 @@ class OrderSuccessfulMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.OrderSuccessful');
+        return $this->view('v1.email.order-successful');
     }
 }

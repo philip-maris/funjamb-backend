@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Cart extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use  HasFactory, Notifiable;
 
     protected $table = 'carts';
     protected $primaryKey ='cartId';

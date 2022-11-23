@@ -17,6 +17,7 @@ class CartController extends Controller
 
     public function __construct(protected CartService $cartService){
         //todo code here
+        //$this->middleware("isSuperAdmin");
     }
 
     public function create(CreateCartRequest $request): JsonResponse

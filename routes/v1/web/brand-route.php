@@ -2,9 +2,10 @@
 
 
 use App\Http\Controllers\V1\Api\ProductsController;
+use App\Http\Controllers\V1\Web\BrandsController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(ProductsController::class)->group(function (){
-    Route::get('/admin/dashboard/brands', 'brands')->name('brands');
+Route::controller(BrandsController::class)->group(function (){
+    Route::get('/dashboard/brands', 'index')->name('brands');
 });
 
