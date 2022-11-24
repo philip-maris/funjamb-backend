@@ -29,16 +29,10 @@ class BannerService
             //todo validate
             $request->validated($request);
 
-            // verify admin
-           // $customer = $this->VERIFY_ADMIN($request['bannerCustomerId']);
-
             $banner = Banner::create(array_merge($request->all(),
                 ['bannerStatus' => 'ACTIVE']));
             //todo check its successful
             if (!$banner) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-
-            // SEND NOTIFICATION
-
 
             return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
         } catch (Exception $ex) {
@@ -60,12 +54,6 @@ class BannerService
             $response = $banner->update(array_merge($request->except('bannerId'),
                 ['bannerStatus' => 'ACTIVE']));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
-
-            // SEND NOTIFICATION
-//            $this->SEND_UPDATE_NOTIFICATION(
-//                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-//                $customer['customerId'],'','BANNER'
-//            );
 
 
             return $this->SUCCESS_RESPONSE("UPDATE SUCCESSFUL");

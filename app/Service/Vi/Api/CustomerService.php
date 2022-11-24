@@ -58,8 +58,8 @@ class CustomerService
     public function revalidate(): JsonResponse
     {
         try {
-            dd( auth('sanctum')->user());
-            $customer = Customer::where('customerId', auth()->user()->id);
+            $customer = Customer::where('customerId', auth('sanctum')->user()["customerId"])->first();
+//            dd($customer);
             if (!$customer)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
             return $this->BASE_RESPONSE($customer);
         }catch (Exception $ex){

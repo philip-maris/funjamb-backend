@@ -27,27 +27,27 @@
                                 <th scope="col">categoryAction</th>
                             </tr>
                             </thead>
-{{--                            <tbody>--}}
-{{--                            @foreach($brands as $key => $brand)--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">{{$key + 1}}</th>--}}
-{{--                                    <td>{{$brand['brandName']}}</td>--}}
-{{--                                    <td>{{$brand['brandStatus']}}</td>--}}
-{{--                                    <td>--}}
-{{--                                        <button--}}
-{{--                                                value="{{$brand['brandId']}}"--}}
-{{--                                                updateCategory class="btn btn-primary btn-sm edit">--}}
-{{--                                            Edit--}}
-{{--                                        </button>--}}
-{{--                                        <button--}}
-{{--                                                value="{{$brand['brandId']}}"--}}
-{{--                                                class="btn btn-danger btn-sm delete">--}}
-{{--                                            Delete--}}
-{{--                                        </button>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
-{{--                            </tbody>--}}
+                            <tbody>
+                            @foreach($brands as $key => $brand)
+                                <tr>
+                                    <th scope="row">{{$key + 1}}</th>
+                                    <td>{{$brand['brandName']}}</td>
+                                    <td>{{$brand['brandStatus']}}</td>
+                                    <td>
+                                        <button
+                                                value="{{$brand['brandId']}}"
+                                                 class="btn btn-primary btn-sm edit">
+                                            Edit
+                                        </button>
+                                        <button
+                                                value="{{$brand['brandId']}}"
+                                                class="btn btn-danger btn-sm delete">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
 

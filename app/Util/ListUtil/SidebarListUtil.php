@@ -103,11 +103,35 @@ trait SidebarListUtil
         [
             'icon' => 'bi bi-bag',
             'heading' => '',
+            'navItem' => 'subscription',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'subscriptions',
+                    'link' => 'orders',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
             'navItem' => 'transactions',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'transactions',
+                    'link' => 'brands',
+                ],
+            ],
+        ],
+        [
+            'icon' => 'bi bi-bag',
+            'heading' => '',
+            'navItem' => 'testimonies',
+            'child' =>[
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'testimonies',
                     'link' => 'brands',
                 ],
             ],

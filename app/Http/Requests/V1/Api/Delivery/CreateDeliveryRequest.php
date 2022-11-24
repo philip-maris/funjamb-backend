@@ -25,11 +25,8 @@ class CreateDeliveryRequest extends FormRequest
     {
         return [
             'deliveryState'=>['required', 'max:255'],
-            'deliveryStatus'=>['required', 'max:255'],
-            'deliveryMinFee'=>['required'],
-            'deliveryMaxFee'=>['required'],
+            'deliveryFee'=>['required'],
             'deliveryDescription'=>['required'],
-            'deliveryCustomerId'=>['required'],
         ];
     }
 }

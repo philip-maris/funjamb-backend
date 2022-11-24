@@ -17,20 +17,14 @@ use Illuminate\Http\JsonResponse;
 class CategoryService
 {
     use ResponseUtil;
-    use NotificationUtil;
-    use IdVerificationUtil;
 
     public function create(CreateCategoryRequest $request){
         try {
             //TODO VALIDATION
             $request->validated($request);
-            // verify admin
-          //  $customer = $this->VERIFY_ADMIN($request['categoryCustomerId']);
 
             $response = Category::create($request->all());
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-
-            // SEND NOTIFICATION
 
             return $this->SUCCESS_RESPONSE("CATEGORY CREATED SUCCESSFUL");
         }catch (Exception $ex){
@@ -43,19 +37,12 @@ class CategoryService
         try {
             //TODO VALIDATION
             $request->validated($request);
-            // verify admin
-            $customer = $this->VERIFY_ADMIN($request['customerId']);
-
             $category = Category::find($request['categoryId']);
             $response = $category->update(array_merge($request->except('categoryId'),
                 ['categoryStatus'=>'ACTIVE']));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
-            // SEND NOTIFICATION
-            $this->SEND_UPDATE_NOTIFICATION(
-                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-                $customer['customerId'],$category['categoryName'],'Category'
-            );
+
             return  $this->SUCCESS_RESPONSE("CATEGORY UPDATED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
@@ -91,18 +78,11 @@ class CategoryService
         try {
             //TODO VALIDATION
             $request->validated($request->all());
-            // verify admin
-           // $customer = $this->VERIFY_ADMIN($request['customerId']);
 
             $category = Category::where('categoryId', $request['categoryId'])->first();
             if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             if (!$category->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
-            // SEND NOTIFICATION
-//            $this->SEND_DELETE_NOTIFICATION(
-//                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-//                $customer['customerId'],$category['categoryName'],'Category'
-//            );
             return  $this->SUCCESS_RESPONSE("CATEGORY DELETED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

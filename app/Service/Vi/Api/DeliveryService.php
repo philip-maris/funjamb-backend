@@ -18,36 +18,22 @@ use Illuminate\Http\JsonResponse;
 class DeliveryService
 {
     use ResponseUtil;
-    use IdVerificationUtil;
-    use NotificationUtil;
 
     public function create(CreateDeliveryRequest $request): JsonResponse
     {
         try {
 
             //todo validate
-            $request->validated($request);
+           $validated = $request->validated();
 
-            // verify adnin
-            $customer = $this->VERIFY_ADMIN($request['deliveryCustomerId']);
-
-            $testDelivery = Delivery::where('deliveryState', $request['deliveryState'])->first();
             //todo action
-            $delivery = Delivery::create([
-                'deliveryState'=>$request['deliveryState'],
-                'deliveryStatus'=>$request['deliveryStatus'],
-                'deliveryFee'=>$request['deliveryFee'],
-                'deliveryDescription'=>$request['deliveryDescription']
-            ]);
+            $delivery = Delivery::create($validated);
 
             //todo check its successful
             if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
             // SEND NOTIFICATION
-            $this->SEND_CREATION_NOTIFICATION(
-                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-                $customer['customerId'],$delivery['deliveryState'],'Delivery'
-            );
+
             return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

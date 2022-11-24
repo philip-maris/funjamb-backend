@@ -42,6 +42,10 @@ class CartService
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} {$product['productName']} available");
             }
 
+            if ($validated['cartQuantity'] < 1) {
+                throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "Cannot add product, quantity must be greater than 0");
+            }
+
             //check if cart exist and delete if it exists
             $existCart = Cart::where("cartProductId", $validated['cartProductId'])->first();
             if ($existCart){
@@ -84,7 +88,10 @@ class CartService
              $cart = Cart::where("cartId",$updateCartRequest['cartId'])->first();
              if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "cart cannot be located");
 
-
+            if ($validated['cartQuantity'] < 1) {
+                $cart->delete();
+                throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+            }
              $product = Product::find($updateCartRequest['cartProductId']);
              if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "product  not found");
 
@@ -98,9 +105,9 @@ class CartService
             $response =    $cart->update(array_merge($validated,[
                 "cartTotalAmount"=> (integer)$product['productOfferPrice'] !== 0 ? $product['productOfferPrice'] * $validated['cartQuantity']:$product['productSellingPrice'] * $validated['cartQuantity']
             ]));
-
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
+            $cart->products->get();
             return $this->BASE_RESPONSE($cart->toArray());
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

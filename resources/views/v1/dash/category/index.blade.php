@@ -63,6 +63,9 @@
     <script>
 
         $(document).ready(function () {
+            // Swal({
+            //     text:"helloooo"
+            // })
 
             const addCategoryForm = $('#addCategoryForm')
             const updateCategoryForm = $('#updateCategoryForm')

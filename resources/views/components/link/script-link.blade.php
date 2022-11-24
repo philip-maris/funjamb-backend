@@ -11,7 +11,7 @@
     <script src="{{asset('x-assets-x/vendor/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{asset('x-assets-x/vendor/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('x-assets-x/vendor/php-email-form/validate.js')}}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Template Main JS File -->
     <script src="{{asset('x-assets-x/js/main.js')}}"></script>
 </div>

@@ -81,8 +81,7 @@ class ProductService
             //TODO VALIDATION
             $request->validated($request);
 
-            // verify admin
-            $customer = $this->VERIFY_ADMIN($request['productCustomerId']);
+
             $product = Product::find($request['productId']);
             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "UNABLE TO LOCATE PRODUCT");
             $response = $product->update(array_merge($request->except('productId'),

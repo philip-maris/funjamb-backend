@@ -22,8 +22,7 @@ class Delivery extends Authenticatable
     protected $fillable = [
         'deliveryState',
         'deliveryStatus',
-        'deliveryMinFee',
-        'deliveryMaxFee',
+        'deliveryFee',
         'deliveryDescription',
     ];
 

@@ -1,7 +1,7 @@
 @extends('v1.layout.dash-layout')
 @section('content')
     {{--todo breadcumb--}}
-    <x-breadcumb.base-breadcumb :routeName="$routeName"></x-breadcumb.base-breadcumb>
+{{--    <x-breadcumb.base-breadcumb :routeName="$routeName"></x-breadcumb.base-breadcumb>--}}
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -9,12 +9,12 @@
                     <div class="alert alert-success d-none" id="success"></div>
                     <div class="card-body">
                         <div class="d-flex align-left justify-content-between">
-                            <h5 class="card-title">Categories</h5>
-                            <button data-bs-toggle="modal" data-bs-target="#addCategory"
-                                    class="btn btn-secondary h-25 mt-2">
+                            <h5 class="card-title">Products</h5>
+                            <a href="{{route("addProduct")}}"
+                                 class="btn btn-secondary h-25 mt-2">
                                 <i class="bi bi-plus-circle"></i>
                                 <span>Add</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -22,28 +22,43 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">categoryName</th>
-                                <th scope="col">categoryStatus</th>
-                                <th scope="col">categoryAction</th>
+                                <th scope="col">productName</th>
+                                <th scope="col">productSlug</th>
+                                <th scope="col">productImage</th>
+                                <th scope="col">productSellingPrice</th>
+                                <th scope="col">productOfferPrice</th>
+                                <th scope="col">productDiscount</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody class="tbody">
-                            @foreach($categories as $key => $category)
+                            @foreach($products as $key => $product)
                                 <tr>
                                     <td scope="row">{{$key + 1}}</td>
-                                    <td>{{$category['categoryName']}}</td>
-                                    <td>{{$category['categoryStatus']}}</td>
+                                    <td>{{$product['productName']}}</td>
+                                    <td>{{$product['productSlug']}}</td>
                                     <td>
-                                        <button
-                                                value="{{$category['categoryId']}}"
-                                                updateCategory class="btn btn-primary btn-sm edit">
-                                            Edit
-                                        </button>
-                                        <button
-                                                value="{{$category['categoryId']}}"
-                                                class="btn btn-danger btn-sm delete">
-                                            Delete
-                                        </button>
+                                        <img style="height: 150px; width: 50px;" src="{{$product['productImage']}}">
+                                       </td>
+                                    <td>{{$product['productSellingPrice']}}</td>
+                                    <td>{{$product['productOfferPrice']}}</td>
+                                    <td>{{$product['productDiscount']}}</td>
+                                    <td>{{$product['productStatus']}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a
+                                                href="{{route("editProduct",["id"=>$product['productId']])}}"
+                                                class="btn btn-primary ">
+                                                Edit
+                                            </a>
+                                            <a
+                                                value="{{$product['categoryId']}}"
+                                                class="btn btn-danger  delete">
+                                                Delete
+                                            </a>
+                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -33,7 +33,6 @@ class UpdateProductRequest extends FormRequest
             'productDiscount'=>['nullable'],
             'productQuantity'=>['required'],
             'productCategoryId'=>['required'],
-            'productCustomerId'=>['required'],
         ];
     }
 }

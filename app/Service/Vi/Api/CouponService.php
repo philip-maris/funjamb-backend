@@ -23,8 +23,6 @@ class CouponService
 {
     use ResponseUtil;
     use RandomUtil;
-    use IdVerificationUtil;
-    use NotificationUtil;
 
     public function create(CreateCouponRequest $request): JsonResponse
     {
@@ -43,11 +41,7 @@ class CouponService
             //todo check its successful
             if (!$coupon) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
-            // SEND NOTIFICATION
-//            $this->SEND_CREATION_NOTIFICATION(
-//                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-//                $customer['customerId'],"#{$request['couponValue']}",'Coupon'
-//            );
+
             return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
@@ -61,19 +55,12 @@ class CouponService
             //  validate
             $request->validated($request);
 
-            // verify admin
-            $customer = $this->VERIFY_ADMIN($request['couponCustomerId']);
 
              $coupon = Coupon::where('couponId', $request['couponId'])->first();
              if (!$coupon) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             $response =    $coupon->update(array_merge($request->except('couponId'),
                 ['couponStatus'=>'ACTIVE']));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
-            // SEND NOTIFICATION
-            $this->SEND_UPDATE_NOTIFICATION(
-                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-                $customer['customerId'],"#{$coupon['couponValue']}","#{$request['couponValue']}"
-            );
 
             return $this->SUCCESS_RESPONSE("UPDATE SUCCESSFUL");
         }catch (Exception $ex){
@@ -131,19 +118,13 @@ class CouponService
         try {
             //TODO VALIDATION
             $request->validated($request->all());
-            // verify admin
-            $customer = $this->VERIFY_ADMIN($request['couponCustomerId']);
 
             $coupon = Coupon::where('couponId', $request['couponId'])->first();
             if (!$coupon) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
             if (!$coupon->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
-            // SEND NOTIFICATION
-            $this->SEND_DELETE_NOTIFICATION(
-                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-                $customer['customerId'], "#{$coupon['couponValue']}", 'Coupon'
-            );
+
             return  $this->SUCCESS_RESPONSE("COUPON DELETED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
@@ -164,11 +145,7 @@ class CouponService
                 $customer = Customer::find($customerId);
                 if (!$updateResponse) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
-                // SEND NOTIFICATION
-                $this->SEND_NOTIFICATION(
-                    "{$customer['customerFirstName']} " ."{$customer['customerLastName']} redeemed a #{$coupon['couponValue']} coupon",
-                    'PURPLE',$customer->id,'COUPON REDEEMED'
-                );
+
             }else
             return  $this->BASE_RESPONSE($coupon);
         }catch (Exception $ex){
