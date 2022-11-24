@@ -6,6 +6,7 @@ use App\Http\Requests\V1\Api\Order\CreateOrderRequest;
 use App\Http\Requests\V1\Api\Order\ReadByOrderIdRequest;
 use App\Http\Requests\V1\Api\Order\UpdateOrderRequest;
 use App\Mail\OrderSuccessfulMail;
+use App\Models\V1\Cart;
 use App\Models\V1\Customer;
 use App\Models\V1\Delivery;
 use App\Models\V1\Order;
@@ -23,52 +24,73 @@ use Illuminate\Support\Facades\Mail;
 class OrderService
 {
     use ResponseUtil;
-    use NotificationUtil;
-    use IdVerificationUtil;
 
     public function create(CreateOrderRequest $createOrderRequest): JsonResponse
     {
         try {
 
             //  validate
-            $createOrderRequest->validated();
+            $validate = $createOrderRequest->validated();
+            //dd($createOrderRequest->all());
+
             //  action
+            $customer = Customer::find($createOrderRequest['orderCustomerId']);
+            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD,"Customer not located");
+            $carts = Cart::where("cartCustomerId", $createOrderRequest['orderCustomerId'])->get();
+            if (empty($carts->toArray())) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Cart items is empty");
+
             $delivery = Delivery::find($createOrderRequest['orderDeliveryId']);
-            if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "delivery not found");
 
-            $order = Order::create(array_merge($createOrderRequest->all(),['orderStatus'=>'PENDING']));
-
+            $order = $customer->orders()->create(
+                array_merge($createOrderRequest->only([
+                    "orderCustomerId",
+                    "orderDeliveryId",
+                    "orderTotalAmount",
+                    "orderReference",
+                    "orderPaymentMethod",
+                    "orderSubTotalAmount",
+                ]),['orderStatus'=>'PENDING'])
+            );
             //  check if successful
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-            //  send email
-            // mark all items in the cart as pending
-            $customer = Customer::find($createOrderRequest['orderCustomerId']);
-            $email =  Mail::to($customer['customerEmail'])->send(new OrderSuccessfulMail());
-            //check if email sent
-            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
-            // SEND NOTIFICATION
-//            $this->SEND_NOTIFICATION(
-//                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just placed an order",
-//                'GREEN',$customer->id,'NEW ORDER'
-//            );
+
+
+            // mark all items in the cart as pending
+//            $customer = Customer::find($createOrderRequest['orderCustomerId']);
+//            $email =  Mail::to($customer['customerEmail'])->send(new OrderSuccessfulMail());
+            //check if email sent
+//            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             // create order details
-            $orderDetail = OrderDetail::create([
-                'orderDetailFirstName'=>$customer['customerFirstName'],
-                'orderDetailLastName'=>$customer['customerLastName'],
-                'orderDetailOrderId'=>$order['orderId'],
-                'orderDetailEmail'=>$customer['customerEmail'],
-                'orderDetailPhone'=>$customer['customerPhone'],
-                'orderDetailAddress'=>$customer['customerAddress'],
-                'orderDetailState'=>$customer['customerState'],
+          //  dd($order);
+            $orderDetail = $order->orderDetails()->create([
+                'orderDetailFirstName'=>$validate['orderDetailsFirstName'],
+                'orderDetailLastName'=>$validate['orderDetailsLastName'],
+                'orderDetailEmail'=>$validate['orderDetailsEmail'],
+                'orderDetailPhone'=>$validate['orderDetailsPhone'],
+                'orderDetailAddress'=>$validate['orderDetailsAddress'],
+                'orderDetailState'=>$validate['orderDetailsState'],
             ]);
+
             //  check if successful
             if (!$orderDetail) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
+//            dd($cart);
+            foreach ($carts as $key => $cart){
+//                dd($cart);
+                $orderItem = $order->orderItems()->create([
+                    "orderItemProductId"=>$cart["cartProductId"],
+                    "orderItemQuantity"=>$cart["cartQuantity"],
+                    "orderItemTotalAmount"=>$cart["cartTotalAmount"],
+                ]);
+                if (!$orderItem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "unable to create order item");
 
-            $data[] = array_merge($order->toArray(),
-                ['orderDetail' => $orderDetail->toArray()]);
-            return $this->BASE_RESPONSE($data);
+                if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+//                dd($key);
+            }
+
+            return $this->SUCCESS_RESPONSE("Order Created Successful");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

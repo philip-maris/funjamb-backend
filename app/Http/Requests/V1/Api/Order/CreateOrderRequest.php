@@ -30,6 +30,12 @@ class CreateOrderRequest extends FormRequest
             'orderReference'=>['required'],
             'orderPaymentMethod'=>['required'],
             'orderSubTotalAmount'=>['required'],
+            'orderDetailsFirstName'=>['required'],
+            'orderDetailsLastName'=>['required'],
+            'orderDetailsEmail'=>['required'],
+            'orderDetailsPhone'=>['required'],
+            'orderDetailsAddress'=>['required'],
+            'orderDetailsState'=>['required']
         ];
     }
 }

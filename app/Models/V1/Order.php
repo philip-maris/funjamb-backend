@@ -37,12 +37,12 @@ class Order extends Authenticatable
 
     public function orderItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(OrderItem::class,'orderItemOrderId', 'orderItemId');
+        return $this->hasMany(OrderItem::class,'orderItemOrderId', 'orderId');
     }
 
     public function orderDetails(): HasOne
     {
-        return $this->hasOne(OrderDetail::class,'orderDetailOrderId', 'orderDetailId');
+        return $this->hasOne(OrderDetail::class,'orderDetailOrderId', 'orderId');
     }
 
 

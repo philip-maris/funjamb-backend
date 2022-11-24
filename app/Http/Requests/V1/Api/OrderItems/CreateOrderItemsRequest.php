@@ -24,10 +24,10 @@ class CreateOrderItemsRequest extends FormRequest
     public function rules()
     {
         return [
-            'orderItemsOrderId'=>['required'],
-            'orderItemsProductId'=>['required'],
-            'orderItemsQuantity'=>['required'],
-            'orderItemsTotalAmount'=>['required'],
+            'orderItems.*.OrderId'=>['required'],
+            'orderItems.*.ProductId'=>['required'],
+            'orderItems.*.Quantity'=>['required'],
+            'orderItems.*.TotalAmount'=>['required'],
         ];
     }
 }
