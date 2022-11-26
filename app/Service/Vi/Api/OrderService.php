@@ -108,6 +108,18 @@ class OrderService
 //                dd($key);
             }
 
+            //todo send email
+            $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
+            $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
+                $fullName,
+                $delivery['deliveryMinFee'],
+                $createOrderRequest['orderDetailsAddress'],
+                $createOrderRequest['orderSubTotalAmount'],
+                $createOrderRequest['orderTotalAmount']
+            ));
+            //todo check if not email sent
+            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+
             return $this->SUCCESS_RESPONSE("Order Created Successful");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
