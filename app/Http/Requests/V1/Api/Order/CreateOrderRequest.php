@@ -28,7 +28,7 @@ class CreateOrderRequest extends FormRequest
             'orderDeliveryId'=>['required'],
             'orderTotalAmount'=>['required'],
             'orderReference'=>['required'],
-            'orderPaymentMethod'=>['required'],
+            'orderPaymentSystemId'=>['required'],
             'orderSubTotalAmount'=>['required'],
             'orderDetailsFirstName'=>['required'],
             'orderDetailsLastName'=>['required'],
