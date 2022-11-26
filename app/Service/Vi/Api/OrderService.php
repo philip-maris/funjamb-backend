@@ -50,7 +50,7 @@ class OrderService
 
             if (strtolower($paymentSystem["paymentSystemType"]) == "paystack"){
 //                dd($paymentSystem["paymentSystemKey"]);
-                $resPaystack =  Http::withToken($paymentSystem["paymentSystemKey"])->get("$paymentSystem->paymentSystemUrl/" . $validate['orderReference'])->json();
+                $resPaystack =  Http::withToken($paymentSystem["paymentSystemKey"])->get("$paymentSystem->paymentSystemUrl/{$validate['orderReference']}")->json();
                 if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
             }
 
