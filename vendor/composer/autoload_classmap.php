@@ -120,6 +120,7 @@ return array(
     'App\\Mail\\OrderSuccessfulMail' => $baseDir . '/app/Mail/OrderSuccessfulMail.php',
     'App\\Mail\\OtpMail' => $baseDir . '/app/Mail/OtpMail.php',
     'App\\Mail\\WelcomeMail' => $baseDir . '/app/Mail/WelcomeMail.php',
+    'App\\Models\\PaymentSystem' => $baseDir . '/app/Models/PaymentSystem.php',
     'App\\Models\\V1\\Banner' => $baseDir . '/app/Models/V1/Banner.php',
     'App\\Models\\V1\\BannerType' => $baseDir . '/app/Models/V1/BannerType.php',
     'App\\Models\\V1\\Brand' => $baseDir . '/app/Models/V1/Brand.php',

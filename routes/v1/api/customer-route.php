@@ -6,7 +6,7 @@
 use App\Http\Controllers\V1\Api\CustomersController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
 
     Route::controller(CustomersController::class)->group(function () {
         Route::get('/read-customer', 'read');
@@ -26,4 +26,4 @@ Route::prefix('v1')->group(function () {
 
     });
 
-});
+

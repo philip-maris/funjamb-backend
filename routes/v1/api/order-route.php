@@ -5,7 +5,7 @@
 use App\Http\Controllers\V1\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::get('/read-orders', 'read');
@@ -14,4 +14,4 @@ Route::prefix('v1')->group(function () {
             Route::post('/update-order', 'update');
         });
     });
-});
+

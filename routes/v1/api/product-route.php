@@ -5,7 +5,7 @@
 use App\Http\Controllers\V1\Api\ProductsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
     Route::controller(ProductsController::class)
         ->group(function () {
             Route::post('/create-product', 'create')->name("createProduct");
@@ -20,4 +20,4 @@ Route::prefix('v1')->group(function () {
             Route::post('/delete-product', 'delete')->name("deleteProduct");
         });
 
-});
+

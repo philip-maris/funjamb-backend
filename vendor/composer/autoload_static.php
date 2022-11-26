@@ -628,6 +628,7 @@ class ComposerStaticInit3725b05df491dd05664d2f1745ada4c2
         'App\\Mail\\OrderSuccessfulMail' => __DIR__ . '/../..' . '/app/Mail/OrderSuccessfulMail.php',
         'App\\Mail\\OtpMail' => __DIR__ . '/../..' . '/app/Mail/OtpMail.php',
         'App\\Mail\\WelcomeMail' => __DIR__ . '/../..' . '/app/Mail/WelcomeMail.php',
+        'App\\Models\\PaymentSystem' => __DIR__ . '/../..' . '/app/Models/PaymentSystem.php',
         'App\\Models\\V1\\Banner' => __DIR__ . '/../..' . '/app/Models/V1/Banner.php',
         'App\\Models\\V1\\BannerType' => __DIR__ . '/../..' . '/app/Models/V1/BannerType.php',
         'App\\Models\\V1\\Brand' => __DIR__ . '/../..' . '/app/Models/V1/Brand.php',

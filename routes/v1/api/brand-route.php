@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 //todo public brand route
 
 
-Route::prefix('v1')->group(function () {
+
     Route::controller(BrandsController::class)
         ->group(function () {
             Route::post('/create-brand', 'create')->name('createBrand');
@@ -17,4 +17,4 @@ Route::prefix('v1')->group(function () {
             Route::post('/read-brand-by-id', 'readById')->name('readByIdBrand');
             Route::post('/delete-brand', 'delete')->name('deleteBrand');
         });
-});
+

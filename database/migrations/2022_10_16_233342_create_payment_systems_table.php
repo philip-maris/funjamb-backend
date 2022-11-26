@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deliveries', function (Blueprint $table) {
-            $table->id("deliveryId");
-            $table->string("deliveryState")->nullable();
-            $table->decimal("deliveryFee")->nullable();
-            $table->longText("deliveryDescription")->nullable();
-            $table->string("deliveryStatus")->default("ACTIVE");
+        Schema::create('payment_systems', function (Blueprint $table) {
+            $table->id("paymentSystemId");
+            $table->string("paymentSystemType")->nullable();
+            $table->string("paymentSystemUrl")->nullable();
+            $table->string("paymentSystemKey")->nullable();
+            $table->string("paymentSystemStatus")->default("Active");
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliveries');
+        Schema::dropIfExists('payment_systems');
     }
 };

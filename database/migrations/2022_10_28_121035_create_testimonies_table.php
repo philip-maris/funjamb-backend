@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('testimonies', function (Blueprint $table) {
             $table->id('testimonyId');
             $table->string('testimonyContent')->nullable();
+            $table->string('testimonyRate')->nullable();
             $table->foreignId('testimonyCustomerId')
                 ->constrained('customers', 'customerId');
             $table->string('testimonyStatus')->default("Active");

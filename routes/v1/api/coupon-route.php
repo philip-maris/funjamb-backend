@@ -4,7 +4,7 @@
 use App\Http\Controllers\V1\Api\CouponController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
 
     Route::controller(CouponController::class)->group(function () {
         Route::get('/read-coupons', 'read');
@@ -15,4 +15,4 @@ Route::prefix('v1')->group(function () {
         Route::post('/delete-coupon', 'delete');
     });
 
-});
+

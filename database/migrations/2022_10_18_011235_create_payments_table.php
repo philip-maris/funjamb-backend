@@ -21,7 +21,8 @@ return new class extends Migration
                 ->constrained('orders', 'orderId');
             $table->decimal('paymentAmount')->nullable();
             $table->string('paymentReference')->nullable();
-            $table->string('paymentPaymentMethod')->nullable();
+            $table->foreignId("paymentPaymentSystemId")
+                ->constrained("payment_systems", "paymentSystemId");
             $table->string('paymentStatus')->default("ACTIVE");
             $table->timestamps();
         });

@@ -4,7 +4,6 @@
 use App\Http\Controllers\V1\Api\ReviewController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::controller(ReviewController::class)->group(function () {
@@ -14,4 +13,4 @@ Route::prefix('v1')->group(function () {
             Route::post('/read-product-review', 'readByProductId');
         });
     });
-});
+

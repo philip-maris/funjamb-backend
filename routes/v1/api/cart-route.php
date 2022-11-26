@@ -4,7 +4,7 @@
 use App\Http\Controllers\V1\Api\CartController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
 
 
 
@@ -22,4 +22,3 @@ Route::prefix('v1')->group(function () {
 
     });
 
-});

@@ -4,7 +4,7 @@
 use App\Http\Controllers\V1\Api\AuthenticationsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+
     Route::controller(AuthenticationsController::class)
         ->group(function () {
             Route::post('/initiate-enrollment', 'initiateEnrollment');
@@ -27,4 +27,4 @@ Route::prefix('v1')->group(function () {
 
     });
 
-});
+

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id('couponId');
             $table->string('couponCode')->nullable();
-            $table->string('couponValue')->nullable();
+            $table->timestamp('couponExpiredAt')->nullable();
             $table->string('couponStatus')->default("ACTIVE");
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ use App\Models\V1\Customer;
 use App\Models\V1\Delivery;
 use App\Models\V1\Order;
 use App\Models\V1\OrderDetail;
+use App\Models\V1\PaymentSystem;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\ResponseUtil;
@@ -18,6 +19,7 @@ use App\Util\ExceptionUtil\ExceptionCase;
 use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -31,20 +33,36 @@ class OrderService
 
             //  validate
             $validate = $createOrderRequest->validated();
-            //dd($createOrderRequest->all());
 
             //  action
             $customer = Customer::find($createOrderRequest['orderCustomerId']);
             if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD,"Customer not located");
+
+
             $carts = Cart::where("cartCustomerId", $createOrderRequest['orderCustomerId'])->get();
             if (empty($carts->toArray())) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Cart items is empty");
 
             $delivery = Delivery::find($createOrderRequest['orderDeliveryId']);
             if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "delivery not found");
 
+         $paymentSystem = PaymentSystem::find($createOrderRequest['orderPaymentSystemId']);
+            if (!$paymentSystem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "payment system not found");
+
+            if (strtolower($paymentSystem["paymentSystemType"]) == "paystack"){
+                $resPaystack =  Http::withToken($paymentSystem["paymentSystemKey"])->get("https://api.paystack.co/transaction/verify/" . $validate['orderReference'])->json();
+                if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
+            }
+
+//            $resBizgem =  Http::withToken(env('PAYSTACK_SECRET_KEY'))->post("https://api.bizgem.io/virtual-account/transaction-status-query", [
+//                "reference"=> $validate['orderReference']
+//            ])->json();
+
+
+
             $order = $customer->orders()->create(
                 array_merge($createOrderRequest->only([
                     "orderCustomerId",
+                    "orderPaymentSystemId",
                     "orderDeliveryId",
                     "orderTotalAmount",
                     "orderReference",
