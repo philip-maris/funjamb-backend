@@ -50,8 +50,10 @@ class OrderService
 
             if (strtolower($paymentSystem["paymentSystemType"]) == "paystack"){
 //                dd($paymentSystem["paymentSystemKey"]);
-                $resPaystack =  Http::withToken($paymentSystem["paymentSystemKey"])->get("$paymentSystem->paymentSystemUrl/{$validate['orderReference']}")->json();
+                $resPaystack =  Http::withToken(env("PAYSTACK_SECRET_KEY"))->get("https://api.paystack.co/transaction/verify/{$validate['orderReference']}")->json();
                 if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
+            }else{
+                throw new ExceptionUtil(ExceptionCase::SYSTEM_MALFUNCTION, "Only paystack is available now");
             }
 
 //            $resBizgem =  Http::withToken(env('PAYSTACK_SECRET_KEY'))->post("https://api.bizgem.io/virtual-account/transaction-status-query", [
