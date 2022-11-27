@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
+            $table->string("orderDeliveryEstimatedDate")->nullable();
             $table->string("orderTrackingCode")->nullable();
             $table->string("orderDeliveryStatus")->default("Pending");
         });
@@ -27,6 +28,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn("orderDeliveryEstimatedDate");
             $table->dropColumn("orderTrackingCode");
             $table->dropColumn("orderDeliveryStatus");
         });

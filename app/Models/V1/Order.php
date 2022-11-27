@@ -29,6 +29,7 @@ class Order extends Authenticatable
         'orderPaymentMethod',
         'orderSubTotalAmount',
         "orderTrackingCode",
+        "orderDeliveryEstimatedDate",
         "orderDeliveryStatus",
         'orderStatus',
     ];

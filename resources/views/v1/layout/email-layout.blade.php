@@ -137,10 +137,13 @@
                                             <td>
                                                 <div align="center" style="line-height:10px"><a
                                                         href="" style="outline:none"
-                                                        tabindex="-1" target="_blank"><img alt="kosman wine logo"
-                                                                                           src="{{asset('x-assets-x/img/kosmanLogo.svg')}}"
+                                                        tabindex="-1" target="_blank">
+{{--                                                        {{ asset('x-assets-x/img/kosmanLogo.svg') --}}
+                                                            <img alt="kosman wine logo"
+                                                                 src="{{asset('x-assets-x/img/kosmanLogo.svg')}}"
                                                                                            style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;"
-                                                                                           width="160"/></a></div>
+                                                                                           width="160"/>
+                                                    </a></div>
                                             </td>
                                         </tr>
                                     </table>

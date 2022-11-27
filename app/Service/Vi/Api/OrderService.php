@@ -13,6 +13,7 @@ use App\Models\V1\Delivery;
 use App\Models\V1\Order;
 use App\Models\V1\OrderDetail;
 use App\Models\V1\PaymentSystem;
+use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\RandomUtil;
@@ -29,7 +30,7 @@ class OrderService
 {
     use ResponseUtil;
     use RandomUtil;
-
+    use DateTimeUtil;
     public function create(CreateOrderRequest $createOrderRequest): JsonResponse
     {
         try {
@@ -73,7 +74,7 @@ class OrderService
                     "orderTotalAmount",
                     "orderReference",
                     "orderSubTotalAmount",
-                ]),['orderStatus'=>'PENDING', "orderTrackingCode"=>$this->RANDOM_STRING()])
+                ]),['orderDeliveryEstimatedDate'=>$this->addTimestamp(days: 3), "orderTrackingCode"=>$this->RANDOM_STRING()])
             );
             //  check if successful
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);

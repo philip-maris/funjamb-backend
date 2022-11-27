@@ -22,7 +22,7 @@ trait DateTimeUtil
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
     }
 
-    public function addTimestamp($min="", $hr="", $sec=""): \Illuminate\Support\Carbon|string
+    public function addTimestamp($min="", $hr="", $sec="", $days=""): \Illuminate\Support\Carbon|string
     {
         $now =  Carbon::now();
         if ($min !==""){
@@ -31,7 +31,10 @@ trait DateTimeUtil
             return $now->addHour($hr)->toDateTimeString();
         }elseif ($sec !==""){
             return $now->addSecond($sec)->toDateTimeString();
-        }else{
+        }elseif ($days !==""){
+            return $now->addDays($days)->toDateTimeString();
+        }
+        else{
             return strtotime($now);
         }
 
