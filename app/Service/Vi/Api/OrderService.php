@@ -15,6 +15,7 @@ use App\Models\V1\OrderDetail;
 use App\Models\V1\PaymentSystem;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
+use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
 use App\Util\ExceptionUtil\ExceptionCase;
 use App\Util\ExceptionUtil\ExceptionUtil;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\Mail;
 class OrderService
 {
     use ResponseUtil;
+    use RandomUtil;
 
     public function create(CreateOrderRequest $createOrderRequest): JsonResponse
     {
@@ -71,7 +73,7 @@ class OrderService
                     "orderTotalAmount",
                     "orderReference",
                     "orderSubTotalAmount",
-                ]),['orderStatus'=>'PENDING'])
+                ]),['orderStatus'=>'PENDING', "orderTrackingCode"=>$this->RANDOM_STRING()])
             );
             //  check if successful
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
@@ -207,6 +209,7 @@ class OrderService
 //            $orderDetail = OrderDetail::where('orderDetailOrderId',$request['orderId']);
 //            if (!$orderDetail)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
             $order->orderDetails;
+
             $order->orderItems;
 //            $data[] = array_merge($order->toArray(),
 //                ['orderDetail' => $orderDetail->toArray()]);

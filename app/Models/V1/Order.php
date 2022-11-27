@@ -28,6 +28,8 @@ class Order extends Authenticatable
         'orderReference',
         'orderPaymentMethod',
         'orderSubTotalAmount',
+        "orderTrackingCode",
+        "orderDeliveryStatus",
         'orderStatus',
     ];
 
