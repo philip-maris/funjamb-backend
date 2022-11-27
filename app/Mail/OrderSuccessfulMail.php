@@ -14,7 +14,7 @@ class OrderSuccessfulMail extends Mailable
     public string $fullName;
     public string $orderSubTotal;
     public string $orderTotal;
-    public string $orderDeliveryFee;
+    public int $orderDeliveryFee;
     public string $orderDetailAddress;
 
     /**

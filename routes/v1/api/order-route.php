@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
             Route::get('/read-orders', 'read');
             Route::post('/create-order', 'create');
             Route::post('/read-order-by-id', 'readById');
+            Route::post('/read-order-by-customer-id', 'readByCustomerId');
             Route::post('/update-order', 'update');
         });
     });

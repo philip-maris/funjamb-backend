@@ -4,6 +4,7 @@ namespace App\Service\Vi\Api;
 
 use App\Http\Requests\V1\Api\Order\CreateOrderRequest;
 use App\Http\Requests\V1\Api\Order\ReadByOrderIdRequest;
+use App\Http\Requests\V1\Api\Order\ReadOrderByCustomerId;
 use App\Http\Requests\V1\Api\Order\UpdateOrderRequest;
 use App\Mail\OrderSuccessfulMail;
 use App\Models\V1\Cart;
@@ -114,7 +115,7 @@ class OrderService
             $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
             $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
                 $fullName,
-                $delivery['deliveryMinFee'],
+                $delivery['deliveryFee'],
                 $createOrderRequest['orderDetailsAddress'],
                 $createOrderRequest['orderSubTotalAmount'],
                 $createOrderRequest['orderTotalAmount']
@@ -187,6 +188,29 @@ class OrderService
             $data[] = array_merge($order->toArray(),
                 ['orderDetail' => $orderDetail->toArray()]);
             return $this->BASE_RESPONSE($data);
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+
+    }
+
+    public function readByCustomerId(ReadOrderByCustomerId $request): JsonResponse
+    {
+        try {
+            //todo validation
+            $request->validated();
+
+            //todo action
+            $order = Order::where('orderCustomerId', $request['orderCustomerId'])->first();
+            if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+
+//            $orderDetail = OrderDetail::where('orderDetailOrderId',$request['orderId']);
+//            if (!$orderDetail)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+            $order->orderDetails;
+            $order->orderItems;
+//            $data[] = array_merge($order->toArray(),
+//                ['orderDetail' => $orderDetail->toArray()]);
+            return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
