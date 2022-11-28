@@ -45,7 +45,7 @@ class ProductService
         $fileName = time().'_'.$productImage->getClientOriginalName();
 
         $img = Image::make($productImage->path());
-         $img->resize(150, 150)->save(public_path('storage/uploads/'. $fileName));
+         $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
 
 
         //calculate product discount
