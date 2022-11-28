@@ -46,8 +46,13 @@ class ProductService
           /*todo check if file exist */
             if (!$request->hasFile('productImage'))
                 throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Invalid image");
-            $fileName = time().'_'.$request->file('productImage')->getClientOriginalName();
-            $request->file('productImage')->move(public_path('storage/uploads'), $fileName);
+
+            $productImage = $request->file('productImage');
+
+
+            $fileName = time().'_'.$productImage->getClientOriginalName();
+
+            $productImage->move(public_path('storage/uploads'), $fileName);
 
             //calculate product discount
             $productDiscount = 0;

@@ -9,6 +9,7 @@ use App\Models\V1\Category;
 use App\Models\V1\Product;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ProductService
 {
@@ -39,10 +40,15 @@ class ProductService
             /*todo check if file exist */
             if (!$request->hasFile('productImage'))
                 return back()->with(["type"=>"success", "status"=> "Invalid image"]);
-            $fileName = time().'_'.$request->file('productImage')->getClientOriginalName();
-            $request->file('productImage')->move(public_path('storage/uploads'), $fileName);
 
-            //calculate product discount
+        $productImage = $request->file('productImage');
+        $fileName = time().'_'.$productImage->getClientOriginalName();
+
+        $img = Image::make($productImage->path());
+         $img->resize(150, 150)->save(public_path('storage/uploads/'. $fileName));
+
+
+        //calculate product discount
             $productDiscount = 0;
             //dd((integer)$validated['productSellingPrice'] !== 0);
             if ((integer)$validated['productOfferPrice'] !== 0 ){
