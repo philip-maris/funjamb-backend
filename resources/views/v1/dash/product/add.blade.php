@@ -35,7 +35,7 @@
                             @csrf
                             <div class="col-md-12">
                                 <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" name="productName" class="form-control" id="productName">
+                                <input type="text" name="productName" value="{{old("productName")}}" class="form-control" id="productName">
                                 @error('productName')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
@@ -43,9 +43,10 @@
                             <div class="col-md-6">
                                 <label for="productCategoryId" class="form-label">Category</label>
                                 <select id="productCategoryId" name="productCategoryId" class="form-select">
-                                    <option selected>Choose...</option>
+                                    <option >Choose...</option>
+
                                     @foreach($categories as $key => $category)
-                                        <option value="{{ $category['categoryId'] }}">{{ $category['categoryName'] }}</option>
+                                        <option @selected(old("productCategoryId") == $category['categoryId']) value="{{ $category['categoryId'] }}">{{ $category['categoryName'] }}</option>
                                     @endforeach
                                 </select>
                                 @error('productCategoryId')
@@ -55,9 +56,9 @@
                             <div class="col-md-6">
                                 <label for="productBrandId" class="form-label">Brand</label>
                                 <select id="productBrandId" name="productBrandId" class="form-select">
-                                    <option selected>Choose...</option>
+                                    <option>Choose...</option>
                                     @foreach($brands as $key => $brand)
-                                        <option value="{{ $brand['brandId'] }}">{{ $brand['brandName'] }}</option>
+                                        <option @selected(old("productBrandId") == $brand['brandId']) value="{{ $brand['brandId'] }}">{{ $brand['brandName'] }}</option>
                                     @endforeach
                                 </select>
                                 @error('productBrandId')
@@ -67,6 +68,7 @@
                             <div class="col-6">
                                 <label for="productSellingPrice" class="form-label">Product Selling Price</label>
                                 <input type="text" name="productSellingPrice" class="form-control"
+                                       value="{{old("productSellingPrice")}}"
                                        id="productSellingPrice" placeholder="0.00">
                                 @error('productSellingPrice')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
@@ -74,7 +76,7 @@
                             </div>
                             <div class="col-6">
                                 <label for="productOfferPrice" class="form-label">Product Offer Price</label>
-                                <input type="text" name="productOfferPrice" class="form-control" id="productOfferPrice"
+                                <input type="text" name="productOfferPrice" value="{{old("productOfferPrice")}}" class="form-control" id="productOfferPrice"
                                        placeholder="0.00">
                                 @error('productOfferPrice')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
@@ -82,7 +84,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="productQuantity" class="form-label">Product Quantity</label>
-                                <input type="text" class="form-control" name="productQuantity" id="productQuantity"
+                                <input type="text" class="form-control" name="productQuantity" id="productQuantity" value="{{old("productQuantity")}}"
                                        placeholder="0">
                                 @error('productQuantity')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
@@ -90,7 +92,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="productImage" class="form-label">Product Image</label>
-                                <input type="file" name="productImage" class="form-control" id="productImage">
+                                <input type="file" value="{{old("productImage")}}" name="productImage" class="form-control" id="productImage">
                                 @error('productImage')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
@@ -102,7 +104,9 @@
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                                 <textarea name="productDescription" id="productDescription"
-                                          class="tinymce-editor"></textarea>
+                                          class="tinymce-editor">
+                                    {{old("productDescription")}}
+                                </textarea>
 
                             </div>
                             <div class="text-center">

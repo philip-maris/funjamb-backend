@@ -1,7 +1,7 @@
 @extends('v1.layout.dash-layout')
 @section('content')
     {{--todo breadcumb--}}
-{{--    <x-breadcumb.base-breadcumb :routeName="$routeName"></x-breadcumb.base-breadcumb>--}}
+    {{--    <x-breadcumb.base-breadcumb :routeName="$routeName"></x-breadcumb.base-breadcumb>--}}
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -11,7 +11,7 @@
                         <div class="d-flex align-left justify-content-between">
                             <h5 class="card-title">Categories</h5>
                             <a href="{{route("addCategory")}}"
-                                    class="btn btn-secondary h-25 mt-2">
+                               class="btn btn-secondary h-25 mt-2">
                                 <i class="bi bi-plus-circle"></i>
                                 <span>Add</span>
                             </a>
@@ -35,11 +35,11 @@
                                     <td>{{$category['categoryStatus']}}</td>
                                     <td>
                                         <a href="{{route("editCategory", ['categoryId'=>$category['categoryId']])}}"
-                                                 class="btn btn-primary btn-sm edit">
+                                           class="btn btn-primary btn-sm edit">
                                             Edit
                                         </a>
                                         <a href="{{route("deleteCategory", ["categoryId"=>$category['categoryId']])}}"
-                                                class="btn btn-danger btn-sm">
+                                           class="btn btn-danger btn-sm">
                                             Delete
                                         </a>
                                     </td>
