@@ -6,7 +6,7 @@
                     {{$item['heading']}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#{{$item['navItem']}}" data-bs-toggle="collapse" href="{{isset($item['link']) ? asset("{$item['link']}") : "#"}}">
+                    <a class="nav-link collapsed" data-bs-target="#{{$item['navItem']}}" data-bs-toggle="collapse" href="{{isset($item['link']) ? route("{$item['link']}") : "#"}}">
                         <i class="{{$item['icon']}}"></i>
                         <span>
                              {{$item['navItem']}}
