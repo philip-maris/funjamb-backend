@@ -5,34 +5,27 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-                <div class="alert alert-success d-none" id="success"></div>
-                <div class="alert alert-danger d-none" id="error"></div>
                 <div class="card">
-                    <div class="alert alert-success d-none" id="success"></div>
                     <div class="card-body">
                         <div class="d-flex align-left justify-content-between">
-                            <h5 class="card-title">Add Product</h5>
+                            <h5 class="card-title">Edit Product</h5>
                             <a href="{{route("products")}}"
                                class="btn btn-secondary h-25 mt-2">
                                 <i class="bi bi-arrow-left"></i>
                                 <span>Back</span>
                             </a>
                         </div>
-                        @if(session("status"))
-                            <script>
-                                swal({
-                                    html: {{session("status")}},
-                                    icon:{{session("type")}}
-                                });
-                            </script>
-                        @endif
+
                         <form class="row g-3"
 
-                              action="{{route('storeProduct')}}"
+                              action="{{route('updateProduct')}}"
                               method="post"
                               enctype="multipart/form-data"
                         >
                             @csrf
+                            <input type="hidden"
+                                   value="{{$product["productId"]}}"
+                                   name="productId" class="form-control" id="productName">
                             <div class="col-md-12">
                                 <label for="productName" class="form-label">Product Name</label>
                                 <input type="text"

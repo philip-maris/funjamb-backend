@@ -20,18 +20,13 @@ class BrandService
 
     public function create(CreateBrandRequest $request): JsonResponse
     {
-        try {
-            //TODO VALIDATION
-            $request->validated($request);
-            $response = Brand::create(array_merge($request->all(),
-                ['brandStatus' => 'ACTIVE']));
-            if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-
-
-            return $this->SUCCESS_RESPONSE("BRAND CREATED SUCCESSFUL");
-        } catch (Exception $ex) {
-            return $this->ERROR_RESPONSE($ex->getMessage());
-        }
+//        try {
+//            //TODO VALIDATION
+//
+//            return $this->SUCCESS_RESPONSE("BRAND CREATED SUCCESSFUL");
+//        } catch (Exception $ex) {
+//            return $this->ERROR_RESPONSE($ex->getMessage());
+//        }
     }
 
     public function update(UpdateBrandRequest $request): JsonResponse

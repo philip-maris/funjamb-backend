@@ -18,7 +18,7 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-book-half',
-                    'title' => 'View Users',
+                    'title' => 'view',
                     'link' => 'customers',
                 ],
             ],
@@ -30,12 +30,12 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-book-half',
-                    'title' => 'View staffs',
+                    'title' => 'view',
                     'link' => 'customers',
                 ],
                 [
                     'icon' => 'bi bi-book-half',
-                    'title' => 'Add staffs',
+                    'title' => 'add',
                     'link' => 'customers',
                 ],
             ],
@@ -47,8 +47,13 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'categories',
+                    'title' => 'view',
                     'link' => 'categories',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
+                    'link' => 'addCategory',
                 ],
             ],
         ],
@@ -59,8 +64,13 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'brands',
+                    'title' => 'view',
                     'link' => 'brands',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
+                    'link' => 'addBrand',
                 ],
             ],
         ],
@@ -71,8 +81,13 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'products',
+                    'title' => 'view',
                     'link' => 'products',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
+                    'link' => 'addProduct',
                 ],
             ],
         ],
@@ -83,7 +98,12 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'deliveries',
+                    'title' => 'view',
+                    'link' => 'deliveries',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
                     'link' => 'deliveries',
                 ],
             ],
@@ -95,7 +115,7 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'orders',
+                    'title' => 'view',
                     'link' => 'orders',
                 ],
             ],
@@ -107,7 +127,7 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'subscriptions',
+                    'title' => 'view',
                     'link' => 'orders',
                 ],
             ],
@@ -143,7 +163,12 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'banner-type',
+                    'title' => 'view',
+                    'link' => 'brands',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
                     'link' => 'brands',
                 ],
             ],
@@ -155,7 +180,12 @@ trait SidebarListUtil
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
-                    'title' => 'banners',
+                    'title' => 'view',
+                    'link' => 'brands',
+                ],
+                [
+                    'icon' => 'bi bi-bag',
+                    'title' => 'add',
                     'link' => 'brands',
                 ],
             ],

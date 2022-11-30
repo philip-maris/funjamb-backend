@@ -19,6 +19,8 @@
 </head>
 
 <body>
+@include('sweetalert::alert')
+
 {{--todo  nav bar--}}
 <x-bar.nav-bar></x-bar.nav-bar>
 {{--todo side bar--}}

@@ -22,9 +22,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">categoryName</th>
-                                <th scope="col">categoryStatus</th>
-                                <th scope="col">categoryAction</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody class="tbody">
@@ -34,11 +34,10 @@
                                     <td>{{$category['categoryName']}}</td>
                                     <td>{{$category['categoryStatus']}}</td>
                                     <td>
-                                        <button
-                                                value="{{$category['categoryId']}}"
+                                        <a href="{{route("editCategory", ['categoryId'=>$category['categoryId']])}}"
                                                  class="btn btn-primary btn-sm edit">
                                             Edit
-                                        </button>
+                                        </a>
                                         <button
                                                 value="{{$category['categoryId']}}"
                                                 class="btn btn-danger btn-sm delete">
@@ -56,143 +55,5 @@
 
             </div>
         </div>
-        @include('components.modal.CategoryModal')
     </section>
-@endsection
-@section('scripts')
-    <script>
-
-        $(document).ready(function () {
-            // Swal({
-            //     text:"helloooo"
-            // })
-
-            const addCategoryForm = $('#addCategoryForm')
-            const updateCategoryForm = $('#updateCategoryForm')
-            //todo add submit
-            addCategoryForm.on('submit', function (e) {
-                e.preventDefault()
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                $.ajax({
-                    type: addCategoryForm.attr('method'),
-                    url: addCategoryForm.attr('action'),
-                    data: addCategoryForm.serialize(),
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            $('#addCategory').modal('hide')
-                            addCategoryForm.trigger('reset')
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        }
-
-                    },
-                    error: (error) => {
-                        $('#success').addClass('d-block')
-                        $('#error').removeClass('d-none').text(error.responseJSON.message)
-                    }
-
-                })
-            })
-            //todo fetch category by id
-            $('.edit').on('click', function (e) {
-                e.preventDefault()
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                const data = {
-                    categoryId: $(this).val()
-                }
-                $('#updateCategory').modal('show')
-                $.ajax({
-                    type: 'POST',
-                    url: '{{route('readByIdCategory')}}',
-                    data: data,
-                    success: (response) => {
-                        if (response.responseCode === 200) {
-                            console.log(response.data)
-                            $('#categoryName').val(response.data.categoryName)
-                            $('#categoryId').val(response.data.categoryId)
-                        } else {
-                            $('#error').val(response.responseMessage)
-                        }
-                    }
-                })
-
-                console.log(data)
-            })
-            //todo edit submit
-            updateCategoryForm.on('submit', function (e) {
-                e.preventDefault()
-                console.log(updateCategoryForm.serialize())
-                $.ajax({
-                    type: updateCategoryForm.attr('method'),
-                    url: updateCategoryForm.attr('action'),
-                    data: updateCategoryForm.serialize(),
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            $('#updateCategory').modal('hide')
-                            updateCategoryForm.trigger('reset')
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        }
-
-                    },
-                    error: (error) => {
-                        $('#success').addClass('d-block')
-                        $('#error').removeClass('d-none').text(error.responseJSON.message)
-                    }
-                })
-            })
-            //todo delete category by id
-            $('.delete').on('click', function (e) {
-                e.preventDefault()
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                const data = {
-                    categoryId: $(this).val()
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{route('deleteCategory')}}',
-                    data: data,
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-                            console.log(response.data)
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        } else {
-                            $('#error').val(response.responseMessage)
-                        }
-                    }
-                })
-
-                console.log(data)
-            })
-        })
-    </script>
 @endsection

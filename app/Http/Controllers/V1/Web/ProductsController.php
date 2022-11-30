@@ -24,13 +24,17 @@ class ProductsController extends Controller
         return $this->productService->store($request);
     }
 
-    public function edit($id){
-//        dd($id);
-        return $this->productService->edit($id);
+    public function edit($productId){
+//        dd($productId);
+        return $this->productService->edit($productId);
     }
 
     public function update(UpdateProductRequest $request){
         return $this->productService->update($request);
+    }
+
+    public function delete($id){
+        return $this->productService->delete($id);
     }
 
 }

@@ -22,9 +22,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">brandName</th>
-                                <th scope="col">brandStatus</th>
-                                <th scope="col">categoryAction</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,16 +34,15 @@
                                     <td>{{$brand['brandName']}}</td>
                                     <td>{{$brand['brandStatus']}}</td>
                                     <td>
-                                        <button
-                                                value="{{$brand['brandId']}}"
+                                        <a href="{{route("editBrand",["brandId"=>$brand['brandId']])}}"
                                                  class="btn btn-primary btn-sm edit">
                                             Edit
-                                        </button>
-                                        <button
+                                        </a>
+                                        <a href=""
                                                 value="{{$brand['brandId']}}"
                                                 class="btn btn-danger btn-sm delete">
                                             Delete
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -56,145 +55,7 @@
 
             </div>
         </div>
-        @include('components.modal.BrandModal')
     </section>
 @endsection
-@section('scripts')
-    <script>
 
-        $(document).ready(function () {
-
-            const addBrandForm = $('#addBrandForm')
-            const updateBrandForm = $('#updateBrandForm')
-            //todo add submit
-            addBrandForm.on('submit', function (e) {
-                e.preventDefault()
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                $.ajax({
-                    type: addBrandForm.attr('method'),
-                    url: addBrandForm.attr('action'),
-                    data: addBrandForm.serialize(),
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            $('#addBrand').modal('hide')
-                            addBrandForm.trigger('reset')
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        }
-
-                    },
-                    error: (error) => {
-                        $('#success').addClass('d-block')
-                        $('#error').removeClass('d-none').text(error.responseJSON.message)
-                    }
-
-                })
-            })
-
-            //todo fetch category by id
-            $('.edit').on('click', function (e) {
-                e.preventDefault()
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                const data = {
-                    brandId: $(this).val()
-                }
-                $('#updateBrand').modal('show')
-                $.ajax({
-                    type: 'POST',
-                    url: '{{route('readByIdBrand')}}',
-                    data: data,
-                    success: (response) => {
-                        if (response.responseCode === 200) {
-                            console.log(response.data)
-                            $('#brandName').val(response.data.brandName)
-                            $('#brandId').val(response.data.brandId)
-                        } else {
-                            $('#error').val(response.responseMessage)
-                        }
-                    },
-                    error: (error) => {
-                        alert(error.response)
-                    }
-                })
-
-                console.log(data)
-            })
-
-            //todo edit submit
-            updateBrandForm.on('submit', function (e) {
-                e.preventDefault()
-                console.log(updateBrandForm.serialize())
-                $.ajax({
-                    type: updateBrandForm.attr('method'),
-                    url: updateBrandForm.attr('action'),
-                    data: updateBrandForm.serialize(),
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            $('#updateBrand').modal('hide')
-                            updateBrandForm.trigger('reset')
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        }
-
-                    },
-                    error: (error) => {
-                        $('#success').addClass('d-block')
-                        $('#error').removeClass('d-none').text(error.responseJSON.message)
-                    }
-                })
-            })
-
-            //todo delete category by id
-            $('.delete').on('click', function (e) {
-                e.preventDefault()
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                const data = {
-                    brandId: $(this).val()
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{route('deleteBrand')}}',
-                    data: data,
-                    success: (response) => {
-                        $('#error').addClass('d-none')
-                        if (response.responseCode === "200") {
-                            console.log(response.data)
-                            $('#success').removeClass('d-none').text(response.responseMessage)
-                            setTimeout(() => {
-                                $('#success').addClass('d-none').text("")
-                                location.reload()
-                            }, 3000)
-                        } else {
-                            $('#error').val(response.responseMessage)
-                        }
-                    }
-                })
-
-                console.log(data)
-            })
-        })
-    </script>
-@endsection
 
