@@ -9,5 +9,6 @@ Route::controller(CategoriesController::class)->group(function (){
     Route::post('/dashboard/create-category', 'create')->name('addCategory');
     Route::get('/dashboard/edit-category/{categoryId}', 'edit')->name('editCategory');
     Route::post('/dashboard/edit-category', 'update')->name('updateCategory');
+    Route::get('/dashboard/delete-category/{categoryId}', 'delete')->name('deleteCategory');
 });
 

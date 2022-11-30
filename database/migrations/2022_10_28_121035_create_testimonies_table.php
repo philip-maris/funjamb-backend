@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('testimonyCustomerId')
                 ->constrained('customers', 'customerId');
             $table->string('testimonyStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

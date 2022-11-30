@@ -12,8 +12,6 @@ use App\Http\Requests\V1\Api\Product\UpdateProductRequest;
 use App\Models\V1\Brand;
 use App\Models\V1\Category;
 use App\Models\V1\Product;
-use App\Util\BaseUtil\IdVerificationUtil;
-use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\ResponseUtil;
 use App\Util\ExceptionUtil\ExceptionCase;
 use App\Util\ExceptionUtil\ExceptionUtil;
@@ -25,8 +23,6 @@ use Illuminate\Support\Str;
 class ProductService
 {
     use ResponseUtil;
-    use IdVerificationUtil;
-    use NotificationUtil;
 
     public function create(CreateProductRequest $request): JsonResponse
     {
@@ -48,8 +44,6 @@ class ProductService
                 throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "Invalid image");
 
             $productImage = $request->file('productImage');
-
-
             $fileName = time().'_'.$productImage->getClientOriginalName();
 
             $productImage->move(public_path('storage/uploads'), $fileName);
@@ -104,7 +98,7 @@ class ProductService
     public function read(): JsonResponse
     {
         try {
-            $products = Product::all();
+            $products = Product::where("productStatus", "Active")->get();
             if (!$products)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
             return $this->BASE_RESPONSE($products);
         }catch (Exception $ex){

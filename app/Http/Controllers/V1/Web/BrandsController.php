@@ -32,4 +32,8 @@ class BrandsController extends Controller
     public function update(UpdateBrandRequest $brandRequest){
         return $this->brandService->update($brandRequest);
     }
+
+    public function delete($brandId){
+        return $this->brandService->delete($brandId);
+    }
 }

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('reviewRating')->nullable();
             // foreign key for product
             $table->foreignId('reviewProductId')
-                ->constrained('products', 'productId')
-                ->onDelete('cascade');
+                ->constrained('products', 'productId');
             $table->string('reviewStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

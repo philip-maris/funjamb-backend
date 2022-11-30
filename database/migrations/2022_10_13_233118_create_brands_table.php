@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id("brandId");
             $table->string("brandName")->nullable();
             $table->string("brandStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

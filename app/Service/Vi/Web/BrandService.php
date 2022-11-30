@@ -56,4 +56,20 @@ class BrandService
         alert("success", "Brand updated successful", "success");
         return redirect()->route("brands");
     }
+
+    public function delete($brandId){
+        $brand = Brand::where("brandId", $brandId)->first();
+        if (!$brand){
+            alert("error", "brand not found", "error");
+            return back();
+        }
+
+        if (!$brand->delete()){
+            alert("error", "brand cannot be deleted", "error");
+            return back();
+        }
+
+        alert("success", "brand deleted successful", "success");
+        return back();
+    }
 }

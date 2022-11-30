@@ -5,13 +5,14 @@ namespace App\Models\V1;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Cart extends Authenticatable
 {
-    use  HasFactory, Notifiable;
+    use  HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'carts';
     protected $primaryKey ='cartId';

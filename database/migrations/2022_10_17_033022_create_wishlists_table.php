@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id("wishlistId");
             $table->foreignId("wishlistCustomerId")
-                ->constrained('customers', 'customerId')->onDelete('cascade');
+                ->constrained('customers', 'customerId');
             $table->foreignId("wishlistProductId")
-                ->constrained('products', 'productId')->onDelete('cascade');
+                ->constrained('products', 'productId');
             $table->string("wishlistStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

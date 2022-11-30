@@ -22,6 +22,7 @@ return new class extends Migration
                 ->constrained('customers', 'customerId');
             $table->string('notificationTitle')->nullable();
             $table->string('notificationStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

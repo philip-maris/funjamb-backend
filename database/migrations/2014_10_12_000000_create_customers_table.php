@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('isAdmin')->nullable();
             $table->integer('isSuperAdmin')->nullable();
             $table->string('customerStatus')->default("Pending");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

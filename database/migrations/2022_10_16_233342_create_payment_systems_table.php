@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("paymentSystemUrl")->nullable();
             $table->string("paymentSystemKey")->nullable();
             $table->string("paymentSystemStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

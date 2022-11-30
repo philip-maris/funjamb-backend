@@ -33,4 +33,8 @@ class CategoriesController
 //        dd("hello");
         return $this->categoryService->update($categoryRequest);
     }
+
+    public function delete($categoryId){
+        return $this->categoryService->delete($categoryId);
+    }
 }

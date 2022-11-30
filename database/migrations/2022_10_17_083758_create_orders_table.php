@@ -21,10 +21,14 @@ return new class extends Migration
                     ->constrained('deliveries', 'deliveryId');
             $table->decimal("orderTotalAmount")->default(0);
             $table->string("orderReference")->nullable();
+            $table->string("orderDeliveryEstimatedDate")->nullable();
+            $table->string("orderTrackingCode")->nullable();
+            $table->string("orderDeliveryStatus")->default("Pending");
             $table->foreignId("orderPaymentSystemId")
                 ->constrained("payment_systems", "paymentSystemId");
             $table->decimal("orderSubTotalAmount")->default(0);
             $table->string("orderStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

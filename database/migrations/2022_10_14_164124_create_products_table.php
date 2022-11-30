@@ -22,16 +22,15 @@ return new class extends Migration
             $table->longText("productDescription")->nullable();
             $table->integer("productDiscount")->nullable();
 
-            $table->foreignId("productBrandId")->nullable()
-                ->constrained('brands', 'brandId')
-                ->onDelete('set null');
+            $table->foreignId("productBrandId")
+                ->constrained('brands', 'brandId');
 
-            $table->foreignId("productCategoryId")->nullable()
-                ->constrained('categories', 'categoryId')
-                ->onDelete('set null');
+            $table->foreignId("productCategoryId")
+                ->constrained('categories', 'categoryId');
             $table->integer("productQuantity")->nullable();
             $table->string("productSlug")->nullable();
             $table->string("productStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

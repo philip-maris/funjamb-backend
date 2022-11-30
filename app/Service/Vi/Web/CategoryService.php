@@ -61,4 +61,20 @@ class CategoryService
         alert("success", "Category updated successful", "success");
         return redirect()->route("categories");
     }
+
+    public function delete($categoryId){
+        $category = Category::where("categoryId", $categoryId)->first();
+        if (!$category){
+            alert("error", "category not found", "error");
+            return back();
+        }
+
+        if (!$category->delete()){
+            alert("error", "category cannot be deleted", "error");
+            return back();
+        }
+
+        alert("success", "category deleted successful", "success");
+        return back();
+    }
 }

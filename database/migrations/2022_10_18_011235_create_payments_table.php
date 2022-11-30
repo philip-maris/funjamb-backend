@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('paymentReference')->nullable();
             $table->foreignId("paymentPaymentSystemId")
                 ->constrained("payment_systems", "paymentSystemId");
-            $table->string('paymentStatus')->default("ACTIVE");
+            $table->string('paymentStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

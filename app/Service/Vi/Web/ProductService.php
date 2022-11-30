@@ -53,7 +53,6 @@ class ProductService
                 return back();
             }
 
-
         $productImage = $request->file('productImage');
         $fileName = time().'_'.$productImage->getClientOriginalName();
 
@@ -142,7 +141,7 @@ class ProductService
 
           $basename =  File::basename($product->productImage);
 
-          if(!$product->update(["productStatus"=>"delete"])){
+          if(!$product->delete()){
               $file = File::delete(public_path("storage/uploads/". $basename));
 
               if (!$file){

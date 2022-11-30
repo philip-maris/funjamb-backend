@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('bannerTitle')->nullable();
             $table->text('bannerSubTitle')->nullable();
             $table->foreignId('bannerBannerTypeId')
-                    ->constrained("banner_types", "bannerTypeId")
-                    ->onDelete("cascade");
-            $table->string('bannerStatus')->default("ACTIVE");
+                    ->constrained("banner_types", "bannerTypeId");
+            $table->string('bannerStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

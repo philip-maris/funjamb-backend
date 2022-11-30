@@ -10,11 +10,11 @@
                     <div class="card-body">
                         <div class="d-flex align-left justify-content-between">
                             <h5 class="card-title">Brands</h5>
-                            <button data-bs-toggle="modal" data-bs-target="#addBrand"
+                            <a  href="{{route("addBrand")}}"
                                     class="btn btn-secondary h-25 mt-2">
                                 <i class="bi bi-plus-circle"></i>
                                 <span>Add</span>
-                            </button>
+                            </a>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -38,8 +38,7 @@
                                                  class="btn btn-primary btn-sm edit">
                                             Edit
                                         </a>
-                                        <a href=""
-                                                value="{{$brand['brandId']}}"
+                                        <a href="{{route("deleteBrand",["brandId"=>$brand['brandId']])}}"
                                                 class="btn btn-danger btn-sm delete">
                                             Delete
                                         </a>

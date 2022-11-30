@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string("orderDetailFirstName")->nullable();
             $table->string("orderDetailLastName")->nullable();
             $table->foreignId("orderDetailOrderId")
-                ->constrained("orders", "orderId")
-                ->onDelete("cascade");
+                ->constrained("orders", "orderId");
             $table->string("orderDetailEmail")->nullable();
             $table->string("orderDetailPhone")->nullable();
             $table->string("orderDetailAddress")->nullable();
             $table->string("orderDetailState")->nullable();
             $table->string("orderDetailStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

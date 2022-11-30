@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id("cartId");
             $table->foreignId("cartCustomerId")
-                ->constrained('customers', 'customerId')->onDelete('cascade');
+                ->constrained('customers', 'customerId');
             $table->foreignId("cartProductId")
-                ->constrained('products', 'productId')->onDelete('cascade');
+                ->constrained('products', 'productId');
             $table->integer("cartQuantity")->default(1);
             $table->decimal("cartTotalAmount")->default(0);
             $table->string("cartStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

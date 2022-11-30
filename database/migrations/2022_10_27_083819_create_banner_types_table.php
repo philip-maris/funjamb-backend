@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id("bannerTypeId");
             $table->string("bannerTypeName")->nullable();
             $table->string("bannerTypeStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

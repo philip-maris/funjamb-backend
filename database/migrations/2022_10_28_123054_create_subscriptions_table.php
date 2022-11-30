@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('subscriptionId');
             $table->string('subscriptionCustomerEmail');
             $table->string('subscriptionStatus')->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

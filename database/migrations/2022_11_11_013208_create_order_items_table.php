@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("orderItemQuantity")->default("0");
             $table->decimal("orderItemTotalAmount")->default(0);
             $table->string("orderItemStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
