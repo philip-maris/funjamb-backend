@@ -29,14 +29,13 @@ class AuthenticationService
     use ResponseUtil;
     use RandomUtil;
     use DateTimeUtil;
-    use NotificationUtiL;
 
     public function initiateEnrollment(InitiateEnrollmentRequest $request): JsonResponse
     {
         try {
             $otp = $this->OTP();
             //todo validate
-            $request->validated($request);
+            $request->validated();
 
             //todo action
 
@@ -69,7 +68,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request);
+            $request->validated();
             //todo action
             //todo check if the email exist
             $customer = Customer::where('customerEmail', $request['customerEmail'])
@@ -87,7 +86,7 @@ class AuthenticationService
                 throw new ExceptionUtil(ExceptionCase::OTP_EXPIRED);
 
             $response = $customer->update([
-                'customerStatus'=>"ACTIVE",
+                'customerStatus'=>"Active",
             ]);
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
@@ -97,12 +96,6 @@ class AuthenticationService
                                 ->send(new WelcomeMail($fullName));
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
-
-            // SEND NOTIFICATION
-//            $this->SEND_NOTIFICATION(
-//                "{$customer['customerFirstName']} " ." {$customer['customerLastName']} just signed up.",
-//                'YELLOW',$customer['customerId'],'NEW CUSTOMER'
-//            );
 
             return $this->SUCCESS_RESPONSE("CREATED  SUCCESSFUL");
         }catch (Exception $ex){
@@ -114,7 +107,7 @@ class AuthenticationService
     {
         try {
             //todo validation
-            $request->validated($request);
+            $request->validated();
             $otp = $this->OTP();
             //todo action
             $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
@@ -143,7 +136,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request->all());
+            $request->validated();
 
             //todo action
             $customer = Customer::where('customerOtp', $request['customerOtp'])
@@ -165,7 +158,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request->all());
+            $request->validated();
             $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
             $response = Hash::check($request['oldCustomerPassword'], $customer['customerPassword']);
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID PASSWORD, PLS INPUT A VALID PASSWORD");
@@ -180,7 +173,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request->all());
+            $request->validated();
             $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
             if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
             //todo check if password is same
@@ -198,7 +191,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request->all());
+            $request->validated();
 
             $otp = $this->OTP();
             //todo actions

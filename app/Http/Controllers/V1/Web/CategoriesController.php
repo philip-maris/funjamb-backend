@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\V1\Web;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Category\CreateCategoryRequest;
 use App\Http\Requests\V1\Api\Category\UpdateCategoryRequest;
 use App\Service\Vi\Web\CategoryService;
 
-class CategoriesController
+class CategoriesController extends Controller
 {
 
     public function __construct(public CategoryService $categoryService){
-
+        $this->middleware("auth");
     }
 
     public function index(){

@@ -10,7 +10,7 @@ use App\Service\Vi\Web\BrandService;
 class BrandsController extends Controller
 {
     public function __construct(public BrandService $brandService){
-
+        $this->middleware("auth");
     }
 
     public function index(){

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Api\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateCategoryRequest extends FormRequest
 {
@@ -24,7 +25,9 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'categoryName'=>['required', 'unique:categories'],
+            'categoryName'=>['required', Rule::unique('categories')->where(function ($query) {
+                return $query->whereNull('deleted_at');
+            })],
         ];
     }
 }

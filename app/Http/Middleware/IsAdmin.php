@@ -25,6 +25,6 @@ class IsAdmin
             return $next($request);
         }
 
-       return $this->ERROR_RESPONSE("you are not a staff or an admin");
+       return $this->ERROR_RESPONSE("you are not a Staff or an admin");
     }
 }

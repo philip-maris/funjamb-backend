@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\V1\Web;
 
-class BannerController
+use App\Http\Controllers\Controller;
+
+class BannerController extends Controller
 {
 
 }

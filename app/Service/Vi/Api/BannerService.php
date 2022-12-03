@@ -18,8 +18,6 @@ use Illuminate\Http\JsonResponse;
 class BannerService
 {
     use ResponseUtil;
-    use NotificationUtil;
-    use IdVerificationUtil;
 
 
     public function create(CreateBannerRequest $request): JsonResponse

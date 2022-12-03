@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Api\ProductVariation;
+namespace App\Http\Requests\V1\Web\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByProductVariationIdRequest extends FormRequest
+class CreateStaffRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class ReadByProductVariationIdRequest extends FormRequest
     public function rules()
     {
         return [
-            'productVariationId'=>['required'],
+            'staffEmail'=>['required', 'email', 'max:255'],
+            'staffFirstName'=>['required', 'max:255'],
+            'staffLastName'=>['required', 'max:255'],
+            'staffPhoneNo'=>['required', 'max:255'],
         ];
     }
 }
