@@ -68,6 +68,7 @@ class BannerService
         try {
             $banner = Banner::all();
             if (!$banner) throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+
             return $this->BASE_RESPONSE($banner);
         } catch (Exception $ex) {
             return $this->ERROR_RESPONSE($ex->getMessage());

@@ -13,6 +13,7 @@ use App\Models\V1\Delivery;
 use App\Models\V1\Order;
 use App\Models\V1\OrderDetail;
 use App\Models\V1\PaymentSystem;
+use App\Models\V1\Product;
 use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
@@ -25,6 +26,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
+class EmailProduct{
+    public string $productImage;
+    public string $productName;
+    public string $productQuantity;
+    public string $productTotalAmount;
+
+    public function __construct($productName,$productImage,$productQuantity,$productTotalAmount){
+        $this->productName = $productName;
+        $this->productImage = $productImage;
+        $this->productQuantity = $productQuantity;
+        $this->productTotalAmount = $productTotalAmount;
+
+    }
+}
 
 class OrderService
 {
@@ -89,6 +104,7 @@ class OrderService
 
             // create order details
           //  dd($order);
+
             $orderDetail = $order->orderDetails()->create([
                 'orderDetailFirstName'=>$validate['orderDetailsFirstName'],
                 'orderDetailLastName'=>$validate['orderDetailsLastName'],
@@ -101,6 +117,7 @@ class OrderService
             //  check if successful
             if (!$orderDetail) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 //            dd($cart);
+            $emailProductItems = [];
             foreach ($carts as $key => $cart){
 //                dd($cart);
                 $orderItem = $order->orderItems()->create([
@@ -110,18 +127,33 @@ class OrderService
                 ]);
                 if (!$orderItem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "unable to create order item");
 
+                $product = Product::find($cart['cartProductId']);
+
+                $emailProductItem = new EmailProduct(
+                    $product['productName'],
+                    $product['productImage'],
+                    $cart["cartQuantity"],
+                    $cart["cartTotalAmount"]
+                );
+                array_push($emailProductItems,$emailProductItem);
+
                 if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 //                dd($key);
             }
 
             //todo send email
             $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
+
             $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
                 $fullName,
-                $delivery['deliveryFee'],
+                $customer['customerPhoneNo'],
+                $delivery['deliveryMinFee'],
                 $createOrderRequest['orderDetailsAddress'],
                 $createOrderRequest['orderSubTotalAmount'],
-                $createOrderRequest['orderTotalAmount']
+                $createOrderRequest['orderTotalAmount'],
+                $order['orderTrackingCode'],
+                $order['orderDeliveryEstimatedDate'],
+                $emailProductItems
             ));
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
