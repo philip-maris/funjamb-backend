@@ -29,6 +29,8 @@ class AuthenticationService
     use ResponseUtil;
     use RandomUtil;
     use DateTimeUtil;
+    use NotificationUtiL;
+
 
     public function initiateEnrollment(InitiateEnrollmentRequest $request): JsonResponse
     {

@@ -5,6 +5,7 @@ namespace App\Service\Vi\Api;
 use App\Http\Requests\V1\Api\Brand\CreateBrandRequest;
 use App\Http\Requests\V1\Api\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\V1\Api\Brand\UpdateBrandRequest;
+use App\Mail\OrderSuccessfulMail;
 use App\Models\V1\Brand;
 use App\Util\BaseUtil\IdVerificationUtil;
 use App\Util\BaseUtil\NotificationUtil;
@@ -13,6 +14,7 @@ use App\Util\ExceptionUtil\ExceptionCase;
 use App\Util\ExceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 
 class BrandService
 {
