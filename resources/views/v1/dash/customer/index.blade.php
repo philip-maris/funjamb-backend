@@ -10,11 +10,7 @@
                     <div class="card-body">
                         <div class="d-flex align-left justify-content-between">
                             <h5 class="card-title">Categories</h5>
-                            <a href="{{route("addCategory")}}"
-                               class="btn btn-secondary h-25 mt-2">
-                                <i class="bi bi-plus-circle"></i>
-                                <span>Add</span>
-                            </a>
+
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -22,23 +18,31 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">FirstName</th>
+                                <th scope="col">LastName</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">PhoneNo</th>
+                                <th scope="col">State</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody class="tbody">
-                            @foreach($categories as $key => $category)
+                            @foreach($customers as $key => $customer)
                                 <tr>
                                     <td scope="row">{{$key + 1}}</td>
-                                    <td>{{$category['categoryName']}}</td>
-                                    <td>{{$category['categoryStatus']}}</td>
+                                    <td>{{$customer['customerFirstName']}}</td>
+                                    <td>{{$customer['customerLastName']}}</td>
+                                    <td>{{$customer['customerEmail']}}</td>
+                                    <td>{{$customer['customerPhoneNo'] }}</td>
+                                    <td>{{$customer['customerState'] ?? "Null"}}</td>
+                                    <td>{{$customer['customerStatus']}}</td>
                                     <td>
-                                        <a href="{{route("editCategory", ['categoryId'=>$category['categoryId']])}}"
+                                        <a href="{{route("editCustomer", ['customerId'=>$customer['customerId']])}}"
                                            class="btn btn-primary btn-sm edit">
-                                            Edit
+                                            View
                                         </a>
-                                        <a href="{{route("deleteCategory", ["categoryId"=>$category['categoryId']])}}"
+                                        <a href="{{route("deleteCustomer", ["customerId"=>$customer['customerId']])}}"
                                            class="btn btn-danger btn-sm">
                                             Delete
                                         </a>

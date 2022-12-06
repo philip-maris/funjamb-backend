@@ -10,7 +10,7 @@ use App\Service\Vi\Web\ProductService;
 class ProductsController extends Controller
 {
     public function __construct(public ProductService $productService){
-
+        $this->middleware("auth");
     }
     public function index(){
         return $this->productService->index();

@@ -62,7 +62,7 @@ class AdminService
     }
 
 
-    /*todo staff*/
+    /*todo Staff*/
     public function staffs(): Factory|View|Application
     {
         return view('admin.staffView');

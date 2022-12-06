@@ -33,9 +33,10 @@ class Customer extends Authenticatable
         'customerStatus',
         'customerOtp',
         'customerOtpExpired',
-        'customerIsSuperAdmin',
-        'customerIsAdmin',
+        'isSuperAdmin',
+        'isAdmin',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,6 +54,11 @@ class Customer extends Authenticatable
      */
     protected $casts = [
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->customerPassword;
+    }
 
     public function wishlists(): HasMany
     {

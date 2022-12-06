@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Api\Delivery;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateDeliveryRequest extends FormRequest
 {
@@ -24,7 +25,9 @@ class CreateDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            'deliveryState'=>['required', 'max:255'],
+            'deliveryState'=>['required', 'max:255', Rule::unique('customers', 'customerEmail')->where(function ($query) {
+                return $query->whereNull('deleted_at');
+            })],
             'deliveryFee'=>['required'],
             'deliveryDescription'=>['required'],
         ];

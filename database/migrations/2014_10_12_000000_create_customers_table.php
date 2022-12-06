@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id("customerId");
             $table->string('customerFirstName')->nullable();
             $table->string('customerLastName')->nullable();
-            $table->string('customerEmail')->unique()->nullable();
+            $table->string('customerEmail')->nullable();
             $table->string('customerPhoneNo')->nullable();
             $table->string('customerAddress')->nullable();
             $table->string('customerState')->nullable();

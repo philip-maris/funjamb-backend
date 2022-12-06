@@ -140,7 +140,7 @@
                                                         tabindex="-1" target="_blank">
 {{--                                                        {{ asset('x-assets-x/img/kosmanLogo.svg') --}}
                                                             <img alt="kosman wine logo"
-                                                                 src="{{asset('x-assets-x/img/kosmanLogo.svg')}}"
+                                                                 src="{{asset('x-assets-x/img/kosmanLogoH.png')}}"
                                                                                            style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;"
                                                                                            width="160"/>
                                                     </a></div>
