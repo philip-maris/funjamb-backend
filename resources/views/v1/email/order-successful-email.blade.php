@@ -46,16 +46,16 @@
                                                        width="100%">
                                                     <thead>
                                                     <tr>
-                                                        <th style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 2px solid darkgray" >
+                                                        <th style="padding:auto; border-bottom: 2px solid darkgray" >
                                                             <h3><b>Image</b></h3>
                                                         </th>
-                                                        <th style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 2px solid darkgray" >
+                                                        <th style="padding:auto; border-bottom: 2px solid darkgray" >
                                                             <h3><b>Item</b></h3>
                                                         </th>
-                                                        <th style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 2px solid darkgray" >
+                                                        <th style="padding:auto; border-bottom: 2px solid darkgray" >
                                                             <h3><b>Qty</b></h3>
                                                         </th>
-                                                        <th style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 2px solid darkgray">
+                                                        <th style="padding:auto; border-bottom: 2px solid darkgray">
                                                             <h3>Price</h3>
                                                         </th>
                                                     </tr>
@@ -63,16 +63,16 @@
                                                     <tbody>
                                                     @foreach($products as $product)
                                                         <tr>
-                                                            <td style="width: 50px;padding-left:30px;padding-right:30px;padding-top:10px;border-bottom: 0.5px solid gainsboro">
+                                                            <td style="width: 50px;padding:auto;border-bottom: 0.5px solid gainsboro">
                                                                 <img width="50px" src={{$product->productImage}}>
                                                             </td>
-                                                            <td style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 0.5px solid gainsboro">
+                                                            <td style="padding:auto;border-bottom: 0.5px solid gainsboro">
                                                                 <h4>{{$product->productName}}</h4>
                                                             </td>
-                                                            <td style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 0.5px solid gainsboro">
+                                                            <td style="padding:auto; border-bottom: 0.5px solid gainsboro">
                                                                 <h4>{{$product->productQuantity}}</h4>
                                                             </td>
-                                                            <td style="padding-left:30px;padding-right:30px;padding-top:10px; border-bottom: 0.5px solid gainsboro">
+                                                            <td style="padding:auto; border-bottom: 0.5px solid gainsboro">
                                                                 <h4>₦{{$product->productTotalAmount}}</h4>
                                                             </td>
                                                         </tr>
@@ -97,59 +97,59 @@
                                                        width="100%">
                                                     <tbody>
                                                     <tr>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 0.5px solid gainsboro" >
-                                                            <h4>SubTotal</h4>
+                                                        <td style="padding:auto;" >
+                                                            <h5>SubTotal</h5>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 0.5px solid gainsboro">
-                                                            <h4>₦{{$orderSubTotal}}</h4>
+                                                        <td style="padding:auto;">
+                                                            <h5>₦{{$orderSubTotal}}</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 0.5px solid gainsboro" >
-                                                            <h4>Delivery Fee</h4>
+                                                        <td style="padding:auto; border-bottom: 0.5px solid gainsboro" >
+                                                            <h5>Delivery Fee</h5>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 0.5px solid gainsboro">
-                                                            <h4>₦{{$orderDeliveryFee}}</h4>
+                                                        <td style="padding:auto; border-bottom: 0.5px solid gainsboro">
+                                                            <h5>₦{{$orderDeliveryFee}}</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-left:30px;height:20px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;height:20px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="height:20px;padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 2px solid black" >
-                                                            <h4>Discount</h4>
+                                                        <td style="height:20px;padding:auto; border-bottom: 2px solid black" >
+                                                            <h5>Discount</h5>
                                                         </td>
-                                                        <td style="height:20px;padding-left:30px;padding-right:30px;padding-top:0px; border-bottom: 2px solid black">
-                                                            <h4>₦0</h4>
+                                                        <td style="height:20px;padding:auto;border-bottom: 2px solid black">
+                                                            <h5>₦0</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="padding-left:30px;padding-right:30px;padding-top:0px;" >
+                                                        <td style="padding:auto;" >
                                                             <h3><b> </b></h3>
                                                         </td>
-                                                        <td style="height:30px;padding-left:30px;padding-right:30px; border-bottom: 2px solid black" >
-                                                            <h2><b>Total</b></h2>
+                                                        <td style="height:30px;padding:auto; border-bottom: 2px solid black" >
+                                                            <h3><b><strong>Total</strong></b></h3>
                                                         </td>
-                                                        <td style="height:30px;padding-left:30px;padding-right:30px;border-bottom: 2px solid black">
-                                                            <h4>₦{{$orderTotal}}</h4>
+                                                        <td style="height:30px;padding:auto;border-bottom: 2px solid black">
+                                                            <h3>₦{{$orderTotal}}</h3>
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 40px;"></tr>
@@ -161,28 +161,28 @@
                                                        width="100%">
                                                     <tbody>
                                                     <tr>
-                                                        <td style="" >
-                                                            <span style="font-size:15px;">
-                                                                <strong>Recepients Details</strong></span>
+                                                        <td style="border-left:1px solid grey;border-right:1px solid grey;border-top:1px solid grey;" >
+{{--                                                            <span style="font-size:15px;"></span>--}}
+                                                                <strong>Recepients Details</strong>
                                                         </td>
-                                                        <td style="padding-left:30px;">
-                                                            <h3><strong>Delivery Address</strong></h3>
+                                                        <td style="padding:auto; border-left:1px solid grey;border-right:1px solid grey;border-top:1px solid grey;">
+                                                            <strong>Delivery Address</strong>
                                                         </td>
-                                                        <td style="">
-                                                            <h3><strong>Estimated Delivery Date </strong></h3>
+                                                        <td style="border-left:1px solid grey;border-right:1px solid grey;border-top:1px solid grey;">
+                                                            <strong>Estimated Delivery Date </strong>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="width:150px;border-bottom: 0.5px solid gainsboro">
+                                                        <td style="width:150px;padding:auto;border-left:1px solid grey;border-right:1px solid grey;border-bottom:1px solid grey;">
                                                             <span style="font-size:15px;"></span>
                                                             {{$fullName}} {{$customerPhone}}
                                                         </td>
-                                                        <td style="padding-left:30px; border-bottom: 0.5px solid gainsboro">
+                                                        <td style="width:150px;padding:auto;border-left:1px solid grey;border-right:1px solid grey;border-bottom:1px solid grey;">
                                                             <span style="font-size:15px;"></span>
                                                             {{$orderDetailAddress}}
                                                             <h5></h5>
                                                         </td>
-                                                        <td style=" border-bottom: 0.5px solid gainsboro">
+                                                        <td style="width:150px;padding:auto;border-left:1px solid grey;border-right:1px solid grey;border-bottom:1px solid grey;">
                                                             <span style="font-size:15px;"></span>
                                                             {{$orderDeliveryEstimatedDate}}
                                                         </td>
