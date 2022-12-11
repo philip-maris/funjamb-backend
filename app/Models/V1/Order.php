@@ -25,7 +25,6 @@ class Order extends Authenticatable
         'orderCustomerId',
         'orderDeliveryId',
         'orderTotalAmount',
-        'orderPaymentSystemId',
         'orderReference',
         'orderPaymentMethod',
         'orderSubTotalAmount',

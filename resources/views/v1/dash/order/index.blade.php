@@ -21,9 +21,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">State</th>
-                                <th scope="col">Fee</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -32,10 +32,10 @@
                             @foreach($orders as $key => $order)
                                 <tr>
                                     <th scope="row">{{$key + 1}}</th>
-                                    <td>{{$order['deliveryState']}}</td>
-                                    <td>{{$order['deliveryFee']}}</td>
-                                    <td>{{ $order['deliveryDescription'] }}</td>
-                                    <td>{{$order['deliveryStatus']}}</td>
+                                    <td>{{$order->customers->customerFirstName}} {{$order->customers->customerLastName}}</td>
+                                    <td>{{$order->customers->customerEmail}}</td>
+                                    <td>{{$order->customers->customerPhoneNo}}</td>
+                                    <td>{{$order->orderStatus}}</td>
                                     <td>
                                         <a href="{{route("editOrder",["orderId"=>$order['orderId']])}}"
                                            class="btn btn-primary btn-sm edit">

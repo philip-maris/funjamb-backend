@@ -146,6 +146,25 @@ trait SidebarListUtil
                 ],
             ],
         ],
+//        [
+//            'icon' => 'bi bi-bag',
+//
+//
+//            'heading' => '',
+//            'navItem' => 'payment-system',
+//            'child' =>[
+//                [
+//                    'icon' => 'bi bi-bag',
+//                    'title' => 'view',
+//                    'link' => 'paymentSystems',
+//                ],
+//                [
+//                    'icon' => 'bi bi-bag',
+//                    'title' => 'add',
+//                    'link' => 'createPaymentSystem',
+//                ],
+//            ],
+//        ],
         [
             'icon' => 'bi bi-bag',
             'heading' => 'Ui',

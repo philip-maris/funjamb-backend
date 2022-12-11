@@ -12,10 +12,7 @@ use App\Models\V1\Customer;
 use App\Models\V1\Delivery;
 use App\Models\V1\Order;
 use App\Models\V1\OrderDetail;
-use App\Models\V1\PaymentSystem;
 use App\Util\BaseUtil\DateTimeUtil;
-use App\Util\BaseUtil\IdVerificationUtil;
-use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
 use App\Util\ExceptionUtil\ExceptionCase;
@@ -25,6 +22,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
+
+class EmailProduct{
+    public string $productImage;
+    public string $productName;
+    public string $productQuantity;
+    public string $productTotalAmount;
+
+    public function __construct($productName,$productImage,$productQuantity,$productTotalAmount){
+        $this->productName = $productName;
+        $this->productImage = $productImage;
+        $this->productQuantity = $productQuantity;
+        $this->productTotalAmount = $productTotalAmount;
+
+    }
+}
 
 class OrderService
 {
@@ -49,8 +61,11 @@ class OrderService
             $delivery = Delivery::find($createOrderRequest['orderDeliveryId']);
             if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "delivery not found");
 
+         $paymentSystem = PaymentSystem::find($createOrderRequest['orderPaymentSystemId']);
+            if (!$paymentSystem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "payment system not found");
 
-            if (strtolower($createOrderRequest->orderPaymentMethod) == "paystack"){
+            if (strtolower($paymentSystem["paymentSystemType"]) == "paystack"){
+//                dd($paymentSystem["paymentSystemKey"]);
                 $resPaystack =  Http::withToken(env("PAYSTACK_SECRET_KEY"))->get("https://api.paystack.co/transaction/verify/{$validate['orderReference']}")->json();
                 if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
             }else{
@@ -98,6 +113,8 @@ class OrderService
             //  check if successful
             if (!$orderDetail) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 //            dd($cart);
+
+            $emailProductItems = [];
             foreach ($carts as $key => $cart){
 //                dd($cart);
                 $orderItem = $order->orderItems()->create([
@@ -107,18 +124,35 @@ class OrderService
                 ]);
                 if (!$orderItem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "unable to create order item");
 
+
+                $product = Product::find($cart['cartProductId']);
+
+                $emailProductItem = new EmailProduct(
+                    $product['productName'],
+                    $product['productImage'],
+                    $cart["cartQuantity"],
+                    $cart["cartTotalAmount"]
+                );
+                array_push($emailProductItems,$emailProductItem);
+
                 if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 //                dd($key);
             }
 
             //todo send email
             $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
+
+
             $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
                 $fullName,
-                $delivery['deliveryFee'],
+                $customer['customerPhoneNo'],
+                $delivery['deliveryMinFee'],
                 $createOrderRequest['orderDetailsAddress'],
                 $createOrderRequest['orderSubTotalAmount'],
-                $createOrderRequest['orderTotalAmount']
+                $createOrderRequest['orderTotalAmount'],
+                $order['orderTrackingCode'],
+                $order['orderDeliveryEstimatedDate'],
+                $emailProductItems
             ));
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);

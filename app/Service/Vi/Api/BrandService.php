@@ -6,8 +6,6 @@ use App\Http\Requests\V1\Api\Brand\CreateBrandRequest;
 use App\Http\Requests\V1\Api\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\V1\Api\Brand\UpdateBrandRequest;
 use App\Models\V1\Brand;
-use App\Util\BaseUtil\IdVerificationUtil;
-use App\Util\BaseUtil\NotificationUtil;
 use App\Util\BaseUtil\ResponseUtil;
 use App\Util\ExceptionUtil\ExceptionCase;
 use App\Util\ExceptionUtil\ExceptionUtil;
