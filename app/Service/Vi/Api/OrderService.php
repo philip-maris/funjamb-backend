@@ -131,7 +131,7 @@ class OrderService
                     $cart["cartQuantity"],
                     $cart["cartTotalAmount"]
                 );
-                $emailProductItems = array_push($emailProductItems,$emailProductItem);
+                 $emailProductItems[] = $emailProductItem;
 
                 if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 //                dd($key);
