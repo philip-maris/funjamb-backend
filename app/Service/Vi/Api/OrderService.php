@@ -144,7 +144,7 @@ class OrderService
             $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
                 $fullName,
                 $customer['customerPhoneNo'],
-                $delivery['deliveryMinFee'],
+                $delivery['deliveryFee'],
                 $createOrderRequest['orderDetailsAddress'],
                 $createOrderRequest['orderSubTotalAmount'],
                 $createOrderRequest['orderTotalAmount'],
