@@ -8,7 +8,7 @@ class OrderService
 {
     public function index(){
         $order = Order::all();
-        dd($order);
+//        dd($order);
         return view("v1.dash.order.index", ["orders"=>$order]);
     }
 
