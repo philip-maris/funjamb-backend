@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\V1\Order;
 use App\Service\Vi\Web\OrderService;
 
 class OrderController extends Controller
@@ -13,6 +14,7 @@ class OrderController extends Controller
     }
 
     public function index(){
+
         return $this->orderService->index();
     }
 

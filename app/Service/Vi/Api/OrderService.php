@@ -12,6 +12,7 @@ use App\Models\V1\Customer;
 use App\Models\V1\Delivery;
 use App\Models\V1\Order;
 use App\Models\V1\OrderDetail;
+use App\Models\V1\Product;
 use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
@@ -61,11 +62,8 @@ class OrderService
             $delivery = Delivery::find($createOrderRequest['orderDeliveryId']);
             if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "delivery not found");
 
-         $paymentSystem = PaymentSystem::find($createOrderRequest['orderPaymentSystemId']);
-            if (!$paymentSystem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "payment system not found");
 
-            if (strtolower($paymentSystem["paymentSystemType"]) == "paystack"){
-//                dd($paymentSystem["paymentSystemKey"]);
+            if (strtolower($createOrderRequest->orderPaymentMethod) == "paystack"){
                 $resPaystack =  Http::withToken(env("PAYSTACK_SECRET_KEY"))->get("https://api.paystack.co/transaction/verify/{$validate['orderReference']}")->json();
                 if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
             }else{
@@ -133,7 +131,7 @@ class OrderService
                     $cart["cartQuantity"],
                     $cart["cartTotalAmount"]
                 );
-                array_push($emailProductItems,$emailProductItem);
+                $emailProductItems = array_push($emailProductItems,$emailProductItem);
 
                 if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 //                dd($key);
@@ -169,8 +167,7 @@ class OrderService
         try {
             //  validate
             $request->validated($request);
-            // verify adnin
-            $customer =  $this->VERIFY_ADMIN($request['customerId']);
+            // verify admin
 
              $order = Order::where('orderId', $request['orderId'])->first();
              if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
@@ -178,11 +175,6 @@ class OrderService
             );
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
-            // SEND NOTIFICATION
-//            $this->SEND_UPDATE_NOTIFICATION(
-//                "{$customer['customerFirstName']} " . "{$customer['customerLastName']}",
-//                $customer['customerId'], "order {$order['orderId']} to {$request['orderStatus']}", 'Order'
-//            );
 
             return $this->SUCCESS_RESPONSE("UPDATE SUCCESSFUL");
         }catch (Exception $ex){
