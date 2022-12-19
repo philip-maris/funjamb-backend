@@ -1,8 +1,13 @@
 <?php
 
+
 namespace App\Mail;
 
-use App\Service\Vi\Api\EmailProduct;
+use App\Models\V1\Delivery;
+use App\Models\V1\EmailProduct;
+use App\Models\V1\OrderItem;
+use App\Models\V1\Product;
+use App\Models\V1\Order;
 use App\Util\ExceptionUtil\ExceptionUtil;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,6 +17,7 @@ use Illuminate\Queue\SerializesModels;
 class OrderSuccessfulMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public string $fullName;
     public string $customerPhone;
     public string $orderSubTotal;
@@ -22,6 +28,8 @@ class OrderSuccessfulMail extends Mailable
     public string $orderTrackingId;
     public string $orderDeliveryEstimatedDate;
     public array $products;
+    private Order $order;
+
 
     /**
      * Create a new message instance.
@@ -29,17 +37,34 @@ class OrderSuccessfulMail extends Mailable
      * @return void
      */
 
-    public function __construct($fullName,$customerPhone,$orderDeliveryFee,$orderDetailAddress,$orderSubTotal,$orderTotal,$orderTrackingId,$orderDeliveryEstimatedDate,$products)
+    public function __construct($order)
     {
-        $this->fullName = $fullName;
-        $this->customerPhone = $customerPhone;
-        $this->orderDeliveryFee = $orderDeliveryFee;
-        $this->orderDetailAddress = $orderDetailAddress;
-        $this->orderSubTotal = $orderSubTotal;
-        $this->orderTotal = $orderTotal;
-        $this->orderTrackingId=$orderTrackingId;
-        $this->orderDeliveryEstimatedDate=$orderDeliveryEstimatedDate;
-        $this->products=$products;
+        $this->order = $order;
+
+        $delivery= Delivery::where('deliveryId',$order['orderDeliveryId'])->get();
+        $orderItems = OrderItem::where('orderItemOrderId', $order['orderId'])->get()->toArray();
+
+        $this->fullName = "{$order->orderDetails->orderDetailFirstName} "."{$order->orderDetails->orderDetailLastName} ";
+        $this->customerPhone = $order->orderDetails->orderDetailPhone;
+        $this->orderDeliveryFee =450;
+//        $this->orderDeliveryFee =$delivery['deliveryMinFee'];
+        $this->orderDetailAddress = $order->orderDetails->orderDetailAddress;;
+        $this->orderSubTotal = $order['orderSubTotalAmount'];
+        $this->orderTotal = $order['orderTotalAmount'];
+        $this->orderTrackingId = $order['orderTrackingCode'];
+        $this->orderDeliveryEstimatedDate = $order['orderDeliveryEstimatedDate'];;
+
+        foreach ($orderItems as $key => $item){
+            $product = Product::find($item['orderItemProductId']);
+
+            $emailProductItem = new EmailProduct(
+                $product['productName'],
+                $product['productImage'],
+                $item["orderItemQuantity"],
+                $item["orderItemTotalAmount"]
+            );
+            $this->products[] = $emailProductItem;
+        }
     }
 
     /**
@@ -50,17 +75,16 @@ class OrderSuccessfulMail extends Mailable
     public function build()
     {
         return $this->view('v1.email.order-successful-email')
-
-        ->with([
-            'fullName'=>$this->fullName,
-            'customerPhone'=>$this->customerPhone,
-            'orderDeliveryFee'=>$this->orderDeliveryFee,
-            'orderDetailAddress'=>$this->orderDetailAddress,
-            'orderSubTotal'=>$this->orderSubTotal,
-            'orderTrackingId'=>$this->orderTrackingId,
-            'orderTotal'=>$this->orderTotal,
-            'orderDeliveryEstimatedDate'=>$this->orderDeliveryEstimatedDate,
-            'products'=>$this->products
+            ->with([
+                'fullName' => $this->fullName,
+                'customerPhone' => $this->customerPhone,
+                'orderDeliveryFee' => $this->orderDeliveryFee,
+                'orderDetailAddress' => $this->orderDetailAddress,
+                'orderSubTotal' => $this->orderSubTotal,
+                'orderTrackingId' => $this->orderTrackingId,
+                'orderTotal' => $this->orderTotal,
+                'orderDeliveryEstimatedDate' => $this->orderDeliveryEstimatedDate,
+                'products' => $this->products
             ]);
     }
 }
