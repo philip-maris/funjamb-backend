@@ -208,12 +208,11 @@ class OrderService
             $order = Order::where('orderId', $request['orderId'])->first();
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-            $orderDetail = OrderDetail::where('orderDetailOrderId',$request['orderId']);
-            if (!$orderDetail)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+            $order->orderDetails;
+            $order->delivery;
+            $order->orderItems;
 
-            $data[] = array_merge($order->toArray(),
-                ['orderDetail' => $orderDetail->toArray()]);
-            return $this->BASE_RESPONSE($data);
+            return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

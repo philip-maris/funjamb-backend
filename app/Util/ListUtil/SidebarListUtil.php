@@ -134,18 +134,18 @@ trait SidebarListUtil
                 ],
             ],
         ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'transactions',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'transactions',
-                    'link' => 'brands',
-                ],
-            ],
-        ],
+//        [
+//            'icon' => 'bi bi-bag',
+//            'heading' => '',
+//            'navItem' => 'transactions',
+//            'child' =>[
+//                [
+//                    'icon' => 'bi bi-bag',
+//                    'title' => 'transactions',
+//                    'link' => 'brands',
+//                ],
+//            ],
+//        ],
 //        [
 //            'icon' => 'bi bi-bag',
 //
