@@ -24,20 +24,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 
-class EmailProduct{
-    public string $productImage;
-    public string $productName;
-    public string $productQuantity;
-    public string $productTotalAmount;
-
-    public function __construct($productName,$productImage,$productQuantity,$productTotalAmount){
-        $this->productName = $productName;
-        $this->productImage = $productImage;
-        $this->productQuantity = $productQuantity;
-        $this->productTotalAmount = $productTotalAmount;
-
-    }
-}
 
 class OrderService
 {
@@ -112,7 +98,6 @@ class OrderService
             if (!$orderDetail) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 //            dd($cart);
 
-            $emailProductItems = [];
             foreach ($carts as $key => $cart){
 //                dd($cart);
                 $orderItem = $order->orderItems()->create([
@@ -122,17 +107,6 @@ class OrderService
                 ]);
                 if (!$orderItem) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "unable to create order item");
 
-
-                $product = Product::find($cart['cartProductId']);
-
-                $emailProductItem = new EmailProduct(
-                    $product['productName'],
-                    $product['productImage'],
-                    $cart["cartQuantity"],
-                    $cart["cartTotalAmount"]
-                );
-                 $emailProductItems[] = $emailProductItem;
-
                 if (!$cart->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 //                dd($key);
             }
@@ -141,17 +115,8 @@ class OrderService
             $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
 
 
-            $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail(
-                $fullName,
-                $customer['customerPhoneNo'],
-                $delivery['deliveryFee'],
-                $createOrderRequest['orderDetailsAddress'],
-                $createOrderRequest['orderSubTotalAmount'],
-                $createOrderRequest['orderTotalAmount'],
-                $order['orderTrackingCode'],
-                $order['orderDeliveryEstimatedDate'],
-                $emailProductItems
-            ));
+            $email =  Mail::to($createOrderRequest['orderDetailsEmail'])->send(new OrderSuccessfulMail($order));
+//
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
