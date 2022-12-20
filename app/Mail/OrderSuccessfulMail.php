@@ -41,12 +41,11 @@ class OrderSuccessfulMail extends Mailable
     {
         $this->order = $order;
 
-        $delivery= Delivery::where('deliveryId',$order['orderDeliveryId'])->get();
         $orderItems = OrderItem::where('orderItemOrderId', $order['orderId'])->get()->toArray();
 
         $this->fullName = "{$order->orderDetails->orderDetailFirstName} "."{$order->orderDetails->orderDetailLastName} ";
         $this->customerPhone = $order->orderDetails->orderDetailPhone;
-        $this->orderDeliveryFee =450;
+        $this->orderDeliveryFee =$order->delivery->deliveryFee;
 //        $this->orderDeliveryFee =$delivery['deliveryMinFee'];
         $this->orderDetailAddress = $order->orderDetails->orderDetailAddress;;
         $this->orderSubTotal = $order['orderSubTotalAmount'];

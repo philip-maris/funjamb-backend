@@ -173,9 +173,6 @@ class OrderService
             $order = Order::where('orderId', $request['orderId'])->first();
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-            $order->orderDetails;
-            $order->delivery;
-            $order->orderItems;
 
             return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
@@ -191,16 +188,18 @@ class OrderService
             $request->validated();
 
             //todo action
-            $order = Order::where('orderCustomerId', $request['orderCustomerId'])->first();
+            $order = Order::where('orderCustomerId', $request['orderCustomerId'])->get();
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-//            $orderDetail = OrderDetail::where('orderDetailOrderId',$request['orderId']);
-//            if (!$orderDetail)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
-            $order->orderDetails;
-
-            $order->orderItems;
-//            $data[] = array_merge($order->toArray(),
-//                ['orderDetail' => $orderDetail->toArray()]);
+            foreach ($order as  $value){
+                $value->delivery;
+                $value->orderDetails;
+                $value->orderItems;
+                $items = $value->orderItems;
+                foreach ($items as  $item){
+                    $item->products;
+                }
+            }
             return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

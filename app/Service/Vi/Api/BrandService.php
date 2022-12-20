@@ -20,7 +20,10 @@ class BrandService
     {
         try {
             //TODO VALIDATION
+            $request->validated();
+            $brand = Brand::create($request->all());
 
+            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
             return $this->SUCCESS_RESPONSE("BRAND CREATED SUCCESSFUL");
         } catch (Exception $ex) {
             return $this->ERROR_RESPONSE($ex->getMessage());

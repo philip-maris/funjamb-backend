@@ -34,9 +34,9 @@ class Order extends Authenticatable
         'orderStatus',
     ];
 
-    public function delivery():HasOne
+    public function delivery():BelongsTo
     {
-        return $this->hasOne(Delivery::class,'orderDeliveryId', 'deliveryId');
+        return $this->belongsTo(Delivery::class,'orderDeliveryId', 'deliveryId');
     }
 
     public function orderItems(): \Illuminate\Database\Eloquent\Relations\HasMany
