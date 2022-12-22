@@ -194,7 +194,6 @@ class OrderService
             foreach ($order as  $value){
                 $value->delivery;
                 $value->orderDetails;
-                $value->orderItems;
                 $items = $value->orderItems;
                 foreach ($items as  $item){
                     $item->products;

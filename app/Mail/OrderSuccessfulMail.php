@@ -3,14 +3,11 @@
 
 namespace App\Mail;
 
-use App\Models\V1\Delivery;
 use App\Models\V1\EmailProduct;
 use App\Models\V1\OrderItem;
 use App\Models\V1\Product;
 use App\Models\V1\Order;
-use App\Util\ExceptionUtil\ExceptionUtil;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
