@@ -188,7 +188,7 @@ class OrderService
             $request->validated();
 
             //todo action
-            $order = Order::with(["orderItems", "delivery", ""])->where('orderCustomerId', $request['orderCustomerId'])->get();
+            $order = Order::with("orderItems")->where('orderCustomerId', $request['orderCustomerId'])->get();
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
             foreach ($order as  $value){
