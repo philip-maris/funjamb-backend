@@ -192,7 +192,9 @@ class OrderService
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
             foreach ($order as  $value){
-                $value->orderItems->products;
+                foreach ($value->orderItems as $orderItems){
+                    $orderItems->products;
+                }
             }
             return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
