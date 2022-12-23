@@ -194,9 +194,11 @@ class OrderService
             foreach ($order as  $value){
                 $value->delivery;
                 $value->orderDetails;
+
                 $items = $value->orderItems;
-                foreach ($items as  $item){
-                    $item->products;
+//                $value->orderItems->products;
+                foreach ($items as $key =>  $item){
+                    dd($item->products);
                 }
             }
             return $this->BASE_RESPONSE($order);
