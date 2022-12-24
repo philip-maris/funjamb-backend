@@ -25,7 +25,7 @@ class OrderItem extends Model
         'orderItemProductId',
         'orderItemQuantity',
         'orderItemTotalAmount',
-        'orderItemStatus',
+        'orderItemStatus'
     ];
 
     public function orders():BelongsTo
@@ -35,7 +35,8 @@ class OrderItem extends Model
 
     public function products(): BelongsTo
     {
-        return $this->belongsTo(Product::class, "orderItemProductId", "productId");
+        return $this->belongsTo(Product::class, "orderItemProductId", "productId")->withTrashed();
     }
+
 
 }

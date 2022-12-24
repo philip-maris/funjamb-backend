@@ -2,7 +2,6 @@
 
 namespace App\Models\V1;
 
-use App\Models\ProductVariation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,10 +33,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'productBrandId', 'brandId');
     }
 
-    public function productVariation(): BelongsTo
-    {
-        return $this->belongsTo(ProductVariation::class, 'productVariationId', 'productVariationId');
-    }
 
     public function categories(): BelongsTo
     {
@@ -48,10 +43,12 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class, 'wishListProductId', 'productId');
     }
+
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class, 'cartProductId', 'productId');
     }
+
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'reviewProductId', 'productId');
