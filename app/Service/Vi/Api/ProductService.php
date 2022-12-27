@@ -164,8 +164,8 @@ class ProductService
             //TODO VALIDATION
             $request->validated();
             //todo action
-            $product = Product::where('productSellingPrice', '>' ,$request['productMinSellingPrice'])
-                                ->orWhere('productSellingPrice', '<' ,$request['productMinSellingPrice'])->get();
+            $product = Product::where('productSellingPrice', '>=' ,$request['productMinSellingPrice'])
+                                ->Where('productSellingPrice', '<=' ,$request['productMaxSellingPrice'])->get();
             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return  $this->BASE_RESPONSE($product);
         }catch (Exception $ex){
@@ -173,19 +173,19 @@ class ProductService
         }
     }
 
-    public function readByProductVariationId(ReadByProductVariationIdRequest $request): JsonResponse
-    {
-        try {
-            //TODO VALIDATION
-            $request->validated();
-            //todo action
-            $product = Product::where('productVariationId', $request['productVariationId'])->get();
-            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            return  $this->BASE_RESPONSE($product);
-        }catch (Exception $ex){
-            return $this->ERROR_RESPONSE($ex->getMessage());
-        }
-    }
+//    public function readByProductVariationId(ReadByProductVariationIdRequest $request): JsonResponse
+//    {
+//        try {
+//            //TODO VALIDATION
+//            $request->validated();
+//            //todo action
+//            $product = Product::where('productVariationId', $request['productVariationId'])->get();
+//            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+//            return  $this->BASE_RESPONSE($product);
+//        }catch (Exception $ex){
+//            return $this->ERROR_RESPONSE($ex->getMessage());
+//        }
+//    }
 
     public function delete(ReadByProductIdRequest $request){
         try {

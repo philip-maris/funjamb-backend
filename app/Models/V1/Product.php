@@ -28,6 +28,10 @@ class Product extends Model
         'productStatus'
     ];
 
+    public function scopeFilterBySellingPrice(){
+
+    }
+
     public function brands(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'productBrandId', 'brandId')->withTrashed();
