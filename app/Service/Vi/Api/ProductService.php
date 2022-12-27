@@ -164,8 +164,8 @@ class ProductService
             //TODO VALIDATION
             $request->validated();
             //todo action
-            $product = Product::where('productSellingPrice', '>=' ,$request['productMinSellingPrice'])
-                                ->orWhere('productSellingPrice', '<=' ,$request['productMinSellingPrice'])->get();
+            $product = Product::where('productSellingPrice', '>' ,$request['productMinSellingPrice'])
+                                ->orWhere('productSellingPrice', '<' ,$request['productMinSellingPrice'])->get();
             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return  $this->BASE_RESPONSE($product);
         }catch (Exception $ex){

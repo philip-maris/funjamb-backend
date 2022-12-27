@@ -30,13 +30,13 @@ class Product extends Model
 
     public function brands(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, 'productBrandId', 'brandId');
+        return $this->belongsTo(Brand::class, 'productBrandId', 'brandId')->withTrashed();
     }
 
 
     public function categories(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, 'productCategoryId', 'categoryId');
+        return $this->belongsTo(Brand::class, 'productCategoryId', 'categoryId')->withTrashed();
     }
 
     public function wishLists(): HasMany

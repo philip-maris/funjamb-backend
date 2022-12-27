@@ -107,19 +107,8 @@ class ProductService
                 alert("error", "product not found", "error");
                 return back();
             }
-          //todo delete resize image
-            $productImage = $request->file('productImage');
-            $fileName = time().'_'.$productImage->getClientOriginalName();
-            $img = Image::make($productImage->path());
-            $img->resize(300, 300)->save(public_path('storage/uploads/'. $fileName));
-            //todo delete file
-            $basename =  File::basename($product->productImage);
-            $file = File::delete(public_path("storage/uploads/". $basename));
+          //todo image upload
 
-            if (!$file){
-                alert("error", "something went wrong");
-                return back();
-            }
           $response = $product->update(array_merge($request->except('productId'),[
                     'productStatus'=>'Active',
                     "productSlug"=> Str::slug($request['productName'], "_"),
@@ -139,15 +128,15 @@ class ProductService
     public function delete($id){
         $product = Product::where("productId", $id)->first();
 
-          $basename =  File::basename($product->productImage);
+//          $basename =  File::basename($product->productImage);
 
           if(!$product->delete()){
-              $file = File::delete(public_path("storage/uploads/". $basename));
-
-              if (!$file){
-                  alert("error", "something went wrong");
-                  return back();
-              }
+//              $file = File::delete(public_path("storage/uploads/". $basename));
+//
+//              if (!$file){
+//                  alert("error", "something went wrong");
+//                  return back();
+//              }
                 alert("error", "Unable to delete product", "error");
               return back();
           }
