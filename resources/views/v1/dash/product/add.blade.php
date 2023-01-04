@@ -18,28 +18,12 @@
                                 <span>Back</span>
                             </a>
                         </div>
-                        @if(session("status"))
-                            <script>
-                                swal({
-                                    html: {{session("status")}},
-                                    icon:{{session("type")}}
-                                });
-                            </script>
-                        @endif
                         <form class="row g-3"
-
                               action="{{route('storeProduct')}}"
                               method="post"
                               enctype="multipart/form-data"
                         >
                             @csrf
-                            <div class="col-md-12">
-                                <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" name="productName" value="{{old("productName")}}" class="form-control" id="productName">
-                                @error('productName')
-                                <div class="invalid-feedback d-block">{{$message}}</div>
-                                @enderror
-                            </div>
                             <div class="col-md-6">
                                 <label for="productCategoryId" class="form-label">Category</label>
                                 <select id="productCategoryId" name="productCategoryId" class="form-select">
@@ -65,6 +49,13 @@
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                             </div>
+                            <div class="col-md-12">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" name="productName" value="{{old("productName")}}" class="form-control" id="productName">
+                                @error('productName')
+                                <div class="invalid-feedback d-block">{{$message}}</div>
+                                @enderror
+                            </div>
                             <div class="col-6">
                                 <label for="productSellingPrice" class="form-label">Product Selling Price</label>
                                 <input type="text" name="productSellingPrice" class="form-control"
@@ -84,7 +75,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="productQuantity" class="form-label">Product Quantity</label>
-                                <input type="text" class="form-control" name="productQuantity" id="productQuantity" value="{{old("productQuantity")}}"
+                                <input type="text" class="form-control" name="productQuantity" id="productQuantity" value="{{old("productQuantity") ?? 0}}"
                                        placeholder="0">
                                 @error('productQuantity')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
@@ -92,7 +83,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="productImage" class="form-label">Product Image</label>
-                                <input type="file" value="{{old("productImage")}}" name="productImage" class="form-control" id="productImage">
+                                <input type="file" value="{{old("productImages")}}" name="productImages[]" class="form-control" id="productImage" multiple>
                                 @error('productImage')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror

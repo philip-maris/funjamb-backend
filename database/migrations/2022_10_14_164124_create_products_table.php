@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string("productName")->nullable();
             $table->decimal("productSellingPrice")->default(0);
             $table->decimal("productOfferPrice")->default(0);
-            $table->string("productImage")->nullable();
             $table->longText("productDescription")->nullable();
             $table->integer("productDiscount")->nullable();
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Review\ReadSubscriptionByCustomerIdRequest;
 use App\Http\Requests\V1\Api\Review\CreateReviewRequest;
 use App\Http\Requests\V1\Api\Review\ReadByReviewIdRequest;
-use App\Service\Vi\Api\ReviewService;
+use App\Service\V1\Api\ReviewService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

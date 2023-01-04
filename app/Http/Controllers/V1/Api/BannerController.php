@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Banner\CreateBannerRequest;
 use App\Http\Requests\V1\Api\Banner\ReadByBannerIdRequest;
 use App\Http\Requests\V1\Api\Banner\UpdateBannerRequest;
-use App\Service\Vi\Api\BannerService;
+use App\Service\V1\Api\BannerService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

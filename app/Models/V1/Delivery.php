@@ -24,6 +24,7 @@ class Delivery extends Authenticatable
         'deliveryState',
         'deliveryStatus',
         'deliveryFee',
+        'deliveryTown',
         'deliveryDescription',
     ];
 

@@ -20,7 +20,6 @@ class Product extends Model
         'productBrandId',
         'productSellingPrice',
         'productOfferPrice',
-        'productImage',
         'productDescription',
         'productSlug',
         'productDiscount',
@@ -28,9 +27,11 @@ class Product extends Model
         'productStatus'
     ];
 
-    public function scopeFilterBySellingPrice(){
+//    public function scopeFilterBySellingPrice(){
+//
+//    }
 
-    }
+//    public function
 
     public function brands(): BelongsTo
     {
@@ -56,6 +57,11 @@ class Product extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'reviewProductId', 'productId');
+    }
+
+    public function productImage(): HasMany
+    {
+        return $this->hasMany(ProductImage::class, 'productImageProductId', 'productId');
     }
 
 

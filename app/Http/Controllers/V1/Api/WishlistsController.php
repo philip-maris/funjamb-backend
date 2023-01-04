@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Api\WishList\CreateWishlistRequest;
 use App\Http\Requests\V1\Api\WishList\ReadByWishlistIdRequest;
 use App\Http\Requests\V1\Api\WishList\ReadWishlistByCustomerIdRequest;
 use App\Http\Requests\V1\Api\WishList\UpdateWishlistRequest;
-use App\Service\Vi\Api\WishlistService;
+use App\Service\V1\Api\WishlistService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

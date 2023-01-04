@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Transaction\CreateTransactionRequest;
 use App\Http\Requests\V1\Api\Transaction\ReadByTransactionIdRequest;
-use App\Service\Vi\Api\TransactionService;
+use App\Service\V1\Api\TransactionService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

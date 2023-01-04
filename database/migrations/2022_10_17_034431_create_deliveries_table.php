@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("deliveryState")->nullable();
             $table->decimal("deliveryFee")->nullable();
             $table->longText("deliveryDescription")->nullable();
+            $table->longText("deliveryTown")->nullable();
             $table->string("deliveryStatus")->default("Active");
             $table->softDeletes();
             $table->timestamps();

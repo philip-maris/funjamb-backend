@@ -22,6 +22,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">State</th>
+                                <th scope="col">Town</th>
                                 <th scope="col">Fee</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Status</th>
@@ -33,6 +34,7 @@
                                 <tr>
                                     <th scope="row">{{$key + 1}}</th>
                                     <td>{{$delivery['deliveryState']}}</td>
+                                    <td>{{$delivery['deliveryTown']}}</td>
                                     <td>{{$delivery['deliveryFee']}}</td>
                                     <td>{!! $delivery['deliveryDescription'] !!}</td>
                                     <td>{{$delivery['deliveryStatus']}}</td>

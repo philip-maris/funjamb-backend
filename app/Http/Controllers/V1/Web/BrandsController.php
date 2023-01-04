@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Brand\CreateBrandRequest;
 use App\Http\Requests\V1\Api\Brand\UpdateBrandRequest;
-use App\Service\Vi\Web\BrandService;
+use App\Service\V1\Web\BrandService;
 
 class BrandsController extends Controller
 {

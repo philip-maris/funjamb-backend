@@ -4,7 +4,7 @@ namespace App\Http\Controllers\V1\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Delivery\CreateDeliveryRequest;
-use App\Service\Vi\Web\DeliveryService;
+use App\Service\V1\Web\DeliveryService;
 
 class DeliveriesController extends Controller
 {

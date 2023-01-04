@@ -10,7 +10,7 @@ use App\Http\Requests\V1\Api\Product\ReadByProductVariationIdRequest;
 use App\Http\Requests\V1\Api\Product\ReadProductByBrandId;
 use App\Http\Requests\V1\Api\Product\ReadProductByCategoryId;
 use App\Http\Requests\V1\Api\Product\UpdateProductRequest;
-use App\Service\Vi\Api\ProductService;
+use App\Service\V1\Api\ProductService;
 use Illuminate\Http\JsonResponse;
 
 class

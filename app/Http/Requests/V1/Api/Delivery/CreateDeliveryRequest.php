@@ -25,11 +25,10 @@ class CreateDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            'deliveryState'=>['required', 'max:255', Rule::unique('customers', 'customerEmail')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
+            'deliveryState'=>['required', 'max:255'],
             'deliveryFee'=>['required'],
-            'deliveryDescription'=>['required'],
+            'deliveryTown'=>['required'],
+            'deliveryDescription'=>['nullable'],
         ];
     }
 }

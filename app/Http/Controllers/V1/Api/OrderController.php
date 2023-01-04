@@ -7,7 +7,7 @@ use App\Http\Requests\V1\Api\Order\CreateOrderRequest;
 use App\Http\Requests\V1\Api\Order\ReadByOrderIdRequest;
 use App\Http\Requests\V1\Api\Order\ReadOrderByCustomerId;
 use App\Http\Requests\V1\Api\Order\UpdateOrderRequest;
-use App\Service\Vi\Api\OrderService;
+use App\Service\V1\Api\OrderService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

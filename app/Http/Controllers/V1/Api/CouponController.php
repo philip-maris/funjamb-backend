@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Api\Coupon\DeleteCouponRequest;
 use App\Http\Requests\V1\Api\Coupon\ReadByCouponCodeRequest;
 use App\Http\Requests\V1\Api\Coupon\ReadByCouponIdRequest;
 use App\Http\Requests\V1\Api\Coupon\UpdateCouponRequest;
-use App\Service\Vi\Api\CouponService;
+use App\Service\V1\Api\CouponService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

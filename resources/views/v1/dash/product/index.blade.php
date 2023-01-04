@@ -41,7 +41,7 @@
                                         <td>{{$product['productName']}}</td>
                                         <td>{{$product['productSlug']}}</td>
                                         <td>
-                                            <img style="height: 150px; width: 50px;" src="{{$product['productImage']}}">
+                                            <img style="height: 150px; width: 50px;" src="{{$product->productImage->first()->productImageUrl}}">
                                         </td>
                                         <td>{{$product['productSellingPrice']}}</td>
                                         <td>{{$product['productOfferPrice']}}</td>

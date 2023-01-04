@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\OrderItems\CreateOrderItemsRequest;
 use App\Http\Requests\V1\Api\OrderItems\ReadOrderItemsByIdRequest;
 use App\Http\Requests\V1\Api\OrderItems\ReadOrderItemsByOrderIdRequest;
-use App\Service\Vi\Api\OrderItemsService;
+use App\Service\V1\Api\OrderItemsService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

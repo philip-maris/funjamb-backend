@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Category\CreateCategoryRequest;
 use App\Http\Requests\V1\Api\Category\UpdateCategoryRequest;
-use App\Service\Vi\Web\CategoryService;
+use App\Service\V1\Web\CategoryService;
 
 class CategoriesController extends Controller
 {

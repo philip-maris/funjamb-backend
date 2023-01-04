@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Category\CreateCategoryRequest;
 use App\Http\Requests\V1\Api\Category\ReadByIdCategoryRequest;
 use App\Http\Requests\V1\Api\Category\UpdateCategoryRequest;
-use App\Service\Vi\Api\CategoryService;
+use App\Service\V1\Api\CategoryService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

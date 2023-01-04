@@ -92,13 +92,17 @@
                             <div class="col-md-6">
                                 <label for="productImage" class="form-label">Product Image</label>
                                 <input
-                                    type="file" name="productImage" class="form-control" id="productImage">
+                                    type="file" name="productImage" class="form-control" id="productImage" multiple>
                                 @error('productImage')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
-                                <div style="width: 50px; height: 150px">
-                                    <img style="width: 100%; height: 100%" src="{{$product["productImage"]}}">
+                                @forelse($product->productImage as $productImage)
+                                <div style="width: 50px; height: 150px; display: inline-block">
+                                    <img style="width: 100%; height: 100%" src="{{$productImage->productImageUrl}}">
                                 </div>
+                                @empty
+                                    <p>Nothing to show</p>
+                                @endforelse
                             </div>
                             <div class="col-12">
                                 <label for="inputCity" class="form-label" id="productDescription">Product

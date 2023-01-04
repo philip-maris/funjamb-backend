@@ -10,8 +10,8 @@ use App\Http\Requests\V1\Api\Authentication\InitiateEnrollmentRequest;
 use App\Http\Requests\V1\Api\Authentication\InitiateForgottenPasswordRequest;
 use App\Http\Requests\V1\Api\Authentication\LoginRequest;
 use App\Http\Requests\V1\Api\Authentication\ResendOtpRequest;
-use App\Service\Vi\Api\AuthenticationService;
-use App\Service\Vi\Api\CustomerService;
+use App\Service\V1\Api\AuthenticationService;
+use App\Service\V1\Api\CustomerService;
 use Illuminate\Http\JsonResponse;
 
 class AuthenticationsController extends Controller

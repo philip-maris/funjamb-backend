@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Brand\CreateBrandRequest;
 use App\Http\Requests\V1\Api\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\V1\Api\Brand\UpdateBrandRequest;
-use App\Service\Vi\Api\BrandService;
+use App\Service\V1\Api\BrandService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

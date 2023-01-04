@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Delivery\CreateDeliveryRequest;
 use App\Http\Requests\V1\Api\Delivery\ReadByDeliveryIdRequest;
 use App\Http\Requests\V1\Api\Delivery\UpdateDeliveryRequest;
-use App\Service\Vi\Api\DeliveryService;
+use App\Service\V1\Api\DeliveryService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

@@ -30,6 +30,15 @@
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                             </div>
+
+                            <div class="col-md-8 m-auto">
+                                <label for="brandName" class="form-label">Town</label>
+                                <input type="text" value="{{old("deliveryTown")}}" name="deliveryTown" placeholder="victoria" class="form-control" id="brandName">
+                                @error('deliveryTown')
+                                <div class="invalid-feedback d-block">{{$message}}</div>
+                                @enderror
+                            </div>
+
                             <div class="col-md-8 m-auto">
                                 <label for="brandName" class="form-label">Fee</label>
                                 <input type="number" value="{{old("deliveryFee")}}" name="deliveryFee" placeholder="0.00" class="form-control" id="brandName">
@@ -37,6 +46,7 @@
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-8 m-auto">
                                 <label for="deliveryDescription" class="form-label">Description</label>
                                 <textarea name="deliveryDescription" id="productDescription"

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Testimony\CreateTestimonyRequest;
 use App\Http\Requests\V1\Api\Testimony\ReadByTestimonyIdRequest;
-use App\Service\Vi\Api\TestimonyService;
+use App\Service\V1\Api\TestimonyService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

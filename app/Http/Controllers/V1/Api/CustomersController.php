@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Customer\ReadByCustomerIdRequest;
 use App\Http\Requests\V1\Api\Customer\UpdateCustomerRequest;
-use App\Service\Vi\Api\CustomerService;
+use App\Service\V1\Api\CustomerService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Subscription\CreateSubscriptionRequest;
 use App\Http\Requests\V1\Api\Subscription\ReadBySubscriptionIdRequest;
-use App\Service\Vi\Api\SubscriptionService;
+use App\Service\V1\Api\SubscriptionService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 
