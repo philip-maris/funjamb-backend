@@ -31,7 +31,14 @@ class DeliveryService
  }
 
  public function edit($deliveryId){
-    dd($deliveryId);
+     $delivery = Delivery::find($deliveryId);
+
+     if (!$delivery){
+         alert("", "can't find delivery", "error");
+         return back();
+     }
+//     dd($delivery);
+     return view("v1.dash.delivery.edit", compact("delivery"));
  }
 
 }

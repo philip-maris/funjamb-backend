@@ -10,6 +10,6 @@ Route::controller(DeliveriesController::class)->group(function (){
     Route::get('/dashboard/add-delivery', 'show')->name('addDelivery');
     Route::post('/dashboard/add-delivery', 'store')->name('addDelivery');
     Route::get('/dashboard/edit-delivery/{deliveryId}', 'edit')->name('editDelivery');
-    Route::post('/dashboard/edit-delivery', 'addDelivery')->name('editDeliver');
+    Route::post('/dashboard/edit-delivery', 'update')->name('updateDeliver');
     Route::get('/dashboard/delete-delivery/{deliveryId}', 'deleteDelivery')->name('deleteDelivery');
 });

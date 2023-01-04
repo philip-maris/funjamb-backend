@@ -25,12 +25,10 @@ class UpdateDeliveryRequest extends FormRequest
     {
         return [
             'deliveryState'=>['required', 'max:255'],
-            'deliveryCityState'=>['required', 'max:255'],
-            'deliveryStatus'=>['required', 'max:255'],
-            'deliveryMinFee'=>['required', 'max:255'],
-            'deliveryMaxFee'=>['required', 'max:255'],
+            'deliveryTown'=>['required', 'max:255'],
+            'deliveryFee'=>['required'],
             'deliveryDescription'=>['required', 'max:255'],
-            'deliveryCustomerId'=>['required', 'max:255'],
+            'deliveryId'=>['required'],
         ];
     }
 }

@@ -80,8 +80,9 @@ class ProductService
             foreach ($files as $multipleImage){
 //                $productImage = $request->file('productImage');
                 $fileName = time().'_'.$multipleImage->getClientOriginalName();
-                $img = Image::make($multipleImage->path());
-                $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
+//                $img = Image::make($multipleImage->path());
+//                $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
+                $multipleImage->move(public_path("storage/uploads"), $fileName);
                $productImage =  $product->productImage()->create([
                    "productImageUrl"=>URL::asset("storage/uploads/$fileName"),
                ]);
@@ -126,10 +127,10 @@ class ProductService
             $files = $request->file('productImages');
 
             foreach ($files as $multipleImage){
-
                 $fileName = time().'_'.$multipleImage->getClientOriginalName();
-                $img = Image::make($multipleImage->path());
-                $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
+//                $img = Image::make($multipleImage->path());
+//                $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
+                $multipleImage->move(public_path('storage/uploads'), $fileName);
                 $productImage =  $product->productImage()->update([
                     "productImageUrl"=>URL::asset("storage/uploads/$fileName"),
                 ]);

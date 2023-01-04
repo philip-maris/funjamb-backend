@@ -25,30 +25,32 @@
                             @csrf
                             <div class="col-md-8 m-auto">
                                 <label for="brandName" class="form-label">State</label>
-                                <input type="text" value="{{old("deliveryState")}}" placeholder="Lagos" name="deliveryState" class="form-control" id="brandName">
+                                <input type="text" value="{{old("deliveryState") ?? $delivery->deliveryState}}" placeholder="Lagos" name="deliveryState" class="form-control" id="brandName">
                                 @error('deliveryState')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="col-md-8 m-auto">
-                                <label for="brandName" class="form-label">Fee</label>
-                                <input type="number" value="{{old("deliveryFee")}}" name="deliveryFee" placeholder="0.00" class="form-control" id="brandName">
-                                @error('deliveryFee')
-                                <div class="invalid-feedback d-block">{{$message}}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-8 m-auto">
-                                <label for="brandName" class="form-label">Fee</label>
-                                <input type="number" value="{{old("deliveryTown")}}" name="deliveryTown" placeholder="0.00" class="form-control" id="brandName">
+                                <label for="brandName" class="form-label">Town</label>
+                                <input type="text" value="{{old("deliveryTown") ?? $delivery->deliveryTown}}" name="deliveryTown" placeholder="victoria" class="form-control" id="brandName">
                                 @error('deliveryTown')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
                             </div>
+
+                            <div class="col-md-8 m-auto">
+                                <label for="brandName" class="form-label">Fee</label>
+                                <input type="number" value="{{old("deliveryFee") ?? $delivery->deliveryFee}}" name="deliveryFee" placeholder="0.00" class="form-control" id="brandName">
+                                @error('deliveryFee')
+                                <div class="invalid-feedback d-block">{{$message}}</div>
+                                @enderror
+                            </div>
+
                             <div class="col-md-8 m-auto">
                                 <label for="deliveryDescription" class="form-label">Description</label>
                                 <textarea name="deliveryDescription" id="productDescription"
                                           class="tinymce-editor">
-                                    {{old("deliveryDescription")}}
+                                    {{old("deliveryDescription") ?? $delivery->deliveryDescription}}
                                 </textarea>
                                 @error('deliveryDescription')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
