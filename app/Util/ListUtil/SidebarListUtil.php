@@ -167,23 +167,6 @@ trait SidebarListUtil
 //        ],
         [
             'icon' => 'bi bi-bag',
-            'heading' => 'Ui',
-            'navItem' => 'banner-type',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'brands',
-                ],
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'add',
-                    'link' => 'brands',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
             'heading' => '',
             'navItem' => 'banners',
             'child' =>[

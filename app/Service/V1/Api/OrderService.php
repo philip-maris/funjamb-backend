@@ -50,7 +50,7 @@ class OrderService
 
 
             if (strtolower($createOrderRequest->orderPaymentMethod) == "paystack"){
-                $resPaystack =  Http::withToken(env("PAYSTACK_SECRET_KEY"))->get("https://api.paystack.co/transaction/verify/{$validate['orderReference']}")->json();
+                $resPaystack =  Http::withToken(env("PAYSTACK_SECRET_KEY"), "Authorization Bearer")->get("https://api.paystack.co/transaction/verify/{$validate['orderReference']}")->json();
                 if (!$resPaystack["status"]) return $this->ERROR_RESPONSE($resPaystack["message"]);
             }else{
                 throw new ExceptionUtil(ExceptionCase::SYSTEM_MALFUNCTION, "Only paystack is available now");

@@ -137,15 +137,15 @@ class CartService
             $readByCustomerIdRequest->validated();
 
             //todo action
-            $cart = Cart::where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->get();
-            $products = [];
-            foreach ($cart as $key => $value){
-               $products[$key] = $value->products->all();
-            }
+            $cart = Cart::with("products")->where('cartCustomerId', $readByCustomerIdRequest['cartCustomerId'])->get();
+
             if (!$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-            $response = $cart->toArray();
-            return  $this->BASE_RESPONSE($response);
+            foreach ($cart as  $value){
+                $value->products->productImage;
+
+            }
+            return  $this->BASE_RESPONSE($cart);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
