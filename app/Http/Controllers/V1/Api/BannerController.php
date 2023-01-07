@@ -18,18 +18,18 @@ class BannerController extends Controller
         //todo code here
     }
 
-
-    public function create(CreateBannerRequest $request): JsonResponse
-    {
-      return  $this->bannerService->create($request);
-    }
-
-
-
-    public function update(UpdateBannerRequest $request): JsonResponse
-    {
-      return  $this->bannerService->update($request);
-    }
+//
+//    public function create(CreateBannerRequest $request): JsonResponse
+//    {
+//      return  $this->bannerService->create($request);
+//    }
+//
+//
+//
+//    public function update(UpdateBannerRequest $request): JsonResponse
+//    {
+//      return  $this->bannerService->update($request);
+//    }
 
     public function read(): JsonResponse
     {

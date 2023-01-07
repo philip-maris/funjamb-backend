@@ -6,6 +6,7 @@ Route::prefix('v1')->group(function () {
     require "v1/api/customer-route.php";
     require "v1/api/product-route.php";
     require "v1/api/brand-route.php";
+    require "v1/api/banner-route.php";
     require "v1/api/category-route.php";
     require "v1/api/cart-route.php";
     require "v1/api/delivery-route.php";

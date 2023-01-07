@@ -24,8 +24,10 @@ class CreateBannerRequest extends FormRequest
     public function rules()
     {
         return [
-            'bannerHeroImage'=>['required', 'image'],
-            'bannerTitle'=>['required', 'max:255', 'string'],
+            'bannerImage'=>['required', 'image'],
+            'bannerTitle'=>['nullable', 'string'],
+            'bannerType'=>['required', 'string'],
+            'bannerSubTitle'=>['nullable',  'string'],
         ];
     }
 }

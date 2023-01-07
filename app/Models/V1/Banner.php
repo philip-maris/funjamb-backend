@@ -20,7 +20,7 @@ class Banner extends Authenticatable
      */
     protected $fillable = [
         'bannerImage',
-        'bannerBannerTypeId',
+        'bannerType',
         'bannerTitle',
         'bannerSubTitle',
         'bannerStatus',

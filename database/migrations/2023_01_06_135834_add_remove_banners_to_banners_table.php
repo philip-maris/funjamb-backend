@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('banners', function (Blueprint $table) {
             $table->dropConstrainedForeignId("bannerBannerTypeId");
+            $table->string("bannerType");
         });
     }
 
@@ -26,8 +27,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('banners', function (Blueprint $table) {
-            $table-> $table->foreignId('bannerBannerTypeId')
+            $table->foreignId('bannerBannerTypeId')
                 ->constrained("banner_types", "bannerTypeId");
+            $table->dropColumn("bannerType");
         });
     }
 };

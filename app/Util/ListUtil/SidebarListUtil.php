@@ -173,12 +173,12 @@ trait SidebarListUtil
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'view',
-                    'link' => 'brands',
+                    'link' => 'banners',
                 ],
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'add',
-                    'link' => 'brands',
+                    'link' => 'addBanner',
                 ],
             ],
         ],
