@@ -39,7 +39,7 @@
                                            class="btn btn-primary btn-sm edit">
                                             Edit
                                         </a>
-                                        <a href="{{route("editBanner",["bannerId"=>$banner['bannerId']])}}"
+                                        <a href="{{route("deleteBanner",["bannerId"=>$banner['bannerId']])}}"
                                            class="btn btn-danger btn-sm delete">
                                             Delete
                                         </a>

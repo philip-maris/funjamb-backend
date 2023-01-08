@@ -19,11 +19,13 @@
                             </a>
                         </div>
                         <form class="row g-3"
-                              action="{{route('storeBanner')}}"
+                              action="{{route('updateBanner')}}"
                               method="post"
                               enctype="multipart/form-data"
                         >
                             @csrf
+                            <input type="hidden" value="{{$banner->bannerId}}" name="bannerId" class="form-control" id="bannerId">
+
                             <div class="col-6">
                                 <label for="bannerType" class="form-label">Banner Type</label>
                                 <select id="bannerType" name="bannerType"  class="form-select">
@@ -42,6 +44,9 @@
                                 @error('bannerImage')
                                 <div class="invalid-feedback d-block">{{$message}}</div>
                                 @enderror
+                                <div style="width: 50px; height: 150px; display: inline-block">
+                                    <img style="width: 100%; height: 100%" src="{{$banner->bannerImage}}">
+                                </div>
                             </div>
                             <div class="col-12">
                                 <label for="bannerSubTitle" class="form-label" id="productDescription">Banner SubTitle (optional)</label>

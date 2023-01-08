@@ -5,10 +5,12 @@ namespace App\Service\V1\Web;
 use App\Http\Requests\V1\Api\Banner\CreateBannerRequest;
 use App\Http\Requests\V1\Api\Banner\UpdateBannerRequest;
 use App\Models\V1\Banner;
+use App\Util\FunctionUtil\File;
 use Illuminate\Support\Facades\URL;
 
 class BannerService
 {
+    use File;
     public function index(){
         $banners = Banner::all();
         return view("v1.dash.banner.index", compact("banners"));
@@ -20,17 +22,12 @@ class BannerService
 
     public function store(CreateBannerRequest $createBannerRequest){
         $createBannerRequest->validated();
-        /*todo check if file exist */
-        if (!$createBannerRequest->hasFile('bannerImage')){
-            alert("error", "Invalid image");
-            return back();
-        }else{
-            $file = $createBannerRequest->file('bannerImage');
-                $fileName = time().'_'.$file->getClientOriginalName();
-//                $img = Image::make($multipleImage->path());
-//                $img->resize(200, 200)->save(public_path('storage/uploads/'. $fileName));
-            $file->move(public_path("storage/banner"), $fileName);
 
+        /*todo check if file exist */
+        $fileName = $this->image_upload($createBannerRequest, 'bannerImage', "storage/banner");
+        if(!$fileName){
+            alert("", "invalid image", "error");
+            return back();
         }
         $banner = Banner::create(array_merge($createBannerRequest->all(), ["bannerImage"=>URL::asset("storage/banner/$fileName")]));
         if (!$banner){
@@ -54,8 +51,36 @@ class BannerService
 
     public function update(UpdateBannerRequest $updateBannerRequest){
         $updateBannerRequest->validated();
+//        dd($updateBannerRequest->bannerId);
+        $banner = Banner::find($updateBannerRequest->bannerId);
+        if (!$banner){
+            alert("error", "unable to locate banner", "error");
+            return back();
+        }
 
+        /*todo check if file exist */
+        $fileName = $this->image_upload($updateBannerRequest, 'bannerImage', "storage/banner");
+//        dd($fileName);
+        $updateBanner = $banner->update(array_merge($updateBannerRequest->all(), [
+            "bannerImage"=> $fileName ? URL::asset("storage/banner/$fileName") : $banner->bannerImage,
+        ]));
 
+        if (!$updateBanner){
+            alert("error", "unable to update banner", "error");
+            return back();
+        }
+
+        return redirect()->route("banners");
+    }
+
+    public function delete($bannerId){
+        $banner = Banner::find($bannerId);
+        if (!$banner->delete()){
+            alert("error", "unable to delete banner", "error");
+            return back();
+        }
+        alert("", "delete successfully", "success");
+        return back();
     }
 
 }
