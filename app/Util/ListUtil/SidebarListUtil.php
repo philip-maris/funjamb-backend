@@ -96,7 +96,7 @@ trait SidebarListUtil
         [
             'icon' => 'bi bi-bag',
             'heading' => '',
-            'navItem' => 'deliveries',
+            'navItem' => 'deliveryFee',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
