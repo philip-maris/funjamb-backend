@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Api\Banner\CreateBannerRequest;
+use App\Http\Requests\V1\Api\Banner\ReadBannerByTypeRequest;
 use App\Http\Requests\V1\Api\Banner\ReadByBannerIdRequest;
 use App\Http\Requests\V1\Api\Banner\UpdateBannerRequest;
 use App\Service\V1\Api\BannerService;
@@ -40,5 +41,10 @@ class BannerController extends Controller
     public function readById(ReadByBannerIdRequest $request): JsonResponse
     {
        return $this->bannerService->readById($request);
+    }
+
+    public function readBannerByType(ReadBannerByTypeRequest $request): JsonResponse
+    {
+       return $this->bannerService->readBannerByType($request);
     }
 }

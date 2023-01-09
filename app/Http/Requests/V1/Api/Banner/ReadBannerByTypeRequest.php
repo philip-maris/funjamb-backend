@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Api\Banner;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBannerRequest extends FormRequest
+class ReadBannerByTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class CreateBannerRequest extends FormRequest
     public function rules()
     {
         return [
-            'bannerImage'=>['required', 'image'],
-            'bannerTitle'=>['nullable', 'string'],
             'bannerType'=>['required', 'string'],
-            'bannerSubTitle'=>['nullable',  'string'],
         ];
     }
 }
