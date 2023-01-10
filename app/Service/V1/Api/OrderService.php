@@ -193,7 +193,7 @@ class OrderService
 
             foreach ($order as  $value){
                 foreach ($value->orderItems as $orderItem){
-                    $orderItem->products;
+                    $orderItem->products->productImage;
                 }
             }
             return $this->BASE_RESPONSE($order);
