@@ -97,7 +97,7 @@ class BannerService
             $request->validated();
 
             //todo action
-            $banner = Banner::where('bannerType', $request['bannerType'])->first();
+            $banner = Banner::where('bannerType', $request['bannerType'])->get();
             if (!$banner) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return $this->BASE_RESPONSE($banner);
         } catch (Exception $ex) {
