@@ -42,7 +42,7 @@ class OrderSuccessfulMail extends Mailable
 
         $this->fullName = "{$order->orderDetails->orderDetailFirstName} "."{$order->orderDetails->orderDetailLastName} ";
         $this->customerPhone = $order->orderDetails->orderDetailPhone;
-        $this->orderDeliveryFee =$order->delivery->deliveryFee;
+        $this->orderDeliveryFee = 0;
 //        $this->orderDeliveryFee =$delivery['deliveryMinFee'];
         $this->orderDetailAddress = $order->orderDetails->orderDetailAddress;;
         $this->orderSubTotal = $order['orderSubTotalAmount'];
@@ -55,7 +55,7 @@ class OrderSuccessfulMail extends Mailable
 
             $emailProductItem = new EmailProduct(
                 $product['productName'],
-                $product['productImage'],
+                $product->productImage[0]->productImageUrl,
                 $item["orderItemQuantity"],
                 $item["orderItemTotalAmount"]
             );
