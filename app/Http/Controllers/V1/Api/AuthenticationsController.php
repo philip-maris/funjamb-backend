@@ -11,13 +11,13 @@ use App\Http\Requests\V1\Api\Authentication\InitiateForgottenPasswordRequest;
 use App\Http\Requests\V1\Api\Authentication\LoginRequest;
 use App\Http\Requests\V1\Api\Authentication\ResendOtpRequest;
 use App\Service\V1\Api\AuthenticationService;
-use App\Service\V1\Api\CustomerService;
+use App\Service\V1\Api\UserService;
 use Illuminate\Http\JsonResponse;
 
 class AuthenticationsController extends Controller
 {
 
-    public function __construct(protected CustomerService $customerService,protected AuthenticationService $authenticationService){
+    public function __construct(protected UserService $userService,protected AuthenticationService $authenticationService){
         //todo code here
     }
 

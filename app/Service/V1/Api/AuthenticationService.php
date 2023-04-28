@@ -11,7 +11,7 @@ use App\Http\Requests\V1\Api\Authentication\LoginRequest;
 use App\Http\Requests\V1\Api\Authentication\ResendOtpRequest;
 use App\Mail\OtpMail;
 use App\Mail\WelcomeMail;
-use App\Models\V1\Customer;
+use App\Models\V1\User;
 use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
@@ -37,25 +37,25 @@ class AuthenticationService
 
             //todo action
 
-            $customer = Customer::create([
-                'customerFirstName'=>$request['customerFirstName'],
-                'customerLastName'=>$request['customerLastName'],
-                'customerPhoneNo'=>$request['customerPhoneNo'],
-                'customerEmail'=>$request['customerEmail'],
-                'customerPassword'=>Hash::make($request['customerPassword']),
-                'customerOtp'=>$otp,
-                'customerOtpExpired'=>$this->addTimestamp(min:"5")
+            $user = User::create([
+                'firstName'=>$request['firstName'],
+                'lastName'=>$request['lastName'],
+                'email'=>$request['email'],
+                'gender'=>$request['gender'],
+                'avatar'=>$request['avatar'],
+                'password'=>Hash::make($request['password']),
+                'userStatus'=>"ACTIVE",
             ]);
 
             //todo check its successful
-            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
+            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
             //todo send email
-            $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
-           $email =  Mail::to($request['customerEmail'])->send(new OtpMail($fullName,$otp));
-           //todo check if not email sent
-            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+            $fullName ="{$user['userFirstName']} " . " {$user['userLastName']}";
+//           $email =  Mail::to($request['email'])->send(new OtpMail($fullName,$otp));
+//           //todo check if not email sent
+//            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
-            return $this->SUCCESS_RESPONSE("OTP SENT SUCCESSFUL");
+            return $this->SUCCESS_RESPONSE("REGISTRATION SUCCESSFUL");
         }catch (Exception $ex){
            return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -69,28 +69,28 @@ class AuthenticationService
             $request->validated();
             //todo action
             //todo check if the email exist
-            $customer = Customer::where('customerEmail', $request['customerEmail'])
-                ->where('customerStatus', 'Pending')->first();
+            $user = User::where('email', $request['email'])
+                ->where('userStatus', 'Pending')->first();
 
-            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            //todo update customer
+            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            //todo update user
 
             //todo check otp
-            if ($request['customerOtp'] != $customer['customerOtp'])
+            if ($request['userOtp'] != $user['userOtp'])
                 throw new ExceptionUtil(ExceptionCase::INVALID_OTP);
 
             //todo check if otp is expired
-            if ( $customer['customerOtpExpired'] < $this->dataTime())
+            if ( $user['userOtpExpired'] < $this->dataTime())
                 throw new ExceptionUtil(ExceptionCase::OTP_EXPIRED);
 
-            $response = $customer->update([
-                'customerStatus'=>"Active",
+            $response = $user->update([
+                'userStatus'=>"Active",
             ]);
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
-            $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
+            $fullName ="{$user['userFirstName']} " . " {$user['userLastName']}";
             //todo send email
-            $email =  Mail::to($request['customerEmail'])
+            $email =  Mail::to($request['email'])
                                 ->send(new WelcomeMail($fullName));
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
@@ -108,19 +108,19 @@ class AuthenticationService
             $request->validated();
             $otp = $this->OTP();
             //todo action
-            $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
-            if (!$customer) throw  new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            $user = User::where('email', $request['email'])->first();
+            if (!$user) throw  new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             //todo update otp and expiring date
-           $update = $customer->update([
-                'customerOtp'=>$otp,
-                'customerOtpExpired'=>$this->addTimestamp(min:"5")
+           $update = $user->update([
+                'userOtp'=>$otp,
+                'userOtpExpired'=>$this->addTimestamp(min:"5")
             ]);
            //todo check if updated
            if (!$update) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             //todo send email
-            $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
-           $email =  Mail::to($request['customerEmail'])->send(new OtpMail($fullName,$otp));
+            $fullName ="{$user['firstName']} " . " {$user['lastName']}";
+           $email =  Mail::to($request['email'])->send(new OtpMail($fullName,$otp));
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
@@ -137,13 +137,13 @@ class AuthenticationService
             $request->validated();
 
             //todo action
-            $customer = Customer::where('customerOtp', $request['customerOtp'])
-                                    ->where('customerEmail', $request['customerEmail'])->first();
+            $user = User::where('userOtp', $request['userOtp'])
+                                    ->where('email', $request['email'])->first();
 
-            if ($customer['customerOtpExpired'] < $this->dataTime()) throw new ExceptionUtil(ExceptionCase::OTP_EXPIRED);
+            if ($user['userOtpExpired'] < $this->dataTime()) throw new ExceptionUtil(ExceptionCase::OTP_EXPIRED);
 
-            $response = $customer->update([
-                'customerPassword'=>Hash::make($request['newCustomerPassword'])
+            $response = $user->update([
+                'password'=>Hash::make($request['newPassword'])
             ]);
             if (!$response) throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
             return $this->SUCCESS_RESPONSE("PASSWORD CHANGED SUCCESSFULLY");
@@ -157,8 +157,8 @@ class AuthenticationService
         try {
             //todo validate
             $request->validated();
-            $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
-            $response = Hash::check($request['oldCustomerPassword'], $customer['customerPassword']);
+            $user = User::where('email', $request['email'])->first();
+            $response = Hash::check($request['oldUserPassword'], $user['userPassword']);
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID PASSWORD, PLS INPUT A VALID PASSWORD");
 
             return $this->SUCCESS_RESPONSE("CHANGE PASSWORD SUCCESSFUL");
@@ -172,14 +172,14 @@ class AuthenticationService
         try {
             //todo validate
             $request->validated();
-            $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
-            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
+            $user = User::where('email', $request['email'])->first();
+            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
             //todo check if password is same
-            $response = Hash::check($request['customerPassword'], $customer['customerPassword']);
+            $response = Hash::check($request['password'], $user['password']);
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::INCORRECT_PASSWORD);
 
-            return $this->BASE_RESPONSE(array_merge($customer->toArray(), ['token'=>$customer->createToken("API FOR ". $customer['customerEmail'])->plainTextToken]));
+            return $this->BASE_RESPONSE(array_merge($user->toArray(), ['token'=>$user->createToken("API FOR ". $user['email'])->plainTextToken]));
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -193,18 +193,18 @@ class AuthenticationService
 
             $otp = $this->OTP();
             //todo actions
-            $customer = Customer::where('customerEmail', $request['customerEmail'])->first();
+            $user = User::where('email', $request['email'])->first();
 
-            if (!$customer) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
+            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
 
             //todo send email
-            $customer->update([
-                'customerOtp'=>$otp,
-                'customerOtpExpired'=>$this->addTimestamp(min:"5")
+            $user->update([
+                'userOtp'=>$otp,
+                'userOtpExpired'=>$this->addTimestamp(min:"5")
             ]);
             //todo send email
-            $fullName ="{$customer['customerFirstName']} " . " {$customer['customerLastName']}";
-            $email =  Mail::to($request['customerEmail'])->send(new OtpMail($fullName,$otp));
+            $fullName ="{$user['firstName']} " . " {$user['lastName']}";
+            $email =  Mail::to($request['email'])->send(new OtpMail($fullName,$otp));
 
             //todo check if not email sent
             if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);

@@ -25,13 +25,12 @@ class InitiateEnrollmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'customerFirstName'=>['required', 'max:255'],
-            'customerLastName'=>['required', 'max:255'],
-            'customerPhoneNo'=>['required', 'max:255'],
-            'customerEmail'=>['required', 'max:255', Rule::unique('customers', 'customerEmail')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
-            'customerPassword'=>['required', 'max:255', 'confirmed']
+            'firstName'=>['required', 'max:255'],
+            'lastName'=>['required', 'max:255'],
+            'gender'=>['required', 'max:255'],
+            'avatar'=>['required', 'max:255'],
+            'email'=>['required', 'max:255', Rule::unique('DP_USERS', 'email')],
+            'password'=>['required', 'max:255']
         ];
     }
 }

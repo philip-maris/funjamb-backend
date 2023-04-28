@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Api\Banner\CreateBannerRequest;
 use App\Http\Requests\V1\Api\Banner\ReadBannerByTypeRequest;
 use App\Http\Requests\V1\Api\Banner\ReadByBannerIdRequest;
 use App\Http\Requests\V1\Api\Banner\UpdateBannerRequest;
+use App\Http\Requests\V1\Api\Test\SubmitTestRequest;
 use App\Service\V1\Api\BannerService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
@@ -20,10 +21,10 @@ class BannerController extends Controller
     }
 
 //
-//    public function create(CreateBannerRequest $request): JsonResponse
-//    {
-//      return  $this->bannerService->create($request);
-//    }
+    public function creatre(SubmitTestRequest $request): JsonResponse
+    {
+      return  $this->bannerService->resultUpl($request);
+    }
 //
 //
 //

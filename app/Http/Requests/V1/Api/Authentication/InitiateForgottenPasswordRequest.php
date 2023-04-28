@@ -24,7 +24,7 @@ class InitiateForgottenPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'customerEmail'=>['required', 'max:255']
+            'email'=>['required', 'max:255']
         ];
     }
 }

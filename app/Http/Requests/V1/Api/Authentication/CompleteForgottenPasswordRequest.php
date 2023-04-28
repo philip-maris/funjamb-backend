@@ -24,9 +24,9 @@ class CompleteForgottenPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'customerOtp'=>['required', 'max:255'],
-            'customerEmail'=>['required', 'max:255'],
-            'newCustomerPassword'=>['required', 'max:255', 'confirmed']
+            'userOtp'=>['required', 'max:255'],
+            'email'=>['required', 'max:255'],
+            'newPassword'=>['required', 'max:255', 'confirmed']
         ];
     }
 }
