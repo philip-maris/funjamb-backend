@@ -21,11 +21,14 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('avatar')->nullable();
             $table->integer('score')->default(0);
+            $table->integer('averageScore')->default(0);
+            $table->integer('bestScore')->default(0);
             $table->string('password')->default(0);
             $table->integer('lexisScore')->default(0);
             $table->integer('comprehensionScore')->default(0);
             $table->integer('oralScore')->default(0);
             $table->timestamp('lastPlayedAt')->nullable();
+            $table->integer('totalPlayed')->default(0);
             $table->string('userOtp')->nullable();
             $table->timestamp('userOtpExpired')->nullable();
             $table->integer('isAdmin')->nullable();

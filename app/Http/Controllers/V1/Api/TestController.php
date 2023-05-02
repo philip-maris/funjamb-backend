@@ -32,7 +32,7 @@ class TestController extends Controller
 
     public function readByUserId(ReadByUserIdRequest $request): JsonResponse
     {
-       return $this->testService->readTestByType($request);
+       return $this->testService->readByUserId($request);
     }
 
     public function readById(ReadByTestIdRequest $request): JsonResponse

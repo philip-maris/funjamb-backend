@@ -48,8 +48,12 @@ class UserService
     public function read(): JsonResponse
     {
         try {
-            $user = User::all();
+            $user = User::all()->toArray();
             if (!$user)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+
+            usort($user, function($a, $b) {
+                if($a['score']==$b['score']) return 0;
+                return $b['score'] - $a['score'];});
             return $this->BASE_RESPONSE($user);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());

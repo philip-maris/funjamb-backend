@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 
 //todo protected routes
-    Route::middleware('auth:sanctum')->group(function () {
         //todo authentication protected route
         Route::controller(AuthenticationsController::class)
             ->group(function () {
@@ -25,6 +24,6 @@ use Illuminate\Support\Facades\Route;
                 Route::post('/change-password', 'changePassword');
             });
 
-    });
+//    });
 
 

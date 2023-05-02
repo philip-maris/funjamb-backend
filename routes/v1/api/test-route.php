@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Route;
         Route::post('/upload-result', 'create');
         Route::get('/read-tests', 'read');
         Route::post('/read-test-by-id', 'readById');
-        Route::post('/read-test-by-user', 'readByUserId');
+        Route::post('/read-test/user', 'readByUserId');
     });
 

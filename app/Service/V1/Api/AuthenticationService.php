@@ -36,13 +36,25 @@ class AuthenticationService
             $request->validated();
 
             //todo action
+            $maleImages = [
+                'https://funjamb-repo.s3.amazonaws.com/bbboy2.jpg',
+                'https://funjamb-repo.s3.amazonaws.com/male1.png',
+                ];
+            $femaleImages = [
+                "https://funjamb-repo.s3.amazonaws.com/tirdfemail.png",
+                "https://funjamb-repo.s3.amazonaws.com/secfemail.png",
+                ];
+
+            $index = ($request['gender'] == "MALE") ?
+                array_rand($maleImages, 1) :  array_rand($femaleImages, 1);
 
             $user = User::create([
                 'firstName'=>$request['firstName'],
                 'lastName'=>$request['lastName'],
                 'email'=>$request['email'],
                 'gender'=>$request['gender'],
-                'avatar'=>$request['avatar'],
+                'avatar'=> ($request['gender'] == "MALE") ?
+                    $maleImages[$index] :  $femaleImages[$index],
                 'password'=>Hash::make($request['password']),
                 'userStatus'=>"ACTIVE",
             ]);
