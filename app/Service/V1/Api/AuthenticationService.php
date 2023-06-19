@@ -11,6 +11,7 @@ use App\Http\Requests\V1\Api\Authentication\LoginRequest;
 use App\Http\Requests\V1\Api\Authentication\ResendOtpRequest;
 use App\Mail\OtpMail;
 use App\Mail\WelcomeMail;
+use App\Models\V1\PrepUser;
 use App\Models\V1\User;
 use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\RandomUtil;
@@ -53,6 +54,9 @@ class AuthenticationService
                 'lastName'=>$request['lastName'],
                 'email'=>$request['email'],
                 'gender'=>$request['gender'],
+                'averageScore'=>0,
+                'bestScore'=>0,
+                'totalPlayed'=>0,
                 'avatar'=> ($request['gender'] == "MALE") ?
                     $maleImages[$index] :  $femaleImages[$index],
                 'password'=>Hash::make($request['password']),
@@ -185,6 +189,24 @@ class AuthenticationService
             //todo validate
             $request->validated();
             $user = User::where('email', $request['email'])->first();
+            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
+            //todo check if password is same
+            $response = Hash::check($request['password'], $user['password']);
+
+            if (!$response) throw new ExceptionUtil(ExceptionCase::INCORRECT_PASSWORD);
+
+            return $this->BASE_RESPONSE(array_merge($user->toArray(), ['token'=>$user->createToken("API FOR ". $user['email'])->plainTextToken]));
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+
+    public function prepLogin(LoginRequest $request): JsonResponse
+    {
+        try {
+            //todo validate
+            $request->validated();
+            $user = PrepUser::where('email', $request['email'])->first();
             if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
             //todo check if password is same
             $response = Hash::check($request['password'], $user['password']);

@@ -87,8 +87,14 @@ class QuestionService
             $comprehension = Comprehension::select()->inRandomOrder()->first();
 
             $comprehensionQuestions = $comprehension->questions->toArray();
-            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(2)->get()->toArray();
-            $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(2)->get()->toArray();
+
+            $comprehension2 = Comprehension::select()->inRandomOrder()->first();
+
+            $comprehensionQuestions = $comprehension->questions->toArray();
+//            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
+//            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
+            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(49)->get()->toArray();
+            $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(6)->get()->toArray();
 
             $questions = array_merge($comprehensionQuestions, $lexis, $oral);
 

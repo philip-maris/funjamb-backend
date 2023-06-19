@@ -45,6 +45,10 @@ class AuthenticationsController extends Controller
     {
         return $this->authenticationService->login($request);
     }
+    public function prepLogin(LoginRequest $request): JsonResponse
+    {
+        return $this->authenticationService->prepLogin($request);
+    }
     public function resendOtp(ResendOtpRequest $request): JsonResponse
     {
         return  $this->authenticationService->resendOtp($request);

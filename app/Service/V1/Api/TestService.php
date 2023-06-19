@@ -61,7 +61,7 @@ class TestService
                 'totalPlayed'=> $totalPlayed,
                 'averageScore'=> $averageScore,
                 'bestScore'=> $bestScore,
-                'lastPlayedAt' => Carbon::now()->toDateTimeString()
+                'lastPlayedAt' => date("Y/m/d")
             ]);
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
