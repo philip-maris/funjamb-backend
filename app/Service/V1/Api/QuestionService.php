@@ -86,14 +86,14 @@ class QuestionService
 
             $comprehension = Comprehension::select()->inRandomOrder()->first();
 
-            $comprehensionQuestions = $comprehension->questions->toArray();
-
-            $comprehension2 = Comprehension::select()->inRandomOrder()->first();
+//            $comprehensionQuestions = $comprehension->questions->toArray();
+//
+//            $comprehension2 = Comprehension::select()->inRandomOrder()->first();
 
             $comprehensionQuestions = $comprehension->questions->toArray();
 //            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
 //            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
-            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(49)->get()->toArray();
+            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(50)->get()->toArray();
             $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(6)->get()->toArray();
 
             $questions = array_merge($comprehensionQuestions, $lexis, $oral);
@@ -116,8 +116,21 @@ class QuestionService
             //todo validation
             $request->validated();
 
+            if($request['questionType'] == "COMPREHENSION"){
+
+                $comprehension = Comprehension::select()->inRandomOrder()->first();
+
+                $comprehensionQuestions = $comprehension->questions->toArray();
+                $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(4)->get()->toArray();
+                $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(1)->get()->toArray();
+
+                $questions = array_merge($comprehensionQuestions, $lexis, $oral);
+                $response = new QuestionResponse($comprehension['passage'],$questions);
+                if (!$response) throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+                return $this->BASE_RESPONSE($response);
+            }
             //todo action
-            $question = Question::where('questionType', $request['questionType'])-> inRandomOrder()->limit(2)->get();
+            $question = Question::where('questionType', $request['questionType'])-> inRandomOrder()->limit(($request['questionType'] == "LEXIS") ? 20 :15)->get();
             if (!$question) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             return $this->BASE_RESPONSE($question);
         } catch (Exception $ex) {

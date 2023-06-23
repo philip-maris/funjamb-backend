@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Api\Question;
+namespace App\Http\Requests\V1\Web\Comprehension;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateQuestionRequest extends FormRequest
+class CreateComprehensionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class CreateQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'questionId'=>['required'],
             'question'=>['required', 'string'],
             'instruction'=>['required', 'string'],
             'questionType'=>['required', 'string'],
@@ -32,8 +31,7 @@ class CreateQuestionRequest extends FormRequest
             'optionB'=>['required', 'string'],
             'optionC'=>['required', 'string'],
             'optionD'=>['required', 'string'],
-            'answers'=>['required', 'string'],
-            'questionsStatus'=>['required', 'string'],
+            'answer'=>['required', 'string'],
         ];
     }
 }

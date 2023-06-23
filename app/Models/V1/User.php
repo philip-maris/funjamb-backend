@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function getAuthPassword()
     {
-        return $this->userPassword;
+        return $this->password;
     }
 
     public function wishlists(): HasMany

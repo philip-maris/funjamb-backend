@@ -16,12 +16,12 @@ trait SidebarListUtil
         [
             'icon' => 'bi bi-person-square',
             'heading' => 'User Management',
-            'navItem' => 'Customers',
+            'navItem' => 'Users',
             'child' =>[
                 [
                     'icon' => 'bi bi-book-half',
                     'title' => 'view',
-                    'link' => 'customers',
+                    'link' => 'users',
                 ],
             ],
         ],
@@ -62,123 +62,17 @@ trait SidebarListUtil
         [
             'icon' => 'bi bi-bag',
             'heading' => '',
-            'navItem' => 'brands',
+            'navItem' => 'questions',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'view',
-                    'link' => 'brands',
+                    'link' => 'questions',
                 ],
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'add',
-                    'link' => 'addBrand',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'products',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'products',
-                ],
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'add',
-                    'link' => 'addProduct',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'deliveryFee',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'deliveries',
-                ],
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'add',
-                    'link' => 'addDelivery',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'orders',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'orders',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'subscription',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'orders',
-                ],
-            ],
-        ],
-//        [
-//            'icon' => 'bi bi-bag',
-//            'heading' => '',
-//            'navItem' => 'transactions',
-//            'child' =>[
-//                [
-//                    'icon' => 'bi bi-bag',
-//                    'title' => 'transactions',
-//                    'link' => 'brands',
-//                ],
-//            ],
-//        ],
-//        [
-//            'icon' => 'bi bi-bag',
-//
-//
-//            'heading' => '',
-//            'navItem' => 'payment-system',
-//            'child' =>[
-//                [
-//                    'icon' => 'bi bi-bag',
-//                    'title' => 'view',
-//                    'link' => 'paymentSystems',
-//                ],
-//                [
-//                    'icon' => 'bi bi-bag',
-//                    'title' => 'add',
-//                    'link' => 'createPaymentSystem',
-//                ],
-//            ],
-//        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'banners',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'banners',
-                ],
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'add',
-                    'link' => 'addBanner',
+                    'link' => 'addQuestion',
                 ],
             ],
         ],
@@ -258,12 +152,12 @@ trait SidebarListUtil
         [
             'icon' => 'bi bi-bag',
             'heading' => '',
-            'navItem' => 'products',
+            'navItem' => 'questions',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
                     'title' => 'view',
-                    'link' => 'products',
+                    'link' => 'questions',
                 ],
                 [
                     'icon' => 'bi bi-bag',

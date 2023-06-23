@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Api\Question;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateQuestionRequest extends FormRequest
+class UpdateQuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,8 +32,8 @@ class CreateQuestionRequest extends FormRequest
             'optionB'=>['required', 'string'],
             'optionC'=>['required', 'string'],
             'optionD'=>['required', 'string'],
-            'answers'=>['required', 'string'],
-            'questionsStatus'=>['required', 'string'],
+            'answer'=>['required', 'string'],
+            'questionStatus'=>['required', 'string'],
         ];
     }
 }

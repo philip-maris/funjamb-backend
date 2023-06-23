@@ -14,26 +14,27 @@ class AuthenticationService
     }
 
     public function login(LoginRequest $loginRequest){
-        $validated = $loginRequest->validated();
-        $user = Customer::where("userEmail", "{$loginRequest->userEmail}")->first();
-//        dd($user);
+        $loginRequest->validated();
+        $user = User::where("email", "{$loginRequest['email']}")->first();
+//        dd($loginRequest->email);
         if (!$user){
             alert("error", "invalid credential", "error");
             return back();
         }
         $auth = Auth::attempt([
-            "userEmail"=>$loginRequest->userEmail,
-            "password"=>$loginRequest->userPassword
+            "email"=>$loginRequest->email,
+            "password"=>$loginRequest->password
         ]);
-
+//        $au = Hash::check($loginRequest['password'], $user['password']);
+//dd($au);
         if ($auth){
-            if ($user->isAdmin == 1 || $user->isSuperAdmin == 1){
+//            if ($user->isAdmin == 1 || $user->isSuperAdmin == 1){
                 alert("success", "Welcome {$user->userFirstName} {$user->userLastName}", "success");
                 return redirect()->route("overview");
-            }else{
-                alert("error", "You are not authorize to login", "error");
-                return back();
-            }
+//            }else{
+//                alert("error", "You are not authorize to login", "error");
+//                return back();
+//            }
         }
 
         alert("error", "something went wrong", "error");

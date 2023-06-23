@@ -23,9 +23,9 @@
                             <form action="{{route('login')}}" method="post" class="row g-3">
                                 @csrf
                                 <div class="col-12">
-                                    <label for="yourPassword" class="form-label">Email</label>
-                                    <input type="email" name="customerEmail" class="form-control" value="{{old('userEmail')}}" id="yourPassword" >
-                                    @error('customerEmail')
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" value="{{old('email')}}" id="yourPassword" >
+                                    @error('email')
                                     <div class="invalid-feedback d-block">{{$message}}</div>
                                     @enderror
 
@@ -33,8 +33,8 @@
 
                                 <div class="col-12">
                                     <label for="yourPassword" class="form-label">Password</label>
-                                    <input type="password" name="customerPassword" class="form-control" id="yourPassword" value="{{old('userPassword')}}">
-                                    @error('customerPassword')
+                                    <input type="password" name="password" class="form-control" id="yourPassword" value="{{old('password')}}">
+                                    @error('password')
                                     <div class="invalid-feedback d-block">{{$message}}</div>
                                     @enderror
                                 </div>

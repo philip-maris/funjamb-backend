@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Api\Banner;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBannerRequest extends FormRequest
+class ReadByBannerIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,6 @@ class UpdateBannerRequest extends FormRequest
     {
         return [
             'bannerId'=>['required'],
-            'bannerImage'=>['nullable', 'image'],
-            'bannerTitle'=>['nullable', 'string'],
-            'bannerType'=>['required', 'string'],
-            'bannerSubTitle'=>['nullable',  'string'],
         ];
     }
 }

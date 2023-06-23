@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <title>KosMan-Wine</title>
+    <title>Funjamb Dasboard</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
