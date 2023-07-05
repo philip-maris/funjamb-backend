@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Service\V1\Api;
+namespace App\Service\Prep\Api;
 
-use App\Http\Requests\V1\Api\Authentication\ChangePasswordRequest;
-use App\Http\Requests\V1\Api\Authentication\CompleteEnrollmentRequest;
-use App\Http\Requests\V1\Api\Authentication\CompleteForgottenPasswordRequest;
-use App\Http\Requests\V1\Api\Authentication\InitiateEnrollmentRequest;
-use App\Http\Requests\V1\Api\Authentication\InitiateForgottenPasswordRequest;
-use App\Http\Requests\V1\Api\Authentication\LoginRequest;
-use App\Http\Requests\V1\Api\Authentication\ResendOtpRequest;
+use App\Http\Requests\prep\Api\Authentication\ChangePasswordRequest;
+use App\Http\Requests\prep\Api\Authentication\CompleteEnrollmentRequest;
+use App\Http\Requests\prep\Api\Authentication\CompleteForgottenPasswordRequest;
+use App\Http\Requests\prep\Api\Authentication\InitiateEnrollmentRequest;
+use App\Http\Requests\prep\Api\Authentication\InitiateForgottenPasswordRequest;
+use App\Http\Requests\prep\Api\Authentication\LoginRequest;
+use App\Http\Requests\prep\Api\Authentication\ResendOtpRequest;
 use App\Mail\OtpMail;
 use App\Mail\WelcomeMail;
-use App\Models\V1\PrepUser;
-use App\Models\V1\User;
+use App\Models\prep\User;
 use App\Util\BaseUtil\DateTimeUtil;
 use App\Util\BaseUtil\RandomUtil;
 use App\Util\BaseUtil\ResponseUtil;
@@ -36,40 +35,11 @@ class AuthenticationService
             //todo validate
             $request->validated();
 
-            //todo action
-            $maleImages = [
-                'https://funjamb-repo.s3.amazonaws.com/bbboy2.jpg',
-                'https://funjamb-repo.s3.amazonaws.com/male1.png',
-                ];
-            $femaleImages = [
-                "https://funjamb-repo.s3.amazonaws.com/tirdfemail.png",
-                "https://funjamb-repo.s3.amazonaws.com/secfemail.png",
-                ];
-            $image = "";
-            $randomNumber = rand(1,30);
-            if ($request['gender'] == "MALE"){
-                $image = "https://funjamb-repo.s3.amazonaws.com/male${$randomNumber}.png";
-            }else{
-
-                $image = "https://funjamb-repo.s3.amazonaws.com/female${$randomNumber}.png";
-            }
-
-            $index = ($request['gender'] == "MALE") ?
-                array_rand($maleImages, 1) :  array_rand($femaleImages, 1);
-
             $user = User::create([
                 'firstName'=>$request['firstName'],
                 'lastName'=>$request['lastName'],
                 'email'=>$request['email'],
-                'gender'=>$request['gender'],
-                'averageScore'=>0,
-                'bestScore'=>0,
-                'totalPlayed'=>0,
-                'avatar'=> $image,
                 'password'=>Hash::make($request['password']),
-                'userStatus'=>"ACTIVE",
-                'doneMock'=>"TRUE",
-                'doneSurvey'=>"TRUE",
             ]);
 
             //todo check its successful
@@ -198,24 +168,6 @@ class AuthenticationService
             //todo validate
             $request->validated();
             $user = User::where('email', $request['email'])->first();
-            if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
-            //todo check if password is same
-            $response = Hash::check($request['password'], $user['password']);
-
-            if (!$response) throw new ExceptionUtil(ExceptionCase::INCORRECT_PASSWORD);
-
-            return $this->BASE_RESPONSE(array_merge($user->toArray(), ['token'=>$user->createToken("API FOR ". $user['email'])->plainTextToken]));
-        }catch (Exception $ex){
-            return $this->ERROR_RESPONSE($ex->getMessage());
-        }
-    }
-
-    public function prepLogin(LoginRequest $request): JsonResponse
-    {
-        try {
-            //todo validate
-            $request->validated();
-            $user = PrepUser::where('email', $request['email'])->first();
             if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID EMAIL");
             //todo check if password is same
             $response = Hash::check($request['password'], $user['password']);

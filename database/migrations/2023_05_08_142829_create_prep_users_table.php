@@ -14,13 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('prep_users', function (Blueprint $table) {
-            $table->id("prepUserId");
+            $table->id("userId");
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
             $table->string('email')->nullable();
-            $table->string('gender')->nullable();
-            $table->timestamp('lastPlayedAt')->nullable();
-            $table->integer('totalPlayed')->default(0);
             $table->string('userOtp')->nullable();
             $table->timestamp('userOtpExpired')->nullable();
             $table->integer('isAdmin')->nullable();

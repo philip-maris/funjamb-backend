@@ -32,6 +32,7 @@ class SubmitTestRequest extends FormRequest
             'comprehensionScore'=>['required', 'int'],
             'oralScore'=>['required', 'int'],
             'antonymsScore'=>['required', 'int'],
+            'questionType'=>['required', 'string'],
         ];
     }
 }

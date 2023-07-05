@@ -34,6 +34,8 @@ return new class extends Migration
             $table->integer('isAdmin')->nullable();
             $table->integer('isSuperAdmin')->nullable();
             $table->string('userStatus')->default("ACTIVE");
+            $table->string('doneMock')->default("TRUE");
+            $table->string('doneSurvey')->default("TRUE");
             $table->softDeletes();
             $table->timestamps();
         });

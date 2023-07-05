@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Api\Question\CreateQuestionRequest;
 use App\Http\Requests\V1\Api\Question\ReadQuestionByTypeRequest;
 use App\Http\Requests\V1\Api\Question\ReadByQuestionIdRequest;
 use App\Http\Requests\V1\Api\Question\UpdateQuestionRequest;
+use App\Http\Requests\V1\Api\Question\UploadQuestionRequest;
 use App\Models\V1\Comprehension;
 use App\Models\V1\ComprehensionQuestion;
 use App\Models\V1\Question;
@@ -37,6 +38,24 @@ class QuestionService
 
 
     public function create(CreateQuestionRequest $request): JsonResponse
+    {
+        try {
+            //todo validate
+//            $request->validated($request);
+            foreach ($request -> questions as $key=>$item){
+                $question = Question::create(array_merge($item));
+                //todo check its successful
+                if (!$question) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
+            }
+
+            return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
+        } catch (Exception $ex) {
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+
+
+    public function upload(UploadQuestionRequest $request): JsonResponse
     {
         try {
             //todo validate
@@ -93,8 +112,8 @@ class QuestionService
             $comprehensionQuestions = $comprehension->questions->toArray();
 //            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
 //            $anthonyms = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(15)->get()->toArray();
-            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(50)->get()->toArray();
-            $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(6)->get()->toArray();
+            $lexis = Question::where('questionType', 'LEXIS')-> inRandomOrder()->limit(46)->get()->toArray();
+            $oral = Question::where('questionType', 'ORAL')-> inRandomOrder()->limit(10)->get()->toArray();
 
             $questions = array_merge($comprehensionQuestions, $lexis, $oral);
 
@@ -132,7 +151,8 @@ class QuestionService
             //todo action
             $question = Question::where('questionType', $request['questionType'])-> inRandomOrder()->limit(($request['questionType'] == "LEXIS") ? 20 :15)->get();
             if (!$question) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            return $this->BASE_RESPONSE($question);
+            $response = new QuestionResponse(" ",$question);
+            return $this->BASE_RESPONSE($response);
         } catch (Exception $ex) {
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\V1;
+namespace App\Models\Prep;
 
 use App\Models\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +15,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $table = 'DP_USERS';
+    protected $table = 'PREP_USERS';
     protected $primaryKey ='userId';
     /**
      * The attributes that are mass assignable.
@@ -25,24 +25,12 @@ class User extends Authenticatable
     protected $fillable = [
         'firstName',
         'lastName',
-        'phoneNo',
         'email',
-        'gender',
-        'avatar',
-        'score',
-        'lexisScore',
-        'comprehensionScore',
-        'oralScore',
-        'lastPlayedAt',
-        'totalPlayed',
-        'averageScore',
-        'bestScore',
+        'level',
         'password',
         'userStatus',
         'userOtp',
         'userOtpExpired',
-        'doneMock',
-        'doneSurvey',
         'isSuperAdmin',
         'isAdmin',
     ];

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::controller(TestController::class)->group(function () {
         Route::post('/upload-result', 'create');
+        Route::post('/upload-mock', 'create');
         Route::get('/read-tests', 'read');
         Route::post('/read-test-by-id', 'readById');
         Route::post('/read-test/user', 'readByUserId');

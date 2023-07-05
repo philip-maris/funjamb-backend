@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\V1\Api;
+namespace App\Http\Controllers\Prep\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Api\Question\CreateQuestionRequest;
+use App\Http\Requests\Prep\Api\Question\CreateQuestionRequest;
+use App\Http\Requests\Prep\Api\Question\ReadQuestionByCourseCodeRequest;
 use App\Http\Requests\V1\Api\Question\ReadQuestionByTypeRequest;
-use App\Http\Requests\V1\Api\Question\UploadQuestionRequest;
-use App\Service\V1\Api\QuestionService;
+use App\Service\Prep\Api\QuestionService;
 use App\Util\BaseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 
@@ -23,11 +23,6 @@ class QuestionController extends Controller
         return $this->questionService->create($request);
     }
 
-    public function upload(UploadQuestionRequest $request): JsonResponse
-    {
-        return $this->questionService->upload($request);
-    }
-
     public function createComprehension(CreateQuestionRequest $request): JsonResponse
     {
         return $this->questionService->createComprehension($request);
@@ -37,9 +32,14 @@ class QuestionController extends Controller
     {
         return $this->questionService->read();
     }
+//
+//    public function readQuestionByType(ReadQuestionByTypeRequest $request): JsonResponse
+//    {
+//       return $this->questionService->readQuestionByType($request);
+//    }
 
-    public function readQuestionByType(ReadQuestionByTypeRequest $request): JsonResponse
+    public function readQuestionByCourseCode(ReadQuestionByCourseCodeRequest $request): JsonResponse
     {
-       return $this->questionService->readQuestionByType($request);
+       return $this->questionService->readQuestionByCourseCode($request);
     }
 }
