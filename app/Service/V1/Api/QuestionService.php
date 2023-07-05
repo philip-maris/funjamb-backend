@@ -135,6 +135,9 @@ class QuestionService
             //todo validation
             $request->validated();
 
+            if($request['questionType'] == "MOCK"){
+                return $this->read();
+            }
             if($request['questionType'] == "COMPREHENSION"){
 
                 $comprehension = Comprehension::select()->inRandomOrder()->first();
