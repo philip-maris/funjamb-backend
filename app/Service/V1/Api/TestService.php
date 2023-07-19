@@ -56,13 +56,14 @@ class TestService
             $lexisScore = ($user['lexisScore'] + $request['lexisScore']) / $totalPlayed;
             $comprehensionScore = ($user['comprehensionScore'] + $request['comprehensionScore']) / $totalPlayed;
             $oralScore = ($user['oralScore'] + $request['oralScore']) / $totalPlayed;
+            $newScore = $request['score'] + $user['score'];
 
             $response =    $user->update([
                 'firstName'=>$user['firstName'],
                 'lastName'=> $user['lastName'],
                 'gender'=> $user['gender'],
                 'avatar'=> $user['avatar'],
-                'score'=>$request['score'],
+                'score'=> $newScore,
                 'lexisScore'=>$lexisScore,
                 'comprehensionScore'=>$comprehensionScore,
                 'oralScore'=>$oralScore,
@@ -110,7 +111,7 @@ class TestService
                 'lastName'=> $user['lastName'],
                 'gender'=> $user['gender'],
                 'avatar'=> $user['avatar'],
-                'score'=>$user['score'],
+                'score'=>$user['score'] + 10,
                 'lexisScore'=>($request['questionType'] == "LEXIS") ? $lexisScore : $user['lexisScore'] ,
                 'comprehensionScore'=>($request['questionType'] == "COMPREHENSION") ? $comprehensionScore : $user['comprehensionScore'] ,
                 'oralScore'=>($request['questionType'] == "ORAL") ? $oralScore : $user['oralScore'] ,
@@ -217,7 +218,7 @@ class TestService
                 'lastName'=> $user['lastName'],
                 'gender'=> $user['gender'],
                 'avatar'=>$user['avatar'],
-                'score'=>$request['score'],
+                'score'=>$request['score'] + $user['score'],
                 'lexisScore'=>$lexisScore,
                 'comprehensionScore'=>$comprehensionScore,
                 'oralScore'=>$oralScore,
