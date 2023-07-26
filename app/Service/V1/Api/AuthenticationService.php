@@ -37,25 +37,25 @@ class AuthenticationService
             $request->validated();
 
             //todo action
-            $maleImages = [
-                'https://funjamb-repo.s3.amazonaws.com/bbboy2.jpg',
-                'https://funjamb-repo.s3.amazonaws.com/male1.png',
-                ];
-            $femaleImages = [
-                "https://funjamb-repo.s3.amazonaws.com/tirdfemail.png",
-                "https://funjamb-repo.s3.amazonaws.com/secfemail.png",
-                ];
+//            $maleImages = [
+//                'https://funjamb-repo.s3.amazonaws.com/bbboy2.jpg',
+//                'https://funjamb-repo.s3.amazonaws.com/male1.png',
+//                ];
+//            $femaleImages = [
+//                "https://funjamb-repo.s3.amazonaws.com/tirdfemail.png",
+//                "https://funjamb-repo.s3.amazonaws.com/secfemail.png",
+//                ];
             $image = "";
             $randomNumber = rand(1,30);
-            if ($request['gender'] == "MALE"){
-                $image = "https://funjamb-repo.s3.amazonaws.com/male${$randomNumber}.png";
+            if ($request['gender'] == "Male"){
+                $image = "https://funjamb-repo.s3.amazonaws.com/male".$randomNumber.".png";
             }else{
 
                 $image = "https://funjamb-repo.s3.amazonaws.com/female${$randomNumber}.png";
             }
-
-            $index = ($request['gender'] == "MALE") ?
-                array_rand($maleImages, 1) :  array_rand($femaleImages, 1);
+//
+//            $index = ($request['gender'] == "MALE") ?
+//                array_rand($maleImages, 1) :  array_rand($femaleImages, 1);
 
             $user = User::create([
                 'firstName'=>$request['firstName'],
@@ -69,7 +69,7 @@ class AuthenticationService
                 'password'=>Hash::make($request['password']),
                 'userStatus'=>"ACTIVE",
                 'doneMock'=>"TRUE",
-                'doneSurvey'=>"TRUE",
+//                'doneSurvey'=>"TRUE",
             ]);
 
             //todo check its successful

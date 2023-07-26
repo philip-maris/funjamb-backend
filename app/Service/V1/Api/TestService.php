@@ -70,6 +70,7 @@ class TestService
                 'totalPlayed'=> $totalPlayed,
                 'averageScore'=> $averageScore,
                 'bestScore'=> $bestScore,
+                'doneMock'=> ($totalPlayed == 15) ? "FALSE" : "TRUE",
                 'lastPlayedAt' => date("Y/m/d")
             ]);
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
@@ -94,7 +95,7 @@ class TestService
             if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
 //            get average scores
-            $totalPlayed = $user['totalPlayed'] + 1;
+//            $totalPlayed = $user['totalPlayed'] + 1;
 //            $averageScore = ($user['score'] + $request['score']) / $totalPlayed;
 //            $bestScore = $user['bestScore'];
 //            if($request['score'] > $user['bestScore']){
@@ -111,7 +112,7 @@ class TestService
                 'lastName'=> $user['lastName'],
                 'gender'=> $user['gender'],
                 'avatar'=> $user['avatar'],
-                'score'=>$user['score'] + 10,
+                'score'=>$user['score'] + 2,
                 'lexisScore'=>($request['questionType'] == "LEXIS") ? $lexisScore : $user['lexisScore'] ,
                 'comprehensionScore'=>($request['questionType'] == "COMPREHENSION") ? $comprehensionScore : $user['comprehensionScore'] ,
                 'oralScore'=>($request['questionType'] == "ORAL") ? $oralScore : $user['oralScore'] ,
