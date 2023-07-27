@@ -95,16 +95,22 @@ class TestService
             if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
 //            get average scores
-//            $totalPlayed = $user['totalPlayed'] + 1;
+            $totalPlayed = $user['totalPlayed'];
 //            $averageScore = ($user['score'] + $request['score']) / $totalPlayed;
 //            $bestScore = $user['bestScore'];
 //            if($request['score'] > $user['bestScore']){
 //                $bestScore = $request['score'];
 //            }
 
-            $lexisScore = ($user['lexisScore'] + $request['lexisScore']) / $totalPlayed;
-            $comprehensionScore = ($user['comprehensionScore'] + $request['comprehensionScore']) / $totalPlayed;
-            $oralScore = ($user['oralScore'] + $request['oralScore']) / $totalPlayed;
+            try {
+                $lexisScore = ($user['lexisScore'] + $request['lexisScore']) / $totalPlayed ;
+                $comprehensionScore = ($user['comprehensionScore'] + $request['comprehensionScore']) / $totalPlayed;
+                $oralScore = ($user['oralScore'] + $request['oralScore']) / $totalPlayed;
+            } catch (Exception $ex){
+                $lexisScore = ($user['lexisScore'] + $request['lexisScore']);
+                $comprehensionScore = ($user['comprehensionScore'] + $request['comprehensionScore']);
+                $oralScore = ($user['oralScore'] + $request['oralScore']);
+            }
 
             $EE = $user->update();
             $response =    $user->update([

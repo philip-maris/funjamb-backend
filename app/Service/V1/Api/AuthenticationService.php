@@ -48,10 +48,10 @@ class AuthenticationService
             $image = "";
             $randomNumber = rand(1,30);
             if ($request['gender'] == "Male"){
-                $image = "https://funjamb-repo.s3.amazonaws.com/male".$randomNumber.".png";
+                $image = "https://funjamb-repo.s3.amazonaws.com/male".$randomNumber.".PNG";
             }else{
 
-                $image = "https://funjamb-repo.s3.amazonaws.com/female${$randomNumber}.png";
+                $image = "https://funjamb-repo.s3.amazonaws.com/female${$randomNumber}.PNG";
             }
 //
 //            $index = ($request['gender'] == "MALE") ?
