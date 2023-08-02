@@ -21,10 +21,11 @@
                                 <th scope="col">FirstName</th>
                                 <th scope="col">LastName</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Phone Number</th>
                                 <th scope="col">TotalPlayed</th>
                                 <th scope="col">Score</th>
                                 <th scope="col">Last Played at</th>
-                                <th scope="col">Status</th>
+{{--                                <th scope="col">Status</th>--}}
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -35,11 +36,12 @@
                                     <td>{{$user['firstName']}}</td>
                                     <td>{{$user['lastName']}}</td>
                                     <td>{{$user['email']}}</td>
+                                    <td>{{$user['phoneNo']}}</td>
                                     <td>{{$user['totalPlayed'] }}</td>
                                     <td>{{$user['score'] }}</td>
                                     <td>{{date("m/d/y",strtotime($user['lastPlayedAt']))}}</td>
 {{--                                    <td>{{$user['userState'] ?? "Null"}}</td>--}}
-                                    <td>{{$user['userStatus']}}</td>
+{{--                                    <td>{{$user['userStatus']}}</td>--}}
                                     <td>
                                         <a href="{{route("editUser", ['userId'=>$user['userId']])}}"
                                            class="btn btn-primary btn-sm edit">

@@ -29,6 +29,7 @@ class InitiateEnrollmentRequest extends FormRequest
             'lastName'=>['required', 'max:255'],
             'gender'=>['required', 'max:255'],
             'avatar'=>['required', 'max:255'],
+            'phoneNo'=>['required', 'max:20'],
             'email'=>['required', 'max:255', Rule::unique('DP_USERS', 'email')],
             'password'=>['required', 'max:255']
         ];

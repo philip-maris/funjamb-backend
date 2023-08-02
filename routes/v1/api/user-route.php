@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
     Route::controller(UsersController::class)->group(function () {
         Route::get('/read-user', 'read');
         Route::post('/read-user-by-id', 'readById');
+        Route::post('/extra-points', 'addPoint');
     });
 
 

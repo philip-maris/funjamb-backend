@@ -61,6 +61,7 @@ class AuthenticationService
                 'firstName'=>$request['firstName'],
                 'lastName'=>$request['lastName'],
                 'email'=>$request['email'],
+                'phoneNo'=>$request['phoneNo'],
                 'gender'=>$request['gender'],
                 'averageScore'=>0,
                 'bestScore'=>0,
@@ -69,7 +70,7 @@ class AuthenticationService
                 'password'=>Hash::make($request['password']),
                 'userStatus'=>"ACTIVE",
                 'doneMock'=>"TRUE",
-//                'doneSurvey'=>"TRUE",
+                'doneSurvey'=>"TRUE",
             ]);
 
             //todo check its successful

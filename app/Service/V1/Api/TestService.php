@@ -233,7 +233,8 @@ class TestService
                 'averageScore'=> $averageScore,
                 'bestScore'=> $bestScore,
                 'lastPlayedAt' => date("Y/m/d"),
-                'doneMock'=> "TRUE"
+                'doneMock'=> "TRUE",
+                'doneSurvey'=> "FALSE"
             ]);
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Api\User\ExtraPointRequest;
 use App\Http\Requests\V1\Api\User\ReadByUserIdRequest;
 use App\Http\Requests\V1\Api\User\UpdateUserRequest;
 use App\Service\V1\Api\UserService;
@@ -22,6 +23,12 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request): JsonResponse
     {
       return  $this->userService->update($request);
+    }
+
+
+    public function addPoint(ExtraPointRequest $request): JsonResponse
+    {
+      return  $this->userService->addPoint($request);
     }
 
     public function read(): JsonResponse
