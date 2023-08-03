@@ -50,8 +50,7 @@ class AuthenticationService
             if ($request['gender'] == "Male"){
                 $image = "https://funjamb-repo.s3.amazonaws.com/male".$randomNumber.".PNG";
             }else{
-
-                $image = "https://funjamb-repo.s3.amazonaws.com/female${$randomNumber}.PNG";
+                $image = "https://funjamb-repo.s3.amazonaws.com/female.$randomNumber.PNG";
             }
 //
 //            $index = ($request['gender'] == "MALE") ?
@@ -65,6 +64,7 @@ class AuthenticationService
                 'gender'=>$request['gender'],
                 'averageScore'=>0,
                 'bestScore'=>0,
+                'score'=>30,
                 'totalPlayed'=>0,
                 'avatar'=> $image,
                 'password'=>Hash::make($request['password']),
