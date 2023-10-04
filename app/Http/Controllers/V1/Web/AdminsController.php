@@ -11,44 +11,10 @@ use Illuminate\Contracts\View\View;
 class AdminsController extends Controller
 {
 
-    public function __construct(protected AdminService $adminService){
-        //todo code here
-
-    }
-    //todo overview
-    public function overview(): View|Factory|Application
-    {
-        return $this->adminService->overview();
-    }
-    //todo view products
-    public function products(): View|Factory|Application
-    {
-        return $this->adminService->products();
-    }
-    //todo add view products
-    public function addProduct(): View|Factory|Application
-    {
-        return $this->adminService->addProduct();
+    public function view_policy(){
+        return view("v1.auth.policy");
     }
     //todo view brands
-    public function brands(): View|Factory|Application
-    {
-        return $this->adminService->brands();
-    }
 
-    //todo view categories
-    public function categories(): View|Factory|Application
-    {
-        return $this->adminService->categories();
-    }
-    //todo view staffs
-    public function staffs(): View|Factory|Application
-    {
-        return $this->adminService->staffs();
-    }
-   //todo view customer
-    public function customers(): View|Factory|Application
-    {
-        return $this->adminService->customers();
-    }
+
 }

@@ -12,6 +12,9 @@ class AuthenticationService
     public function view_login(){
         return view("v1.auth.login");
     }
+    public function view_policy(){
+        return view("v1.auth.policy");
+    }
 
     public function login(LoginRequest $loginRequest){
         $loginRequest->validated();
@@ -21,6 +24,12 @@ class AuthenticationService
             alert("error", "invalid credential", "error");
             return back();
         }
+
+
+        if ( $user->isSuperAdmin != 1){
+            alert("error", "You are not authorize to login", "error");
+            return back();
+        }
         $auth = Auth::attempt([
             "email"=>$loginRequest->email,
             "password"=>$loginRequest->password
@@ -28,7 +37,7 @@ class AuthenticationService
 //        $au = Hash::check($loginRequest['password'], $user['password']);
 //dd($au);
         if ($auth){
-//            if ($user->isAdmin == 1 || $user->isSuperAdmin == 1){
+//            if ( $user->isSuperAdmin == 1){
                 alert("success", "Welcome {$user->userFirstName} {$user->userLastName}", "success");
                 return redirect()->route("overview");
 //            }else{

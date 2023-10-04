@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-left justify-content-between">
-                            <h5 class="card-title">Categories</h5>
+                            <h5 class="card-title">Users</h5>
 
                         </div>
 
@@ -47,10 +47,10 @@
                                            class="btn btn-primary btn-sm edit">
                                             View
                                         </a>
-                                        <a href="{{route("deleteUser", ["userId"=>$user['userId']])}}"
-                                           class="btn btn-danger btn-sm">
-                                            Delete
-                                        </a>
+{{--                                        <a href="{{route("deleteUser", ["userId"=>$user['userId']])}}"--}}
+{{--                                           class="btn btn-danger btn-sm">--}}
+{{--                                            Delete--}}
+{{--                                        </a>--}}
                                     </td>
                                 </tr>
                             @endforeach

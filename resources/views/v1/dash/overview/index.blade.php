@@ -57,14 +57,14 @@
 
                         <div class="card info-card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">Customers</h5>
+                                <h5 class="card-title">Users</h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>0</h6>
+                                        <h6>{{count($users)}}</h6>
                                     </div>
                                 </div>
 
@@ -92,26 +92,27 @@
 {{--                            </div>--}}
 
                             <div class="card-body">
-                                <h5 class="card-title">Recent Sales {{--<span>| Today</span>--}}</h5>
-
+                                <h5 class="card-title">Top students {{--<span>| Today</span>--}}</h5>
                                 <table class="table table-borderless datatable">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Price</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Phone number</th>
+                                        <th scope="col">Score</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($users as $key => $user)
                                     <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Brandon Jacob</td>
-                                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                        <td>₦64</td>
-                                        <td><span class="badge bg-success">Approved</span></td>
+                                        <th scope="row"><a href="#">{{$user->userId}}</a></th>
+                                        <td>{{$user['lastName']}} {{$user['firstName']}}</td>
+                                        <td>{{$user['phoneNo']}}</td>
+                                        <td>{{$user['score'] }}</td>
+                                        <td><span class="badge bg-success">Active</span></td>
                                     </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 

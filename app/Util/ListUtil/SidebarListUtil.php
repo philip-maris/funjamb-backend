@@ -25,44 +25,27 @@ trait SidebarListUtil
                 ],
             ],
         ],
-        [
-            'icon' => 'bi bi-person-square',
-            'heading' => '',
-            'navItem' => 'Staffs',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-book-half',
-                    'title' => 'view',
-                    'link' => 'staffs',
-                ],
-                [
-                    'icon' => 'bi bi-book-half',
-                    'title' => 'add',
-                    'link' => 'createStaff',
-                ],
-            ],
-        ],
-        [
-            'icon' => 'bi bi-bag',
-            'heading' => 'Shops',
-            'navItem' => 'categories',
-            'child' =>[
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'view',
-                    'link' => 'categories',
-                ],
-                [
-                    'icon' => 'bi bi-bag',
-                    'title' => 'add',
-                    'link' => 'addCategory',
-                ],
-            ],
-        ],
+//        [
+//            'icon' => 'bi bi-person-square',
+//            'heading' => '',
+//            'navItem' => 'Staffs',
+//            'child' =>[
+//                [
+//                    'icon' => 'bi bi-book-half',
+//                    'title' => 'view',
+//                    'link' => 'staffs',
+//                ],
+//                [
+//                    'icon' => 'bi bi-book-half',
+//                    'title' => 'add',
+//                    'link' => 'createStaff',
+//                ],
+//            ],
+//        ],
         [
             'icon' => 'bi bi-bag',
-            'heading' => '',
-            'navItem' => 'questions',
+            'heading' => 'Academics',
+            'navItem' => 'Questions',
             'child' =>[
                 [
                     'icon' => 'bi bi-bag',
@@ -76,6 +59,7 @@ trait SidebarListUtil
                 ],
             ],
         ],
+
         );
 
    /* public array $superAdminSideList = array(

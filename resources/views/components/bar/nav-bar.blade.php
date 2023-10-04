@@ -2,8 +2,8 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{route("overview")}}" class="logo d-flex align-items-center">
-                <img src="{{asset("x-assets-x/img/kosmanLogo.svg")}}" alt="">
+            <a href="{{route("overview")}}" class=" d-flex align-items-center">
+                <img src="{{asset("x-assets-x/img/FunJamb.svg")}}" alt="" style="width: 60px; height: 50px">
 {{--                <span class="d-none d-lg-block">NiceAdmin</span>--}}
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>

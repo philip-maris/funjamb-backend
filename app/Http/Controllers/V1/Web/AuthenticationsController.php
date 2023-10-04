@@ -14,6 +14,9 @@ class AuthenticationsController extends Controller
     public function view_login(){
         return $this->authenticationService->view_login();
     }
+    public function view_policy(){
+        return $this->authenticationService->view_policy();
+    }
 
     public function login(LoginRequest $loginRequest)
     {

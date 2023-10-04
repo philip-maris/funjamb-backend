@@ -6,8 +6,8 @@
                 <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                     <div class="d-flex justify-content-center py-4">
-                        <a href="" class="logo d-flex align-items-center w-auto">
-                            <img src="{{asset("x-assets-x/img/kosmanLogoH.png")}}" style="width: 200px; height: 250px" alt="">
+                        <a href="" class=" d-flex align-items-center">
+                            <img src="{{asset("x-assets-x/img/Funjamb.svg")}}" style="width: 120px; height: 110px" alt="">
 {{--                                                        <span class="d-none d-lg-block">{{str_replace('_', ' ', env("APP_NAME"))}}</span>--}}
                         </a>
                     </div><!-- End Logo -->
