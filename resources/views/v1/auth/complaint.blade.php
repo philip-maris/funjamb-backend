@@ -17,7 +17,7 @@
                         <div class="card-body">
 
                             <div class="pt-2 pb-2">
-                                <h5 class="card-title text-center pb-0 fs-4">Sign In</h5>
+                                <h5 class="card-title text-center pb-0 fs-4">Request Deletion of User Data</h5>
                                 {{--                                <p class="text-center small">Enter your username & password to login</p>--}}
                             </div>
                             <form action="" method="" class="row g-3">
