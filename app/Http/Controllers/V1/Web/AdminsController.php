@@ -14,6 +14,9 @@ class AdminsController extends Controller
     public function view_policy(){
         return view("v1.auth.policy");
     }
+    public function view_delete(){
+        return view("v1.auth.complaint");
+    }
     //todo view brands
 
 

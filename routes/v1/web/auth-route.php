@@ -10,6 +10,7 @@ Route::controller(\App\Http\Controllers\V1\Web\AuthenticationsController::class)
 });
 Route::controller(\App\Http\Controllers\V1\Web\AdminsController::class)->group(function (){
     Route::get('/funjamb/policy', 'view_policy')->name('policy');
+    Route::get('/funjamb/delete-request', 'view_delete')->name('delete');
 });
 
 Route::get("/", function (){
