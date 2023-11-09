@@ -77,9 +77,9 @@ class AuthenticationService
             if (!$user) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
             //todo send email
             $fullName ="{$user['userFirstName']} " . " {$user['userLastName']}";
-           $email =  Mail::to($request['email'])->send(new OtpMail($fullName,$otp));
-           //todo check if not email sent
-            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+        //    $email =  Mail::to($request['email'])->send(new OtpMail($fullName,$otp));
+        //    //todo check if not email sent
+        //     if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             return $this->SUCCESS_RESPONSE("REGISTRATION SUCCESSFUL");
         }catch (Exception $ex){
